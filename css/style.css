@@ -1,0 +1,9 @@
+body{font-family:Arial;background:#ffeb99;margin:0;overflow:hidden}
+.screen{display:none;position:fixed;inset:0;padding:20px}
+.screen.active{display:block}
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+.card{background:white;padding:20px;border-radius:12px}
+button{padding:10px 20px;border:none;border-radius:8px;background:#ffd700;font-weight:bold;margin:4px}
+.nav-buttons{text-align:center;margin-top:20px}
+.logo-float{position:fixed;top:10px;right:10px;width:60px;height:60px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center}
+.logo-float img{width:50px}
