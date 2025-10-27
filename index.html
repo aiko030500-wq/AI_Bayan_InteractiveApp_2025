@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>AI Bayan 2025</title>
+<link rel='stylesheet' href='css/style.css'>
+</head>
+<body>
+<div id='ai-bayan-logo' class='logo-float'><img src='assets/images/ai_bayan_logo.svg' alt='AI Bayan'></div>
+<div id='login' class='screen active'>
+  <div class='center card'>
+    <h1>Welcome to AI Bayan 2025</h1>
+    <input type='text' id='nameInput' placeholder='Enter your name'>
+    <input type='password' id='pinInput' placeholder='Enter access code'>
+    <button id='loginBtn'>Login</button>
+  </div>
+</div>
+<div id='menu' class='screen'>
+  <h2>Main Menu</h2>
+  <div class='menu-grid'>
+    <button data-target='grammar'>Grammar</button>
+    <button data-target='vocab'>Vocabulary</button>
+    <button data-target='reading'>Reading</button>
+  </div>
+</div>
+<div id='grammar' class='screen section'>
+  <h2>Grammar — Topic <span id='gTopicNo'>1</span></h2>
+  <div id='grammarContent'></div>
+  <div class='nav-buttons'>
+    <button id='gBack'>Back</button>
+    <button id='gNext'>Next</button>
+  </div>
+</div>
+<div id='teacher' class='screen section'>
+  <h2>Teacher Journal</h2>
+  <table><thead><tr><th>Name</th><th>Score</th></tr></thead><tbody id='journalTable'></tbody></table>
+</div>
+<script src='js/app.js'></script>
+</body></html>
