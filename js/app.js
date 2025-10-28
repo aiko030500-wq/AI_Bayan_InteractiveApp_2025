@@ -224,7 +224,6 @@ function playStarAnimation() {
 }
 
 showQuestion();
-showQuestion();
 
 // ------------------------------
 // Menu navigation for all sections
