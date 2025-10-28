@@ -4,6 +4,7 @@
 
 const STUDENT_PIN = "2361";
 const TEACHER_PIN = "9996";
+
 // ------------------------------
 // AI Bayan Grammar Trainer 2025 — Level A2+
 // 18 topics × 5 questions
@@ -188,10 +189,99 @@ const grammarData = [
       { q: "____ do you get up?", a: "c", options: ["Where", "Why", "When"] },
       { q: "____ are you late?", a: "b", options: ["When", "Why", "How"] },
       { q: "____ is your favourite subject?", a: "a", options: ["What", "Which", "Who"] }
-      function show(section) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.get
-
     ]
   }
 ];
+
+// ------------------------------
+// Core Logic
+// ------------------------------
+
+let currentTopic = 0;
+let currentQuestion = 0;
+let score = 0;
+const grammarContent = document.getElementById("grammarContent");
+const gTopicNo = document.getElementById("gTopicNo");
+
+function showQuestion() {
+  const topic = grammarData[currentTopic];
+  const q = topic.questions[currentQuestion];
+  gTopicNo.textContent = currentTopic + 1;
+  grammarContent.innerHTML = `
+    <h3>${topic.topic}</h3>
+    <p>${q.q}</p>
+    ${q.options
+      .map(
+        (opt, i) =>
+          `<button class='optBtn' data-opt='${String.fromCharCode(97 + i)}'>${opt}</button>`
+      )
+      .join("<br>")}
+  `;
+  document.querySelectorAll(".optBtn").forEach((btn) => {
+    btn.onclick = () => checkAnswer(btn.dataset.opt);
+  });
+}
+
+function checkAnswer(choice) {
+  const correct = grammarData[currentTopic].questions[currentQuestion].a;
+  if (choice === correct) {
+    score++;
+    playStarAnimation();
+    new Audio("sound/ding.wav").play();
+  }
+  currentQuestion++;
+  if (currentQuestion < grammarData[currentTopic].questions.length) {
+    showQuestion();
+  } else {
+    currentTopic++;
+    currentQuestion = 0;
+    if (currentTopic < grammarData.length) {
+      showQuestion();
+    } else {
+      grammarContent.innerHTML = `<h3>🎉 Well done!</h3><p>You finished all topics.<br>Your score: ${score}</p>`;
+    }
+  }
+}
+
+function playStarAnimation() {
+  const star = document.createElement("div");
+  star.textContent = "⭐";
+  star.style.position = "absolute";
+  star.style.left = "50%";
+  star.style.top = "50%";
+  star.style.fontSize = "40px";
+  star.style.animation = "fly 1s ease-out";
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 1000);
+}
+
+// ------------------------------
+// Menu Navigation
+// ------------------------------
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.getAttribute("data-target");
+    show(target);
+  });
+});
+
+// ------------------------------
+// Login System
+// ------------------------------
+document.getElementById("loginBtn").addEventListener("click", () => {
+  const name = document.getElementById("nameInput").value.trim();
+  const pin = document.getElementById("pinInput").value.trim();
+  if (pin === STUDENT_PIN || pin === TEACHER_PIN) {
+    show("menu");
+  } else {
+    alert("Invalid access code!");
+  }
+});
+
+function show(section) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(section).classList.add("active");
+}
+
+showQuestion();
+
