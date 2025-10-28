@@ -16,6 +16,7 @@
       <div class="nav-buttons">
         <button id="rBack">Back</button>
         <button id="rNext">Next</button>
+        <button onclick="show('menu')">🏠 Back to Menu</button>
       </div>
     `;
     document.body.appendChild(el);
