@@ -1,196 +1,204 @@
 // ---------------------------------------
-// AI Bayan Reading Trainer 2025 (A2 level)
-// 12 topics × (12–15) sentences + 5 True/False
+// AI Bayan Reading Trainer 2025 (no audio)
+// 12 topics × 10 sentences + 5 True/False
 // Stars + sound + Teacher Journal
 // ---------------------------------------
 
-// 1) Создаём экран, если его нет в index.html
+// (1) Ensure reading screen exists (если блока нет в index.html)
 (function ensureReadingScreen() {
-  if (!document.getElementById('reading')) {
-    const el = document.createElement('div');
-    el.id = 'reading';
-    el.className = 'screen section';
+  if (!document.getElementById("reading")) {
+    const el = document.createElement("div");
+    el.id = "reading";
+    el.className = "screen section";
     el.innerHTML = `
       <h2>Reading — Topic <span id="rTopicNo">1</span></h2>
       <div id="readingContent"></div>
       <div class="nav-buttons">
         <button id="rBack">Back</button>
         <button id="rNext">Next</button>
-      <button class="back-menu" onclick="show('menu')">🏠 Back to Menu</button>
+        <button class="back-menu" onclick="show('menu')">🏠 Back to Menu</button>
       </div>
     `;
     document.body.appendChild(el);
+  } else {
+    // если блок есть, убедимся что есть кнопка Back to Menu
+    const wrap = document.querySelector("#reading .nav-buttons");
+    if (wrap && !wrap.querySelector(".back-menu")) {
+      const bm = document.createElement("button");
+      bm.className = "back-menu";
+      bm.textContent = "🏠 Back to Menu";
+      bm.onclick = () => show("menu");
+      wrap.appendChild(bm);
+    }
   }
 })();
 
-// 2) Данные: 12 текстов (A2), по 5 True/False
-// Формат: { topic, text, questions: [{s, a}] } — a: true/false
+// (2) Data: 12 topics, each ~10 sentences + 5 TF questions
 const readingData = [
   {
     topic: "My Family",
-    text: "My name is Aida and I live in a small town near the sea. I have a big and friendly family. My father is a doctor who works at the local clinic. My mother is a teacher who loves reading books in the evening. I also have a younger brother named Timur; he is ten and very energetic. Every evening we do our homework together at the kitchen table. On weekends, we visit our grandparents who live in the countryside. My grandmother cooks delicious pies and my grandfather tells funny stories from his youth. We play board games and laugh a lot. Our cat, Snow, always sleeps on the sofa near us. I think family time is the most valuable time of the week.",
-    questions: [
-      { s: "Aida lives in a big city far from the sea.", a: false },
-      { s: "Her mother enjoys reading books in the evening.", a: true },
-      { s: "Timur is Aida’s older brother.", a: false },
-      { s: "They often visit grandparents on weekends.", a: true },
-      { s: "Their cat is called Snow.", a: true }
+    text: "My name is Aida and I live in a small town near the sea. I have a big and friendly family. My father works as a doctor at the local clinic. My mother is a teacher who enjoys reading in the evening. I have a younger brother named Timur and he is very energetic. Every evening we do homework together at the kitchen table. On weekends we visit our grandparents in the countryside. Grandma cooks delicious pies and grandpa tells funny stories. Our cat Snow sleeps on the sofa near us. Family time is the most valuable part of my week.",
+    q: [
+      { s: "Aida lives near the sea.", a: true },
+      { s: "Her mother is a teacher.", a: true },
+      { s: "Timur is older than Aida.", a: false },
+      { s: "They visit grandparents on weekends.", a: true },
+      { s: "The cat's name is Snow.", a: true }
     ]
   },
   {
     topic: "My School",
-    text: "I study at School Number Six, which is close to my home. The building is modern and full of light, with large windows and colorful posters on the walls. My favorite place is the library because it is quiet and filled with interesting books. Our English classroom has a projector and a whiteboard, so lessons are interactive. My English teacher encourages us to speak, ask questions, and share ideas. We often work in pairs and do projects about culture, music, and science. At break time I chat with my friends in the corridor. After school, I sometimes join the reading club. School makes me feel confident and motivated to learn.",
-    questions: [
+    text: "I study at School Number Six which is close to my home. The building is modern and full of light. My favorite place is the library because it is quiet. Our English room has a projector and a whiteboard. We often work in pairs and make small projects. The teachers are strict but fair and they support us. During break I talk with friends in the corridor. After classes I sometimes join the reading club. The school garden has flowers that we water in spring. School helps me feel confident about the future.",
+    q: [
       { s: "The library is noisy and crowded.", a: false },
-      { s: "The English classroom has a projector.", a: true },
+      { s: "The English room has a projector.", a: true },
       { s: "Students never work in pairs.", a: false },
-      { s: "The speaker enjoys reading club after school.", a: true },
-      { s: "There are colorful posters on the school walls.", a: true }
+      { s: "There is a garden at school.", a: true },
+      { s: "School makes the speaker confident.", a: true }
     ]
   },
   {
     topic: "My House",
-    text: "Our house is small but comfortable. The living room is bright and has a soft blue sofa, a neat carpet, and a bookshelf. In the evenings, my family gathers there to talk, read, or watch a movie. The kitchen smells like fresh bread on weekends when my mother bakes. My bedroom is my favorite place; there is a desk near the window where I do homework and draw pictures. On the wall I keep a calendar and a few photos. We also have a balcony with plants; in summer we water flowers and watch the sunset together. Although our home is simple, it feels warm and welcoming.",
-    questions: [
-      { s: "The living room has a blue sofa.", a: true },
-      { s: "They never watch movies together in the evening.", a: false },
-      { s: "There is a desk near the window in the bedroom.", a: true },
-      { s: "They keep plants on the balcony.", a: true },
-      { s: "The house feels cold and unfriendly.", a: false }
+    text: "Our house is small but very comfortable. The living room has a blue sofa and a neat carpet. In the evenings we watch films or talk together. The kitchen smells of fresh bread on weekends. My bedroom has a desk near the window for homework. On the wall I keep a calendar and some photos. We have a small balcony with green plants. In summer we water the flowers and watch the sunset. I like the quiet mornings in our home. It feels warm and welcoming every day.",
+    q: [
+      { s: "There is a blue sofa in the living room.", a: true },
+      { s: "They never watch films in the evening.", a: false },
+      { s: "The desk stands near the bedroom window.", a: true },
+      { s: "They grow plants on the balcony.", a: true },
+      { s: "The home feels cold and unfriendly.", a: false }
     ]
   },
   {
     topic: "My Day",
-    text: "On school days I wake up early and make my bed. After breakfast I check my schedule and pack my backpack. I like walking to school because the air is fresh in the morning. During lessons I try to listen carefully and take notes. At lunchtime I sit with my friends; we share stories and laugh. After school I have a short rest, then I do my homework at the desk. In the evening I help my mother with dinner and set the table. If I finish everything, I read a book or draw. Before sleep I plan the next day. This routine helps me feel organized and calm.",
-    questions: [
-      { s: "The speaker prefers to walk to school.", a: true },
-      { s: "They never help with dinner at home.", a: false },
-      { s: "Reading or drawing happens after homework is finished.", a: true },
+    text: "On school days I wake up early and make my bed. After breakfast I check the timetable. I walk to school because the air is fresh. During lessons I listen carefully and take notes. At lunch I sit with friends and share stories. After school I rest for a short time and then do homework. In the evening I help my mother set the table. If I finish early I read or draw pictures. Before sleep I plan tomorrow in a small notebook. This routine keeps me calm and organized.",
+    q: [
+      { s: "The speaker walks to school.", a: true },
+      { s: "They never help at home.", a: false },
+      { s: "Reading or drawing happens after homework.", a: true },
       { s: "They plan the next day before sleep.", a: true },
-      { s: "The routine makes the speaker feel stressed.", a: false }
+      { s: "The routine makes the speaker stressed.", a: false }
     ]
   },
   {
     topic: "Animals",
-    text: "Animals make our world more interesting and beautiful. In our area, we often see birds in the morning sky and cats walking in the yard. My friend has a friendly dog that loves running in the park. At school we learned about wild animals like wolves, foxes, and eagles. Our teacher explained that every animal has a role in nature. For example, bees help flowers and trees grow by carrying pollen. We should protect animals by keeping the environment clean and not disturbing their homes. When we visit the zoo, we read the information boards and speak quietly. Respect for animals shows that we are responsible people.",
-    questions: [
-      { s: "The dog in the story enjoys running in the park.", a: true },
-      { s: "Bees are harmful to flowers and trees.", a: false },
-      { s: "The class learned about wolves and eagles.", a: true },
-      { s: "We should make a lot of noise at the zoo.", a: false },
-      { s: "Respecting animals is a sign of responsibility.", a: true }
+    text: "Animals make our world interesting and beautiful. In the morning we hear birds singing in the sky. My friend has a dog that runs in the park. At school we learn about wolves, foxes and eagles. Every animal has a role in nature. Bees help flowers and trees by carrying pollen. We should protect animals and keep the environment clean. In the zoo we read the signs and speak quietly. We never throw rubbish near cages. Respect for animals shows responsibility.",
+    q: [
+      { s: "The dog likes running in the park.", a: true },
+      { s: "Bees are bad for trees and flowers.", a: false },
+      { s: "Students learn about wild animals at school.", a: true },
+      { s: "People should shout loudly in the zoo.", a: false },
+      { s: "Respecting animals is responsible behaviour.", a: true }
     ]
   },
   {
     topic: "Food and Drinks",
-    text: "My family tries to eat healthy food every day. For breakfast we usually have porridge, eggs, or fruit with yogurt. At school I drink water and avoid too many sweets. For lunch we enjoy soup, rice, or pasta with vegetables. On weekends we sometimes bake homemade pizza with tomatoes and mushrooms. My mother says it is important to eat slowly and listen to your body. We also drink tea in the evening and talk about our day. When we go shopping, we read labels and choose fresh products. Eating well gives us energy and helps us stay active and happy.",
-    questions: [
+    text: "My family tries to eat healthy food every day. For breakfast we have porridge, eggs or fruit with yogurt. At school I drink water and avoid too many sweets. For lunch we enjoy soup or rice with vegetables. On weekends we bake pizza with tomatoes and mushrooms. My mother says it is important to eat slowly. In the evening we drink tea and talk about our day. When shopping we read labels and choose fresh products. Good food gives us energy for study and play. It also helps us stay active and happy.",
+    q: [
       { s: "They always eat pizza for breakfast.", a: false },
-      { s: "The family sometimes bakes pizza at home.", a: true },
-      { s: "They try to drink water at school.", a: true },
-      { s: "They never read labels when shopping.", a: false },
-      { s: "Healthy food gives them energy.", a: true }
+      { s: "The family sometimes bakes pizza.", a: true },
+      { s: "The speaker drinks water at school.", a: true },
+      { s: "They ignore labels in the shop.", a: false },
+      { s: "Healthy food gives energy.", a: true }
     ]
   },
   {
     topic: "Clothes",
-    text: "Clothes help us express our style and stay comfortable in different weather. At school I wear a uniform: a neat shirt, dark trousers, and clean shoes. In winter I put on a warm coat, a hat, and gloves. When it is sunny, I prefer a light jacket and a cap. For sports I wear a T-shirt, trainers, and comfortable pants. My grandmother taught me to fold clothes and keep them in order. I like simple colors and soft fabrics, because they feel good and look tidy. Choosing clothes carefully shows respect for ourselves and for the people around us.",
-    questions: [
+    text: "Clothes help us feel comfortable and look tidy. At school I wear a uniform with a neat shirt and dark trousers. In winter I put on a warm coat, hat and gloves. When it is sunny I choose a light jacket and a cap. For sports I wear a T-shirt and trainers. My grandmother taught me to fold clothes and keep order in the wardrobe. I like simple colours and soft fabrics. I clean my shoes on Sunday evening. Careful choice of clothes shows respect for people around us.",
+    q: [
       { s: "The speaker wears a school uniform.", a: true },
-      { s: "They wear a hat and gloves in winter.", a: true },
-      { s: "A T-shirt and trainers are used for sports.", a: true },
+      { s: "They wear hat and gloves in winter.", a: true },
+      { s: "A T-shirt and trainers are for sports.", a: true },
       { s: "They prefer very bright and complicated clothes.", a: false },
-      { s: "Keeping clothes in order was taught by the grandmother.", a: true }
+      { s: "Grandmother taught to keep clothes in order.", a: true }
     ]
   },
   {
     topic: "Weather and Seasons",
-    text: "The weather changes the way we live and feel. In spring the air is fresh, trees get green, and birds return. Summer is sunny and warm, so we spend more time outside and go to the beach. Autumn brings colorful leaves and cool winds; it is a good time for reading and hot tea. Winter can be cold and snowy, but it is also beautiful and quiet. When the weather is rainy, I take an umbrella and wear boots. Before leaving home, I check the forecast to choose the right clothes. Understanding the seasons helps us plan our days wisely.",
-    questions: [
-      { s: "Spring is described as fresh, with trees becoming green.", a: true },
-      { s: "Summer is cold and windy in the text.", a: false },
-      { s: "Autumn is linked with colorful leaves.", a: true },
+    text: "The weather changes our plans and feelings. Spring brings fresh air and green leaves. Summer is sunny and warm and we go outside more. Autumn has colourful trees and cool winds. Winter is cold and snowy but quiet and beautiful. When it rains I take an umbrella and wear boots. Before leaving home I check the forecast on my phone. I choose clothes that match the season. Understanding the weather helps me organise my day. Every season has its charm.",
+    q: [
+      { s: "Spring is fresh and green.", a: true },
+      { s: "Summer is cold in the text.", a: false },
+      { s: "Autumn has colourful leaves.", a: true },
       { s: "The speaker never checks the forecast.", a: false },
-      { s: "Planning with seasons helps organize the day.", a: true }
+      { s: "Choosing clothes for the season is useful.", a: true }
     ]
   },
   {
     topic: "Jobs",
-    text: "People do different jobs to help the community. Doctors and nurses take care of our health. Teachers explain new ideas and guide students. Drivers bring food and goods to shops. Firefighters protect us in dangerous situations. Some people work with computers and create useful programs. Others grow vegetables and fruit on farms. Every job needs skills and responsibility. At school we sometimes invite guests to talk about their work. Listening to their stories helps us understand what we enjoy and what we are good at. In the future, I want a job that helps people and makes the world kinder.",
-    questions: [
-      { s: "Firefighters protect people in danger.", a: true },
+    text: "People do different jobs to help the community. Doctors and nurses care for our health. Teachers explain new ideas and guide students. Drivers bring goods to the shops. Firefighters protect us in dangerous situations. Some people work with computers and build useful programs. Others grow vegetables and fruit on farms. At school we invite guests to talk about their work. Their stories help us understand our interests. I want a job that helps people and makes the world kinder.",
+    q: [
+      { s: "Firefighters work in dangerous situations.", a: true },
       { s: "Drivers bring goods to shops.", a: true },
-      { s: "All jobs are useless for the community.", a: false },
-      { s: "Inviting guests to school helps students learn about jobs.", a: true },
-      { s: "The speaker wants a job that helps people.", a: true }
+      { s: "All jobs are useless for society.", a: false },
+      { s: "Guests visit school to speak about work.", a: true },
+      { s: "The speaker wants a helpful job.", a: true }
     ]
   },
   {
     topic: "Sports and Hobbies",
-    text: "Having a hobby makes life brighter. I like reading detective stories and drawing simple portraits. On Saturdays I play football with my classmates in the yard. Exercise is good for health and mood. My friend enjoys music; he plays the guitar and writes short melodies. Another friend collects postcards from different cities. In the evening my family sometimes does puzzles or chess. Hobbies teach us to focus, to be patient, and to finish what we start. When we practice a little every day, we see progress and feel proud of ourselves.",
-    questions: [
+    text: "Hobbies make life brighter and healthier. I like reading stories and drawing simple portraits. On Saturdays I play football with classmates. Exercise is good for body and mood. My friend plays the guitar and writes short melodies. Another friend collects postcards from cities. In the evening my family does puzzles or chess. Hobbies teach patience and focus. Practising a little every day brings progress. We feel proud when we finish a project.",
+    q: [
       { s: "The speaker plays football on Saturdays.", a: true },
-      { s: "Music is not mentioned as anyone’s hobby.", a: false },
+      { s: "No one likes music in the text.", a: false },
       { s: "Hobbies can teach patience.", a: true },
       { s: "The family never plays chess.", a: false },
-      { s: "Practising every day helps people see progress.", a: true }
+      { s: "Daily practice brings progress.", a: true }
     ]
   },
   {
     topic: "The City",
-    text: "Cities are full of movement and ideas. In our city there are parks, libraries, and a modern sports center. Buses and taxis help people travel quickly. The main square is busy in the evening when families walk and talk. Street lights make everything look warm and safe. My favorite place is the riverside; the water shines under the bridge and the air feels fresh. We have a museum with interactive exhibits about history. On weekends there are small markets with handmade things. A good city is not only about buildings; it is about people who smile and help each other.",
-    questions: [
-      { s: "The riverside is the speaker’s favorite place.", a: true },
-      { s: "The main square is empty in the evening.", a: false },
-      { s: "There is a sports center in the city.", a: true },
-      { s: "The museum has interactive exhibits.", a: true },
-      { s: "A city is only about buildings, not people.", a: false }
+    text: "Cities are full of movement and ideas. Our city has parks, libraries and a sports centre. Buses and taxis help people travel quickly. The main square is busy in the evening. Street lights make the streets look warm and safe. My favourite place is the riverside under the bridge. The museum has interactive history exhibits. On weekends small markets sell handmade things. A good city is not only buildings. It is people who smile and help each other.",
+    q: [
+      { s: "The main square is busy in the evening.", a: true },
+      { s: "The museum is about history and is interactive.", a: true },
+      { s: "The favourite place is the riverside.", a: true },
+      { s: "There is no sports centre in the city.", a: false },
+      { s: "A city is only buildings, not people.", a: false }
     ]
   },
   {
     topic: "Body and Health",
-    text: "To stay healthy, we should sleep well, eat balanced food, and move our bodies. A short walk every day is already helpful. Drinking water keeps us active and focused. When we feel tired, it is better to rest and not to push too hard. Phones and screens are useful, but long hours can hurt our eyes. It is smart to take breaks and look outside the window. If we are ill, we must follow the doctor’s advice. Health is not about being perfect; it is about small habits that we keep every day.",
-    questions: [
-      { s: "Walking daily can be helpful for health.", a: true },
-      { s: "Drinking water makes people less focused.", a: false },
-      { s: "Too much screen time can be bad for our eyes.", a: true },
-      { s: "We should ignore the doctor’s advice when ill.", a: false },
+    text: "To stay healthy we should sleep well and move our bodies. A short daily walk is already helpful. Drinking water keeps us active and focused. When we feel tired we should rest. Long hours with screens can hurt our eyes. It is smart to take breaks and look outside the window. If we get ill we must follow the doctor’s advice. Health is not about perfection. It is about small habits that we keep every day. These habits make our life balanced.",
+    q: [
+      { s: "A daily walk can help health.", a: true },
+      { s: "Water makes people less focused.", a: false },
+      { s: "Too much screen time is bad for eyes.", a: true },
+      { s: "We should ignore the doctor's advice.", a: false },
       { s: "Health includes small everyday habits.", a: true }
     ]
   },
   {
     topic: "Travel and Holidays",
-    text: "Travel teaches us to notice new details and respect other cultures. Before a trip, my family plans the route and checks the weather. We pack only what we need and leave space for souvenirs. On the road we listen to music and play word games. In a new place we try local food, visit a museum, and walk in the old streets. We always keep the area clean and follow the rules. Taking photos helps us remember happy moments. When we return home, we make an album and write short notes about each day. Traveling makes our hearts wider and our minds curious.",
-    questions: [
-      { s: "The family plans the route before traveling.", a: true },
-      { s: "They always carry too many things and never leave space.", a: false },
-      { s: "They try local food in new places.", a: true },
-      { s: "They make an album after returning.", a: true },
-      { s: "Traveling makes people less curious.", a: false }
+    text: "Travel teaches us to respect other cultures. Before a trip my family plans the route and checks the weather. We pack only what we need and leave space for souvenirs. On the road we listen to music and play word games. In new places we try local food and visit museums. We keep the area clean and follow the rules. Taking photos helps us remember happy moments. After returning we make an album with notes. Travelling makes our minds curious and our hearts wide.",
+    q: [
+      { s: "The family plans the route before a trip.", a: true },
+      { s: "They always take too many things.", a: false },
+      { s: "They try local food and visit museums.", a: true },
+      { s: "They make an album after the trip.", a: true },
+      { s: "Travel makes people less curious.", a: false }
     ]
   }
 ];
 
-// 3) Состояние и DOM-ссылки
-let rCurrent = 0;
-let rScore = 0;
+// (3) State & DOM
+let rCurrent = 0;        // номер темы
+let rScore = 0;          // общий счёт за весь раздел
+const rTopicNo = document.getElementById("rTopicNo");
+const readingContent = document.getElementById("readingContent");
+const rBackBtn = document.getElementById("rBack");
+const rNextBtn = document.getElementById("rNext");
 
-const rTopicNo = document.getElementById('rTopicNo');
-const readingContent = document.getElementById('readingContent');
-const rBackBtn = document.getElementById('rBack');
-const rNextBtn = document.getElementById('rNext');
-
-// 4) Рендер темы
+// (4) Render one topic
 function renderReadingTopic() {
   const t = readingData[rCurrent];
   rTopicNo.textContent = rCurrent + 1;
 
-  // Текст → параграфы
-  const paragraphs = t.text.split(". ").map(p => p.trim()).filter(Boolean);
-  const htmlText = paragraphs.map(p => `<p>${p.endsWith(".") ? p : p + "."}</p>`).join("");
+  // текст в абзацы
+  const htmlText = t.text.split(". ").map(p => p.trim()).filter(Boolean)
+    .map(p => `<p>${p.endsWith(".") ? p : p + "."}</p>`).join("");
 
-  // Вопросы True/False
-  const qHtml = t.questions.map((q, i) => `
+  // 5 вопросов True/False
+  const qHtml = t.q.map((q, i) => `
     <div class="card" style="margin:10px 0; padding:10px;">
       <div><b>${i + 1}.</b> ${q.s}</div>
       <div style="margin-top:6px;">
@@ -207,24 +215,35 @@ function renderReadingTopic() {
     <hr style="margin:12px 0;">
     <h4>True / False</h4>
     ${qHtml}
+    <div id="rResult" style="margin-top:10px;"></div>
   `;
+
+  let answered = 0;
 
   document.querySelectorAll(".tfBtn").forEach(btn => {
     btn.onclick = () => {
       const qi = Number(btn.dataset.i);
       const ans = btn.dataset.val === "true";
-      const correct = t.questions[qi].a;
+      const correct = t.q[qi].a;
       const status = document.getElementById(`tfStatus-${qi}`);
-      if (!status.dataset.lock) {
-        if (ans === correct) {
-          rScore++;
-          status.textContent = "✅ Correct!";
-          playStarReading();
-          try { new Audio("sound/ding.wav").play(); } catch(e){}
-        } else {
-          status.textContent = "❌ Try again!";
-        }
-        status.dataset.lock = "1"; // чтобы повторно не фармить очки
+      if (status.dataset.lock) return; // не даём фармить очки
+      if (ans === correct) {
+        rScore++;
+        status.textContent = "✅ Correct!";
+        status.style.color = "green";
+        try { new Audio("sound/ding.wav").play(); } catch(e){}
+        playStarReading();
+      } else {
+        status.textContent = "❌ Try again!";
+        status.style.color = "crimson";
+      }
+      status.dataset.lock = "1";
+      answered++;
+      // если все 5 отвечены — покажем итог по теме
+      if (answered === t.q.length) {
+        const rightHere = document.querySelectorAll("#readingContent span[data-lock='1']").length;
+        document.getElementById("rResult").innerHTML =
+          `🎉 <b>Well done!</b> You answered <b>${rightHere}/5</b> correctly.`;
       }
     };
   });
@@ -242,20 +261,16 @@ function renderReadingTopic() {
     } else {
       // завершение курса
       readingContent.innerHTML = `
-        <h3>🎉 Well done!</h3>
-        <p>You finished all topics.<br>Your score: <b>${rScore}</b></p>
+        <h3>🎉 Great job!</h3>
+        <p>You finished all topics.<br>Your total score: <b>${rScore}</b></p>
       `;
-      // сохранить в журнал
       saveToJournalReading(window.studentName || "Student", rScore);
-      // Вернёмся в меню через 1.2 сек
-      if (typeof show === "function") {
-        setTimeout(() => show("menu"), 1200);
-      }
+      setTimeout(() => show("menu"), 1200);
     }
   };
 }
 
-// 5) Звёздочки ✨
+// (5) Stars ✨
 function playStarReading() {
   const star = document.createElement("div");
   star.textContent = "⭐";
@@ -270,49 +285,42 @@ function playStarReading() {
   setTimeout(() => star.remove(), 900);
 }
 
-// 6) Журнал учителя
+// (6) Teacher Journal save
 function saveToJournalReading(name, addScore) {
   const table = document.getElementById("journalTable");
   if (!table) return;
-  let found = null;
-  for (const row of table.rows) {
-    if (row.cells && row.cells[0] && row.cells[0].textContent === name) {
-      found = row;
-      break;
-    }
-  }
-  if (found) {
-    const old = parseInt(found.cells[1].textContent || "0", 10);
-    found.cells[1].textContent = old + addScore;
+  let row = [...table.rows].find(r => r.cells?.[0]?.textContent === name);
+  if (row) {
+    row.cells[1].textContent = String((parseInt(row.cells[1].textContent || "0", 10)) + addScore);
   } else {
-    const row = table.insertRow();
-    row.insertCell(0).textContent = name;
-    row.insertCell(1).textContent = String(addScore);
+    const newRow = table.insertRow();
+    newRow.insertCell(0).textContent = name;
+    newRow.insertCell(1).textContent = String(addScore);
   }
 }
 
-// 7) Гарантируем наличие анимации (если нет в CSS)
+// (7) Ensure keyframes for star
 (function ensureKeyframes(){
-  const s = document.createElement("style");
-  s.textContent = `
-  @keyframes fly {
-    0% { opacity:0; transform:translate(-50%,-40%) scale(0.85); }
-    50% { opacity:1; }
-    100% { opacity:0; transform:translate(-50%,-80%) scale(1.15); }
-  }`;
-  document.head.appendChild(s);
+  if (!document.getElementById("ai-reading-anim")) {
+    const s = document.createElement("style");
+    s.id = "ai-reading-anim";
+    s.textContent = `
+      @keyframes fly {
+        0% { opacity:0; transform:translate(-50%,-40%) scale(0.85); }
+        50% { opacity:1; }
+        100% { opacity:0; transform:translate(-50%,-80%) scale(1.15); }
+      }`;
+    document.head.appendChild(s);
+  }
 })();
 
-// 8) Авто-инициализация при показе раздела
+// (8) Activate when reading screen is shown
 (function hookReadingActivation(){
-  const screen = document.getElementById('reading');
+  const screen = document.getElementById("reading");
   const obs = new MutationObserver(() => {
-    if (screen.classList.contains('active')) {
-      // при первом открытии не сбрасываем набранные очки
-      if (readingContent.innerHTML.trim() === "") {
-        renderReadingTopic();
-      }
+    if (screen.classList.contains("active")) {
+      renderReadingTopic();
     }
   });
-  obs.observe(screen, { attributes: true, attributeFilter: ['class'] });
+  obs.observe(screen, { attributes: true, attributeFilter: ["class"] });
 })();
