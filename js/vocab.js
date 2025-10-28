@@ -1,8 +1,7 @@
 // ------------------------------
-// AI Bayan Vocabulary Trainer 2025 (embedded)
+// AI Bayan Vocabulary Trainer 2025 — with Journal
 // ------------------------------
 
-// Создаем экран #vocab, если его нет в index.html
 (function ensureVocabScreen() {
   if (!document.getElementById('vocab')) {
     const el = document.createElement('div');
@@ -20,7 +19,7 @@
   }
 })();
 
-// Данные: 12 тем × 10 слов (EN + RU)
+// Vocabulary data: 12 topics × 10 words
 const vocabData = [
   { topic: "My Family", words: [
     {en:"father",ru:"отец"},{en:"mother",ru:"мама"},{en:"brother",ru:"брат"},{en:"sister",ru:"сестра"},
@@ -40,7 +39,7 @@ const vocabData = [
   { topic: "My Day", words: [
     {en:"morning",ru:"утро"},{en:"evening",ru:"вечер"},{en:"breakfast",ru:"завтрак"},{en:"lunch",ru:"обед"},
     {en:"dinner",ru:"ужин"},{en:"homework",ru:"домашнее задание"},{en:"play",ru:"играть"},
-    {en:"study",ru:"учиться"},{en:"sleep",ru:"спать"},{en:"wash",ru:"мыть/мыться"}
+    {en:"study",ru:"учиться"},{en:"sleep",ru:"спать"},{en:"wash",ru:"мыться"}
   ]},
   { topic: "Animals", words: [
     {en:"cat",ru:"кот"},{en:"dog",ru:"собака"},{en:"bird",ru:"птица"},{en:"fish",ru:"рыба"},
@@ -85,137 +84,107 @@ const vocabData = [
   ]}
 ];
 
-// Состояние
-let vCurrent = 0;       // текущая тема
+let vCurrent = 0;
 let vScore = 0;
+const vocabContent = document.getElementById("vocabContent");
+const vTopicNo = document.getElementById("vTopicNo");
 
-// DOM-узлы
-const vTopicNo = document.getElementById('vTopicNo');
-const vocabContent = document.getElementById('vocabContent');
-const vBackBtn = document.getElementById('vBack');
-const vNextBtn = document.getElementById('vNext');
-
-// Рендер темы (список слов + мини-игра)
-function renderVocabTopic() {
+function renderVocab() {
   const t = vocabData[vCurrent];
   vTopicNo.textContent = vCurrent + 1;
 
-  // Список слов (карточки)
-  const list = t.words.map(w => `
-    <div class="card" style="margin:8px 0; padding:10px;">
-      <b>${w.en}</b> — <i>${w.ru}</i>
-    </div>
-  `).join("");
-
-  // Игра Guess the Word
-  const pool = shuffle([...t.words]); // копия и перемешать
-  const first = pool[0];
+  const list = t.words.map(w => `<div><b>${w.en}</b> — <i>${w.ru}</i></div>`).join("");
 
   vocabContent.innerHTML = `
     <h3>${t.topic}</h3>
     <div>${list}</div>
-    <hr style="margin:16px 0;">
-    <h4>🎯 Guess the Word</h4>
-    <p>Write the English word for: <b>${first.ru}</b></p>
-    <input type="text" id="guessInput" placeholder="type here" autocomplete="off" />
-    <button id="checkGuess">Check</button>
-    <div id="guessStatus" style="min-height:24px; margin-top:6px;"></div>
+    <hr><h4>🎯 Guess the Word</h4>
+    <p>Translate: <b>${t.words[0].ru}</b></p>
+    <input id="guess" placeholder="Type here">
+    <button id="check">Check</button>
+    <p id="status"></p>
   `;
 
-  const seq = pool; // последовательность слов для игры
-  let gi = 0;
+  let index = 0;
+  const input = document.getElementById("guess");
+  const checkBtn = document.getElementById("check");
+  const status = document.getElementById("status");
 
-  function setPrompt() {
-    const cur = seq[gi];
-    document.querySelector('#guessStatus').textContent = "";
-    vocabContent.querySelector('p').innerHTML = `Write the English word for: <b>${cur.ru}</b>`;
-    document.getElementById('guessInput').value = "";
-    document.getElementById('guessInput').focus();
+  function nextWord() {
+    index++;
+    if (index < t.words.length) {
+      status.textContent = "";
+      document.querySelector("#vocabContent p").innerHTML = `Translate: <b>${t.words[index].ru}</b>`;
+      input.value = "";
+      input.focus();
+    } else {
+      status.innerHTML = `🎉 Great! You finished <b>${t.topic}</b>.`;
+      saveToJournal(studentName, vScore);
+    }
   }
 
-  document.getElementById('checkGuess').onclick = () => {
-    const input = document.getElementById('guessInput').value.trim().toLowerCase();
-    const target = seq[gi].en.toLowerCase();
-    const status = document.getElementById('guessStatus');
-
-    if (input === target) {
+  checkBtn.onclick = () => {
+    const word = input.value.trim().toLowerCase();
+    if (word === t.words[index].en.toLowerCase()) {
       vScore++;
-      status.textContent = "✅ Correct!";
       playStar();
       try { new Audio("sound/ding.wav").play(); } catch(e){}
-      gi++;
-      if (gi < seq.length) {
-        setTimeout(setPrompt, 400);
-      } else {
-        status.innerHTML = `🎉 Great! You finished <b>${t.topic}</b>.`;
-      }
+      status.textContent = "✅ Correct!";
+      setTimeout(nextWord, 500);
     } else {
       status.textContent = "❌ Try again!";
     }
   };
 
-  // кнопки навигации
-  vBackBtn.onclick = () => {
+  document.getElementById("vBack").onclick = () => {
     if (vCurrent > 0) {
       vCurrent--;
-      renderVocabTopic();
+      renderVocab();
     }
   };
-  vNextBtn.onclick = () => {
+  document.getElementById("vNext").onclick = () => {
     if (vCurrent < vocabData.length - 1) {
       vCurrent++;
-      renderVocabTopic();
+      renderVocab();
     } else {
-      // последнее: назад в меню (функция show() есть в app.js)
-      if (typeof show === 'function') show('menu');
+      show("menu");
+      saveToJournal(studentName, vScore);
     }
   };
 }
 
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = (Math.random() * (i + 1)) | 0;
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-// Звёздочки ✨
 function playStar() {
   const star = document.createElement("div");
   star.textContent = "⭐";
   star.style.position = "fixed";
   star.style.left = "50%";
-  star.style.top = "58%";
-  star.style.transform = "translate(-50%,-50%)";
-  star.style.fontSize = "42px";
-  star.style.animation = "fly 0.9s ease-out";
-  star.style.pointerEvents = "none";
+  star.style.top = "50%";
+  star.style.fontSize = "40px";
+  star.style.animation = "fly 1s ease-out";
   document.body.appendChild(star);
-  setTimeout(() => star.remove(), 900);
+  setTimeout(() => star.remove(), 1000);
 }
 
-// Немного CSS (если нет в style.css — добавим keyframes)
-(function ensureKeyframes(){
-  const style = document.createElement('style');
-  style.textContent = `
-  @keyframes fly { 
-    0%{opacity:0; transform:translate(-50%,-40%) scale(0.8);} 
-    50%{opacity:1;} 
-    100%{opacity:0; transform:translate(-50%,-80%) scale(1.2);} 
-  }`;
-  document.head.appendChild(style);
-})();
+// Journal save
+function saveToJournal(name, score) {
+  const journal = document.getElementById("journalTable");
+  if (!journal) return;
+  let existing = [...journal.rows].find(r => r.cells[0]?.textContent === name);
+  if (existing) {
+    let old = parseInt(existing.cells[1].textContent || 0);
+    existing.cells[1].textContent = old + score;
+  } else {
+    const row = journal.insertRow();
+    row.insertCell(0).textContent = name;
+    row.insertCell(1).textContent = score;
+  }
+}
 
-// Авто-инициализация при открытии раздела
-(function hookMenu() {
-  // если в app.js есть обработчик data-target, он вызовет show('vocab');
-  // мы же просто рендерим раздел при первом показе
-  const vocabScreen = document.getElementById('vocab');
-  const observer = new MutationObserver(() => {
-    if (vocabScreen.classList.contains('active')) {
-      renderVocabTopic();
-    }
-  });
-  observer.observe(vocabScreen, { attributes: true, attributeFilter: ['class'] });
-})();
+// Hook activation
+const vocabScreen = document.getElementById("vocab");
+const observer = new MutationObserver(() => {
+  if (vocabScreen.classList.contains("active")) {
+    renderVocab();
+  }
+});
+observer.observe(vocabScreen, { attributes: true, attributeFilter: ["class"] });
