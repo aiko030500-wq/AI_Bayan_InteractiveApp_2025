@@ -1,11 +1,16 @@
 // ------------------------------
-// AI Bayan Login System 
+// AI Bayan Login System
 // ------------------------------
-// AI Bayan Grammar Trainer 2025
-// ------------------------------
-
 const STUDENT_PIN = "2361";
 const TEACHER_PIN = "9996";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+  const nameInput = document.getElementById("nameInput");
+  const pinInput = document.getElementById("pinInput");
+
+  function show(screenId) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
 
 const grammarData = [
   {
