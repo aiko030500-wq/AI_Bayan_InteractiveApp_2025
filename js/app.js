@@ -221,6 +221,13 @@ function playStarAnimation() {
   star.style.animation = "fly 1s ease-out";
   document.body.appendChild(star);
   setTimeout(() => star.remove(), 1000);
-}
+ // ------------------------------
+// Menu navigation for all sections
+// ------------------------------
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.getAttribute("data-target");
+    show(target);
+  });
+});
 
-showQuestion();
