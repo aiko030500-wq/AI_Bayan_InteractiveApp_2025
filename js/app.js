@@ -11,6 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function show(screenId) {
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById(screenId).classList.add("active");
+  }
+
+  loginBtn.onclick = () => {
+    const name = nameInput.value.trim();
+    const pin = pinInput.value.trim();
+
+    if (pin === STUDENT_PIN) {
+      window.studentName = name || "Student";
+      show("menu");
+    } else if (pin === TEACHER_PIN) {
+      show("teacher");
+    } else {
+      alert("❌ Wrong code, try again!");
+    }
+  };
+});
 
 const grammarData = [
   {
