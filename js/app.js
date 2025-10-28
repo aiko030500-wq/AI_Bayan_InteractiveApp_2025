@@ -1,4 +1,10 @@
 // ------------------------------
+// AI Bayan Login System 
+// ------------------------------
+
+const STUDENT_PIN = "2361";
+const TEACHER_PIN = "9996";
+// ------------------------------
 // AI Bayan Grammar Trainer 2025 — Level A2+
 // 18 topics × 5 questions
 // ------------------------------
@@ -182,6 +188,10 @@ const grammarData = [
       { q: "____ do you get up?", a: "c", options: ["Where", "Why", "When"] },
       { q: "____ are you late?", a: "b", options: ["When", "Why", "How"] },
       { q: "____ is your favourite subject?", a: "a", options: ["What", "Which", "Who"] }
+      function show(section) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.get
+
     ]
   }
 ];
