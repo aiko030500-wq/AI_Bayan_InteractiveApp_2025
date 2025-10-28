@@ -147,6 +147,24 @@ let currentQ = 0;
 let readingScore = 0;
 
 const readingContent = document.getElementById("readingContent");
+// ------------------------------
+// Navigation buttons
+// ------------------------------
+document.getElementById("rPrev").addEventListener("click", () => {
+  currentReading--;
+  if (currentReading < 0) currentReading = readingData.length - 1;
+  showReadingText();
+});
+
+document.getElementById("rNext").addEventListener("click", () => {
+  currentReading++;
+  if (currentReading >= readingData.length) currentReading = 0;
+  showReadingText();
+});
+
+document.getElementById("rMenu").addEventListener("click", () => {
+  show("menu");
+});
 
 function showReadingText() {
   const textObj = readingData[currentText];
