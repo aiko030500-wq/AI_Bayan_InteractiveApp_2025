@@ -224,3 +224,14 @@ function playStarAnimation() {
 }
 
 showQuestion();
+showQuestion();
+
+// ------------------------------
+// Menu navigation for all sections
+// ------------------------------
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.getAttribute("data-target");
+    show(target);
+  });
+});
