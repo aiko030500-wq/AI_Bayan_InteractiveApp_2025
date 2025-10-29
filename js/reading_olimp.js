@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ], a: 1 }
       ]
     },
-
     {
       title: "2. A Visit to the Countryside",
       text: "Last weekend, Tom went to visit his grandparents in the countryside. Their house is near a big forest and a small river. In the morning, Tom helped his grandfather feed the chickens and collect eggs. Later, they went fishing and caught two small fish. In the afternoon, Tom and his grandmother made an apple pie and drank tea together. In the evening, he watched the stars in the clear sky. He loves the countryside because it’s quiet and beautiful.",
@@ -91,66 +90,115 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(star);
     setTimeout(() => star.remove(), 1000);
   }
-// === Добавляем кнопки навигации и возврата в меню ===
-const navDiv = document.createElement("div");
-navDiv.className = "nav-buttons";
-navDiv.innerHTML = `
-  <button id="rPrev">⬅️ Previous</button>
-  <button id="rNext">➡️ Next</button>
-`;
 
-const menuDiv = document.createElement("div");
-menuDiv.className = "menu-return";
-menuDiv.innerHTML = `<button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>`;
+  function showReading() {
+    const r = readingData[currentReading];
+    readingContent.innerHTML = `
+      <h3>${r.title}</h3>
+      <p>${r.text}</p>
+      ${r.questions.map((q, i) => `
+        <div class="question-block">
+          <p><b>${i + 1}. ${q.q}</b></p>
+          <div class="options">
+            ${q.options.map((opt, j) => `
+              <button class="optBtn" data-i="${i}" data-choice="${j}">${opt}</button>
+            `).join("<br>")}
+          </div>
+        </div>
+      `).join("<hr>")}
+      <div id="progress" class="progress">Score: ${totalScore}</div>
+    `;
 
-readingContent.appendChild(navDiv);
-readingContent.appendChild(menuDiv);
+    document.querySelectorAll(".optBtn").forEach(btn => {
+      btn.onclick = () => checkAnswer(btn);
+    });
 
-// === Навигация по текстам ===
-document.getElementById("rPrev").onclick = () => {
-  if (currentReading > 0) {
-    currentReading--;
-    showReading();
+    // === Добавляем кнопки навигации и возврата в меню ===
+    const navDiv = document.createElement("div");
+    navDiv.className = "nav-buttons";
+    navDiv.innerHTML = `
+      <button id="rPrev">⬅️ Previous</button>
+      <button id="rNext">➡️ Next</button>
+    `;
+
+    const menuDiv = document.createElement("div");
+    menuDiv.className = "menu-return";
+    menuDiv.innerHTML = `<button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>`;
+
+    readingContent.appendChild(navDiv);
+    readingContent.appendChild(menuDiv);
+
+    // === Навигация по текстам ===
+    document.getElementById("rPrev").onclick = () => {
+      if (currentReading > 0) {
+        currentReading--;
+        showReading();
+      }
+    };
+
+    document.getElementById("rNext").onclick = () => {
+      if (currentReading < readingData.length - 1) {
+        currentReading++;
+        showReading();
+      } else {
+        showFinalReadingResult();
+      }
+    };
   }
-};
 
-document.getElementById("rNext").onclick = () => {
-  if (currentReading < readingData.length - 1) {
-    currentReading++;
-    showReading();
-  } else {
-    showFinalReadingResult();
+  function checkAnswer(btn) {
+    const i = btn.dataset.i;
+    const choice = parseInt(btn.dataset.choice);
+    const correct = readingData[currentReading].questions[i].a;
+    const buttons = btn.parentNode.querySelectorAll(".optBtn");
+
+    buttons.forEach(b => b.disabled = true);
+
+    if (choice === correct) {
+      btn.style.backgroundColor = "#b7f5b7";
+      btn.innerHTML += " ✅";
+      totalScore++;
+      new Audio("sound/ding.wav").play();
+      showStar();
+    } else {
+      btn.style.backgroundColor = "#f5b7b7";
+      btn.innerHTML += " ❌";
+      buttons[correct].style.border = "2px solid green";
+    }
+
+    document.getElementById("progress").innerHTML = `Score: ${totalScore}`;
   }
-};
-   // Добавляем кнопки навигации и возврата в меню
-  // === Добавляем кнопки навигации и возврата в меню ===
-const navDiv = document.createElement("div");
-navDiv.className = "nav-buttons";
-navDiv.innerHTML = `
-  <button id="rPrev">⬅️ Previous</button>
-  <button id="rNext">➡️ Next</button>
-`;
 
-const menuDiv = document.createElement("div");
-menuDiv.className = "menu-return";
-menuDiv.innerHTML = `<button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>`;
+  function showFinalReadingResult() {
+    new Audio("sound/applause.wav").play();
 
-readingContent.appendChild(navDiv);
-readingContent.appendChild(menuDiv);
+    readingContent.innerHTML = `
+      <div class="final-screen">
+        <h3>🎉 Reading Olympiad Finished!</h3>
+        <p class="fade-in">Your total score: <b>${totalScore} / ${readingData.length * 5}</b></p>
+        <p class="fade-in delay">👏 Excellent work! You’re a real Olympiad star!</p>
+        <button id='rMenu2' class='fade-in delay2'>🏠 Back to Menu</button>
+      </div>
+    `;
 
-// === Навигация по текстам ===
-document.getElementById("rPrev").onclick = () => {
-  if (currentReading > 0) {
-    currentReading--;
-    showReading();
+    // конфетти-анимация
+    for (let i = 0; i < 20; i++) {
+      const star = document.createElement("div");
+      star.textContent = "⭐";
+      Object.assign(star.style, {
+        position: "fixed",
+        left: `${Math.random() * 100}%`,
+        top: "-10px",
+        fontSize: `${20 + Math.random() * 20}px`,
+        animation: `fall ${2 + Math.random() * 3}s linear forwards`,
+        opacity: 0.8
+      });
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 4000);
+    }
+
+    document.getElementById("rMenu2").onclick = () => show("menu");
   }
-};
 
-document.getElementById("rNext").onclick = () => {
-  if (currentReading < readingData.length - 1) {
-    currentReading++;
-    showReading();
-  } else {
-    showFinalReadingResult();
-  }
-};
+  showReading();
+});
