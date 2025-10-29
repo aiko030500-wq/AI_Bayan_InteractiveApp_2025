@@ -1,54 +1,123 @@
 // =====================================================
 // 📘 AI Bayan General English Trainer — A2
-// Phonetics (diphthongs, silent letters, soft/hard C-G, vowel types 1–4)
-// Irregular Verbs | Time & Seasons | WH-Questions
-// Stars + Sound + Mixed mode + Section results
+// Phonetics (improved) | Irregular Verbs (50) | Time & Seasons | WH-Questions
+// Mixed mode | Stars + Sound | Section results
 // =====================================================
 document.addEventListener("DOMContentLoaded", function () {
 
   // ---------- STATE ----------
-  let current = 0;                 // индекс текущего вопроса в текущем списке
-  let score = 0;                   // общий счёт по текущей сессии
-  let activeCat = "Mixed";         // текущая категория ("Mixed" или конкретная)
-  let workingSet = [];             // массив индексов вопросов для текущего режима
+  let current = 0;                 // индекс вопроса в текущем наборе
+  let score = 0;                   // общий счёт
+  let activeCat = "Mixed";         // текущая категория ("Mixed", "Phonetics", ...)
+  let workingSet = [];             // индексы вопросов в текущей сессии
   const answers = [];              // [{choice, correct, cat, idxInBank}]
   const sectionScores = {};        // {cat: correctCount}
-  const sectionTotals = {};        // {cat: totalCount (в текущей сессии)}
+  const sectionTotals = {};        // {cat: totalCount}
 
   // ---------- BANK ----------
-  // Каждая запись: {cat, q, options[4], a}
-  // УРОВЕНЬ A2, короткие, чёткие формулировки.
+  // Формат записи: {cat, q, options[4], a}
   const bank = [
-    // ===== PHONETICS =====
+    // ===== PHONETICS (Improved Informative) =====
     // Diphthongs
-    {cat:"Phonetics", q:"Choose the word with the /aɪ/ sound.", options:["train","find","boat","boy"], a:1},
-    {cat:"Phonetics", q:"Choose the word with the /eɪ/ sound.", options:["said","make","ship","put"], a:1},
-    {cat:"Phonetics", q:"Choose the word with the /əʊ/ sound.", options:["house","home","hand","hat"], a:1},
-    {cat:"Phonetics", q:"Choose the word with the /ɔɪ/ sound.", options:["toy","tea","ten","tall"], a:0},
-    {cat:"Phonetics", q:"Choose the word with the /aʊ/ sound.", options:["snow","town","ten","tin"], a:1},
+    {cat:"Phonetics", q:"Which word contains the diphthong /aɪ/? 💡 Tip: The sound /aɪ/ is like in 'time' or 'five'.", options:["sit","ship","time","pen"], a:2},
+    {cat:"Phonetics", q:"Which word contains the diphthong /eɪ/? 💡 Tip: /eɪ/ sounds like in 'name' or 'train'.", options:["bed","hat","train","bus"], a:2},
+    {cat:"Phonetics", q:"Which word contains the diphthong /əʊ/? 💡 Tip: /əʊ/ is in 'go', 'home', 'nose'.", options:["pen","hot","home","bat"], a:2},
+    {cat:"Phonetics", q:"Which word has the sound /ɔɪ/? 💡 Tip: It’s the sound in 'boy' or 'toy'.", options:["top","boy","bag","ten"], a:1},
+    {cat:"Phonetics", q:"Which word has the sound /aʊ/? 💡 Tip: /aʊ/ sounds like in 'house' or 'mouse'.", options:["cup","house","pen","tree"], a:1},
     // Silent letters
-    {cat:"Phonetics", q:"Which word has a silent letter?", options:["knee","need","near","neat"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent letter?", options:["write","right","ride","rain"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent letter?", options:["thumb","think","thick","thank"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent letter?", options:["island","ice","idea","iron"], a:0},
-    // Soft/Hard C-G
-    {cat:"Phonetics", q:"Choose the word with soft C /s/.", options:["cat","cold","city","can"], a:2},
-    {cat:"Phonetics", q:"Choose the word with soft G /dʒ/.", options:["girl","game","giant","green"], a:2},
-    // Vowel types 1–4 (примерно: a_e/ i_e и т.п., короткие/длинные)
-    {cat:"Phonetics", q:"Choose a long vowel pattern (a_e).", options:["cap","cake","cat","can"], a:1},
-    {cat:"Phonetics", q:"Choose a long vowel pattern (i_e).", options:["pin","pit","pine","pink"], a:2},
+    {cat:"Phonetics", q:"Which word has a silent 'k'? 💡 Tip: 'k' is silent before 'n'.", options:["know","king","kite","kick"], a:0},
+    {cat:"Phonetics", q:"Which word has a silent 'w'? 💡 Tip: 'w' is silent before 'r'.", options:["write","white","water","word"], a:0},
+    {cat:"Phonetics", q:"Which word has a silent 'b'? 💡 Tip: 'b' is silent after 'm'.", options:["bomb","baby","rabbit","bamboo"], a:0},
+    {cat:"Phonetics", q:"Which word has a silent 'g'? 💡 Tip: 'g' is silent before 'n'.", options:["sign","go","green","gift"], a:0},
+    {cat:"Phonetics", q:"Which word has a silent 'h'? 💡 Tip: 'h' is silent after 'w'.", options:["white","where","how","house"], a:1},
+    // Soft/Hard C–G
+    {cat:"Phonetics", q:"Choose the word with soft C /s/. 💡 Tip: 'C' before 'e, i, y' sounds /s/.", options:["cat","city","cold","cup"], a:1},
+    {cat:"Phonetics", q:"Choose the word with hard C /k/. 💡 Tip: 'C' before 'a, o, u' sounds /k/.", options:["cent","city","cat","ceiling"], a:2},
+    {cat:"Phonetics", q:"Choose the word with soft G /dʒ/. 💡 Tip: 'G' before 'e, i, y' is soft.", options:["go","game","giant","green"], a:2},
+    {cat:"Phonetics", q:"Choose the word with hard G /g/. 💡 Tip: 'G' before 'a, o, u' is hard.", options:["giraffe","giant","gem","goat"], a:3},
+    // Vowel patterns (types 1–4)
+    {cat:"Phonetics", q:"Choose the word with long vowel pattern (a_e). 💡 Tip: 'a' + consonant + 'e' makes long /eɪ/.", options:["cap","cat","cake","can"], a:2},
+    {cat:"Phonetics", q:"Choose the word with long vowel pattern (i_e). 💡 Tip: 'i' + consonant + 'e' makes long /aɪ/.", options:["pin","pig","pink","pine"], a:3},
+    {cat:"Phonetics", q:"Choose the word with long vowel pattern (o_e). 💡 Tip: 'o' + consonant + 'e' makes long /əʊ/.", options:["hop","hot","hope","hole"], a:2},
+    {cat:"Phonetics", q:"Choose the word with long vowel pattern (u_e). 💡 Tip: 'u' + consonant + 'e' makes /juː/ as in 'cube'.", options:["cup","cut","cube","cute"], a:2},
+    // Mixed add.
+    {cat:"Phonetics", q:"Which word has the same vowel sound as 'train'?", options:["men","pen","plane","pan"], a:2},
+    {cat:"Phonetics", q:"Which word has a long vowel sound?", options:["ship","sheep","sit","sick"], a:1},
+    {cat:"Phonetics", q:"Which word has the same sound as 'go'?", options:["got","gone","show","good"], a:2},
+    {cat:"Phonetics", q:"Which word has the same sound as 'time'?", options:["team","tame","fine","tin"], a:2},
+    {cat:"Phonetics", q:"Which word has the same sound as 'toy'?", options:["tie","boy","bee","bay"], a:1},
 
-    // ===== IRREGULAR VERBS =====
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'go'.", options:["goed","went","gone","goes"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'see'.", options:["saw","seed","seen","see"], a:2},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'buy'.", options:["buyed","bought","boughten","buy"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'make'.", options:["maked","made","maken","makes"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'have'.", options:["has","had","haved","have"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'write'.", options:["wrote","written","writed","writes"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'take'.", options:["taked","took","taken","takes"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'break'.", options:["broke","broken","breaked","breaks"], a:1},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'come'.", options:["came","comed","come","comes"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'eat'.", options:["ate","eaten","eated","eats"], a:1},
+    // ===== IRREGULAR VERBS (Extended to 50, A2–B1) =====
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'be'.", options:["was/were","been","am","being"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'be'.", options:["been","was","were","being"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'begin'.", options:["began","begun","begin","begined"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'begin'.", options:["begun","began","begin","begined"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'break'.", options:["broke","broken","breaked","break"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'break'.", options:["broken","broke","breaked","breaks"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'bring'.", options:["brought","brang","bringed","broughted"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'bring'.", options:["brought","brang","bringed","broughted"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'build'.", options:["built","builded","build","builted"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'build'.", options:["built","builded","building","builds"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'buy'.", options:["bought","buyed","buys","buy"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'buy'.", options:["bought","buyed","buying","buy"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'catch'.", options:["caught","catched","catch","catching"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'catch'.", options:["caught","catched","catching","catches"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'choose'.", options:["chose","choosed","choose","chosen"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'choose'.", options:["chosen","chose","choose","choosed"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'come'.", options:["came","come","comed","comes"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'come'.", options:["come","came","comed","coming"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'do'.", options:["did","done","does","doing"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'do'.", options:["done","did","doing","does"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'drink'.", options:["drank","drunk","drinked","drinks"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'drink'.", options:["drunk","drank","drinked","drinks"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'drive'.", options:["drove","drived","driven","drives"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'drive'.", options:["driven","drove","drived","drives"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'eat'.", options:["ate","eated","eat","eaten"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'eat'.", options:["eaten","ate","eat","eated"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'fall'.", options:["fell","fallen","fall","falled"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'fall'.", options:["fallen","fell","fall","falled"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'find'.", options:["found","finded","find","finds"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'find'.", options:["found","finded","find","finds"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'fly'.", options:["flew","flied","flyed","flies"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'fly'.", options:["flown","flew","flyed","flies"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'forget'.", options:["forgot","forgetted","forget","forgets"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'forget'.", options:["forgotten","forgot","forgetted","forgets"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'get'.", options:["got","getted","get","gotten"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'get'.", options:["got/gotten","got","get","getting"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'give'.", options:["gave","given","give","gives"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'give'.", options:["given","gave","give","gives"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'go'.", options:["went","goed","gone","going"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'go'.", options:["gone","went","goed","going"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'grow'.", options:["grew","growed","grow","growen"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'grow'.", options:["grown","grew","growed","grow"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'know'.", options:["knew","knowed","know","known"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'know'.", options:["known","knew","knowed","know"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'make'.", options:["made","maked","make","maken"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'make'.", options:["made","maked","maken","makes"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'meet'.", options:["met","meet","meeting","meeted"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'meet'.", options:["met","meeted","meeting","meets"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'read'.", options:["read","red","reed","ridd"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'read'.", options:["read","red","reed","ridd"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'run'.", options:["ran","runned","run","runs"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'run'.", options:["run","ran","runned","runs"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'see'.", options:["saw","seen","see","seeing"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'see'.", options:["seen","saw","see","seeing"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'sing'.", options:["sang","singed","sung","song"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'sing'.", options:["sung","sang","singed","song"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'sit'.", options:["sat","sitted","sit","sats"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'sit'.", options:["sat","sitted","sit","sats"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'speak'.", options:["spoke","speaked","speak","spoken"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'speak'.", options:["spoken","spoke","speak","speaked"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'swim'.", options:["swam","swum","swim","swimming"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'swim'.", options:["swum","swam","swim","swimming"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'take'.", options:["took","taken","take","takes"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'take'.", options:["taken","took","take","takes"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'teach'.", options:["taught","teached","teach","teachened"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'teach'.", options:["taught","teached","teach","teaching"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'think'.", options:["thought","thinked","thank","thinking"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'think'.", options:["thought","thinked","thank","thinking"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'write'.", options:["wrote","written","writes","write"], a:0},
+    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'write'.", options:["written","wrote","write","writes"], a:0},
 
     // ===== TIME & SEASONS =====
     // Time
@@ -73,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
     {cat:"WH-Questions", q:"___ is the price of this bag?", options:["How many","How much","How long","How often"], a:1}
   ];
 
-  // Категории для переключателя:
   const categories = ["Mixed", "Phonetics", "Irregular Verbs", "Time & Seasons", "WH-Questions"];
 
   // ---------- HELPERS ----------
@@ -105,26 +173,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const root = document.getElementById("generalContent");
 
   function buildHeader() {
-    // Верхняя панель выбора категории
     const tabs = categories.map(cat =>
       `<button class="tabBtn ${cat===activeCat?'active':''}" data-cat="${cat}">${cat}</button>`
     ).join("");
-
-    return `
-      <div class="tabs" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-        ${tabs}
-      </div>
-    `;
+    return `<div class="tabs" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">${tabs}</div>`;
   }
 
   function prepareSet() {
-    // сбрасываем состояние
     current = 0; score = 0;
     answers.length = 0;
     Object.keys(sectionScores).forEach(k => delete sectionScores[k]);
     Object.keys(sectionTotals).forEach(k => delete sectionTotals[k]);
 
-    // соберём индексы вопросов
     let indices = [];
     if (activeCat === "Mixed") {
       indices = [...Array(bank.length).keys()];
@@ -133,7 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     workingSet = shuffle(indices);
 
-    // подготовим счётчики разделов для текущей сессии
     const catsInPlay = new Set(workingSet.map(i => bank[i].cat));
     catsInPlay.forEach(c => { sectionScores[c] = 0; sectionTotals[c] = 0; });
     workingSet.forEach(i => { sectionTotals[bank[i].cat] = (sectionTotals[bank[i].cat] || 0) + 1; });
@@ -156,9 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="options">
         ${item.options.map((opt, i) => {
           let extra = "";
-          if (saved && saved.choice === i) {
-            extra = saved.correct ? " ✅" : " ❌";
-          }
+          if (saved && saved.choice === i) extra = saved.correct ? " ✅" : " ❌";
           return `<button class="optBtn" data-idx="${i}">${opt}${extra}</button>`;
         }).join("<br>")}
       </div>
@@ -177,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     root.innerHTML = header + body + nav;
 
-    // табы
     document.querySelectorAll(".tabBtn").forEach(b=>{
       b.onclick = ()=>{
         activeCat = b.dataset.cat;
@@ -186,7 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
       };
     });
 
-    // ответы
     document.querySelectorAll(".optBtn").forEach(btn=>{
       btn.onclick = ()=>{
         if (answers[current]) return;
@@ -201,23 +256,18 @@ document.addEventListener("DOMContentLoaded", function () {
           try { new Audio("sound/ding.wav").play(); } catch(e){}
           showStar();
         }
-        render(); // перерисуем, чтобы показать галочку/крестик
+        render();
       };
     });
 
-    // навигация
     document.getElementById("gPrev").onclick = ()=>{
       if (current > 0) { current--; render(); }
     };
     document.getElementById("gNext").onclick = ()=>{
-      if (current < workingSet.length - 1) {
-        current++; render();
-      } else {
-        finish();
-      }
+      if (current < workingSet.length - 1) { current++; render(); }
+      else { finish(); }
     };
 
-    // плавное появление контейнера (если в CSS есть анимации)
     root.style.animation = "none";
     setTimeout(() => { root.style.animation = ""; }, 30);
   }
@@ -225,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function finish() {
     try { new Audio("sound/applause.wav").play(); } catch(e){}
 
-    // таблица по разделам
     const cats = Object.keys(sectionTotals);
     let rows = cats.map(cat => `
       <tr>
@@ -264,6 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // INIT
-  prepareSet();   // Mixed по умолчанию
+  prepareSet();
   render();
 });
