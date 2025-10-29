@@ -83,8 +83,11 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   document.getElementById("lPrev").addEventListener("click", ()=>{
     currentListening = Math.max(currentListening-1, 0);
-    showListening();
+      // Первая загрузка
+  showListening();
+
 });
+
 
 
   // Первая загрузка
