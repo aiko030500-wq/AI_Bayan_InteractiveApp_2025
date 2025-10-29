@@ -114,20 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // === Добавляем кнопки навигации и возврата в меню ===
-    const navDiv = document.createElement("div");
-    navDiv.className = "nav-buttons";
-    navDiv.innerHTML = `
-      <button id="rPrev">⬅️ Previous</button>
-      <button id="rNext">➡️ Next</button>
-    `;
-
-    const menuDiv = document.createElement("div");
-    menuDiv.className = "menu-return";
-    menuDiv.innerHTML = `<button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>`;
-
-    readingContent.appendChild(navDiv);
-    readingContent.appendChild(menuDiv);
-
+    
     // === Навигация по текстам ===
     document.getElementById("rPrev").onclick = () => {
       if (currentReading > 0) {
@@ -140,6 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentReading < readingData.length - 1) {
         currentReading++;
         showReading();
+        // перезапускаем анимацию при переходе
+readingContent.style.animation = "none";
+setTimeout(() => { readingContent.style.animation = ""; }, 50);
         // эффект плавного появления при каждой загрузке текста
 readingContent.style.animation = "none";
 setTimeout(() => {
