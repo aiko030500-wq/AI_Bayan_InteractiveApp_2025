@@ -91,114 +91,66 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(star);
     setTimeout(() => star.remove(), 1000);
   }
+// === Добавляем кнопки навигации и возврата в меню ===
+const navDiv = document.createElement("div");
+navDiv.className = "nav-buttons";
+navDiv.innerHTML = `
+  <button id="rPrev">⬅️ Previous</button>
+  <button id="rNext">➡️ Next</button>
+`;
 
-  function showReading() {
-    const r = readingData[currentReading];
-    readingContent.innerHTML = `
-      <h3>${r.title}</h3>
-      <p>${r.text}</p>
-      ${r.questions.map((q, i) => `
-        <div class="question-block">
-          <p><b>${i + 1}. ${q.q}</b></p>
-          <div class="options" id="q${i}">
-            ${q.options.map((opt, j) => `
-              <button class="optBtn" data-i="${i}" data-choice="${j}">${opt}</button>
-            `).join("<br>")}
-          </div>
-        </div>
-      `).join("<hr>")}
-      <div id="progress" class="progress">Score: ${totalScore}</div>
-    `;
+const menuDiv = document.createElement("div");
+menuDiv.className = "menu-return";
+menuDiv.innerHTML = `<button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>`;
 
-    document.querySelectorAll(".optBtn").forEach(btn => {
-      btn.onclick = () => checkAnswer(btn);
-    });
+readingContent.appendChild(navDiv);
+readingContent.appendChild(menuDiv);
+
+// === Навигация по текстам ===
+document.getElementById("rPrev").onclick = () => {
+  if (currentReading > 0) {
+    currentReading--;
+    showReading();
   }
+};
 
-  function checkAnswer(btn) {
-    const i = btn.dataset.i;
-    const choice = parseInt(btn.dataset.choice);
-    const correct = readingData[currentReading].questions[i].a;
-    const buttons = btn.parentNode.querySelectorAll(".optBtn");
-
-    // блокируем все кнопки для этого вопроса
-    buttons.forEach(b => b.disabled = true);
-
-    if (choice === correct) {
-      btn.style.backgroundColor = "#b7f5b7";
-      btn.innerHTML += " ✅";
-      totalScore++;
-      new Audio("sound/ding.wav").play();
-      showStar();
-    } else {
-      btn.style.backgroundColor = "#f5b7b7";
-      btn.innerHTML += " ❌";
-      buttons[correct].style.border = "2px solid green";
-    }
-
-    document.getElementById("progress").innerHTML = `Score: ${totalScore}`;
-
-    const answered = [...document.querySelectorAll(".optBtn")].filter(b => b.disabled).length;
-    const totalBtns = readingData[currentReading].questions.length * 3;
-    if (answered === totalBtns) {
-      setTimeout(() => nextText(), 1200);
-    }
-  }
-
-  function nextText() {
+document.getElementById("rNext").onclick = () => {
+  if (currentReading < readingData.length - 1) {
     currentReading++;
-    if (currentReading < readingData.length) {
-      showReading();
-    } else {
-      showFinal();
-    }
-  }
-
-  function showFinal() {
-    new Audio("sound/applause.wav").play();
-
-    readingContent.innerHTML = `
-      <div class="final-screen">
-        <h3>🎉 Reading Olympiad Finished!</h3>
-        <p class="fade-in">Your total score: <b>${totalScore} / ${readingData.length * 5}</b></p>
-        <p class="fade-in delay">👏 Excellent work! You’re a real Olympiad star!</p>
-        <button id='rMenu2' class='fade-in delay2'>🏠 Back to Menu</button>
-      </div>
-    `;
-
-    // конфетти-анимация
-    for (let i = 0; i < 20; i++) {
-      const star = document.createElement("div");
-      star.textContent = "⭐";
-      Object.assign(star.style, {
-        position: "fixed",
-        left: `${Math.random() * 100}%`,
-        top: "-10px",
-        fontSize: `${20 + Math.random() * 20}px`,
-        animation: `fall ${2 + Math.random() * 3}s linear forwards`,
-        opacity: 0.8
-      });
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 4000);
-    }
-
-    document.getElementById("rMenu2").onclick = () => show("menu");
-  }
-
-  // кнопки навигации
-  document.getElementById("rNext").addEventListener("click", () => {
-    if (currentReading < readingData.length - 1) currentReading++;
     showReading();
-  });
+  } else {
+    showFinalReadingResult();
+  }
+};
+   // Добавляем кнопки навигации и возврата в меню
+  // === Добавляем кнопки навигации и возврата в меню ===
+const navDiv = document.createElement("div");
+navDiv.className = "nav-buttons";
+navDiv.innerHTML = `
+  <button id="rPrev">⬅️ Previous</button>
+  <button id="rNext">➡️ Next</button>
+`;
 
-  document.getElementById("rPrev").addEventListener("click", () => {
-    if (currentReading > 0) currentReading--;
+const menuDiv = document.createElement("div");
+menuDiv.className = "menu-return";
+menuDiv.innerHTML = `<button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>`;
+
+readingContent.appendChild(navDiv);
+readingContent.appendChild(menuDiv);
+
+// === Навигация по текстам ===
+document.getElementById("rPrev").onclick = () => {
+  if (currentReading > 0) {
+    currentReading--;
     showReading();
-  });
+  }
+};
 
-  document.getElementById("rMenu").addEventListener("click", () => show("menu"));
-
-  showReading();
-});
-
- 
+document.getElementById("rNext").onclick = () => {
+  if (currentReading < readingData.length - 1) {
+    currentReading++;
+    showReading();
+  } else {
+    showFinalReadingResult();
+  }
+};
