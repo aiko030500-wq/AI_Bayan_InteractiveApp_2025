@@ -1,156 +1,100 @@
 // ------------------------------
-// AI Bayan Listening Olympiad 2025 — Level A2
+// 🏅 AI Bayan Grammar Olympiad — A2 Level (2025)
 // ------------------------------
 
-let currentListen = 0;
-let listenScore = 0;
-const listeningData = [
-  {
-    title: "1. In the Café",
-    audio: "https://www.eslfast.com/robot/topics/eating/eating01.mp3",
-    questions: [
-      { q: "Where are the people talking?", opts: ["At school", "In a café", "At home"], a: 1 },
-      { q: "What do they order?", opts: ["Tea", "Coffee", "Juice"], a: 1 },
-      { q: "How is the café described?", opts: ["Noisy", "Quiet", "Busy"], a: 2 }
-    ]
-  },
-  {
-    title: "2. At the Airport",
-    audio: "https://listenaminute.com/a/airport.mp3",
-    questions: [
-      { q: "Where is the speaker?", opts: ["At a station", "At an airport", "At school"], a: 1 },
-      { q: "What does he need?", opts: ["Passport", "Ticket", "Luggage"], a: 2 },
-      { q: "How does he feel?", opts: ["Excited", "Angry", "Tired"], a: 0 }
-    ]
-  },
-  {
-    title: "3. A Weekend Trip",
-    audio: "https://listenaminute.com/w/weekend.mp3",
-    questions: [
-      { q: "Where did the person go?", opts: ["To the mountains", "To the city", "To the beach"], a: 2 },
-      { q: "Who did they go with?", opts: ["Alone", "With family", "With friends"], a: 2 },
-      { q: "How was the weather?", opts: ["Sunny", "Rainy", "Windy"], a: 0 }
-    ]
-  },
-  {
-    title: "4. Talking about School",
-    audio: "https://learnenglishteens.britishcouncil.org/sites/teens/files/listening-school.mp3",
-    questions: [
-      { q: "What subject does she like?", opts: ["Math", "English", "PE"], a: 1 },
-      { q: "Who is her favourite teacher?", opts: ["Mr. Brown", "Mrs. Lee", "Miss Carter"], a: 2 },
-      { q: "What time does school finish?", opts: ["2 p.m.", "3 p.m.", "4 p.m."], a: 1 }
-    ]
-  },
-  {
-    title: "5. Weather Forecast",
-    audio: "https://listenaminute.com/w/weather.mp3",
-    questions: [
-      { q: "What season is it?", opts: ["Winter", "Spring", "Summer"], a: 2 },
-      { q: "What is the weather like?", opts: ["Cold", "Hot", "Rainy"], a: 1 },
-      { q: "What should people wear?", opts: ["Coats", "T-shirts", "Jackets"], a: 1 }
-    ]
-  },
-  {
-    title: "6. Shopping for Clothes",
-    audio: "https://www.eslfast.com/robot/topics/shopping/shopping01.mp3",
-    questions: [
-      { q: "Where is the conversation?", opts: ["In a shop", "At home", "At the bank"], a: 0 },
-      { q: "What are they buying?", opts: ["Shoes", "T-shirts", "Jackets"], a: 2 },
-      { q: "What size does she need?", opts: ["Small", "Medium", "Large"], a: 1 }
-    ]
-  },
-  {
-    title: "7. At the Doctor’s",
-    audio: "https://learnenglish.britishcouncil.org/sites/podcasts/files/health.mp3",
-    questions: [
-      { q: "Why does the person visit the doctor?", opts: ["Headache", "Cold", "Back pain"], a: 0 },
-      { q: "What medicine is recommended?", opts: ["Aspirin", "Vitamins", "Tea"], a: 0 },
-      { q: "When should they rest?", opts: ["Today", "Tomorrow", "Weekend"], a: 0 }
-    ]
-  },
-  {
-    title: "8. A Phone Conversation",
-    audio: "https://www.esl-lab.com/wp-content/uploads/2021/01/phone-conversation.mp3",
-    questions: [
-      { q: "Who is calling?", opts: ["Mother", "Friend", "Teacher"], a: 1 },
-      { q: "What are they talking about?", opts: ["Homework", "Plans", "Food"], a: 1 },
-      { q: "When will they meet?", opts: ["Today", "Tomorrow", "Next week"], a: 1 }
-    ]
-  },
-  {
-    title: "9. Weekend Plans",
-    audio: "https://www.eslfast.com/robot/topics/weekend/weekend01.mp3",
-    questions: [
-      { q: "What does he want to do?", opts: ["Stay home", "Go hiking", "Visit friends"], a: 2 },
-      { q: "What day is the plan for?", opts: ["Saturday", "Sunday", "Friday"], a: 0 },
-      { q: "Who will join him?", opts: ["Parents", "Sister", "Friends"], a: 2 }
-    ]
-  },
-  {
-    title: "10. A Birthday Party",
-    audio: "https://listenaminute.com/b/birthday.mp3",
-    questions: [
-      { q: "Whose birthday is it?", opts: ["Emma's", "Tom's", "Sara's"], a: 1 },
-      { q: "Where is the party?", opts: ["At home", "At school", "In a restaurant"], a: 0 },
-      { q: "What are they eating?", opts: ["Cake", "Pizza", "Sandwiches"], a: 0 }
-    ]
-  }
+const olimpData = [
+  { q: "She ___ to school every day.", a: "b", options: ["go", "goes", "going"] },
+  { q: "They ___ football after school.", a: "a", options: ["play", "plays", "playing"] },
+  { q: "He ___ TV every evening.", a: "b", options: ["watch", "watches", "watching"] },
+  { q: "I ___ in Astana.", a: "a", options: ["live", "lives", "living"] },
+  { q: "My brother ___ a bike.", a: "a", options: ["has", "have", "having"] },
+  { q: "We ___ our homework together.", a: "b", options: ["do", "does", "doing"] },
+  { q: "I ___ to music now.", a: "c", options: ["listen", "listening", "am listening"] },
+  { q: "They ___ football at the moment.", a: "c", options: ["play", "playing", "are playing"] },
+  { q: "He ___ TV right now.", a: "b", options: ["watches", "is watching", "watch"] },
+  { q: "She ___ breakfast now.", a: "b", options: ["have", "is having", "having"] },
+  { q: "The children ___ in the park.", a: "a", options: ["are playing", "play", "plays"] },
+  { q: "We ___ English today.", a: "c", options: ["study", "studying", "are studying"] },
+  { q: "I ___ to school yesterday.", a: "b", options: ["go", "went", "going"] },
+  { q: "He ___ his homework last night.", a: "b", options: ["do", "did", "does"] },
+  { q: "They ___ football yesterday.", a: "a", options: ["played", "plays", "play"] },
+  { q: "We ___ TV in the evening.", a: "a", options: ["watched", "watching", "watches"] },
+  { q: "I ___ breakfast at 8 a.m.", a: "a", options: ["had", "have", "having"] },
+  { q: "They ___ to the park last Sunday.", a: "b", options: ["go", "went", "gone"] },
+  { q: "Have you ever ___ to London?", a: "c", options: ["go", "went", "been"] },
+  { q: "I have ___ my homework already.", a: "b", options: ["do", "did", "done"] },
+  { q: "She has ___ her bag.", a: "a", options: ["forgotten", "forget", "forgetting"] },
+  { q: "We have ___ this movie before.", a: "c", options: ["see", "saw", "seen"] },
+  { q: "They have ___ to the new café.", a: "b", options: ["go", "gone", "going"] },
+  { q: "There are ___ apples on the table.", a: "b", options: ["much", "many", "a little"] },
+  { q: "There is ___ milk in the fridge.", a: "c", options: ["many", "a few", "a little"] },
+  { q: "I have ___ friends.", a: "a", options: ["a lot of", "few", "little"] },
+  { q: "He has ___ time for games.", a: "c", options: ["many", "a lot", "little"] },
+  { q: "We don’t have ___ water.", a: "c", options: ["many", "a lot of", "much"] },
+  { q: "You ___ study hard for the test.", a: "b", options: ["can", "must", "may"] },
+  { q: "I ___ swim when I was 5.", a: "a", options: ["could", "can", "must"] },
 ];
 
-// ------------------------------
-// Render Listening Question
-// ------------------------------
-function showListening() {
-  const q = listeningData[currentListen];
-  const container = document.getElementById("listeningContent");
-  container.innerHTML = `
-    <h3>${q.title}</h3>
-    <audio controls>
-      <source src="${q.audio}" type="audio/mpeg">
-    </audio><br>
-    ${q.questions.map(
-      (item, i) =>
-        `<p>${item.q}</p>${item.opts
-          .map(
-            (opt, j) =>
-              `<button class='optBtn' data-opt='${j}'>${opt}</button>`
-          )
-          .join("<br>")}`
-    ).join("<hr>")}
+let currentOlimp = 0;
+let olimpScore = 0;
+
+document.body.insertAdjacentHTML(
+  "beforeend",
+  `
+  <div id='olimp' class='screen section'>
+    <h2>🏅 Grammar Olympiad — A2</h2>
+    <div id='olimpContent'></div>
+    <div class='nav-buttons'>
+      <button id='oBack'>⬅️ Previous</button>
+      <button id='oNext'>➡️ Next</button>
+    </div>
+    <div class='menu-return'>
+      <button id='oMenu'>🏠 Back to Menu</button>
+    </div>
+  </div>`
+);
+
+const olimpContent = document.getElementById("olimpContent");
+
+function showOlimpQuestion() {
+  const q = olimpData[currentOlimp];
+  olimpContent.innerHTML = `
+    <h3>Question ${currentOlimp + 1} of ${olimpData.length}</h3>
+    <p>${q.q}</p>
+    ${q.options
+      .map(
+        (opt, i) =>
+          `<button class='optBtn' data-opt='${String.fromCharCode(97 + i)}'>${opt}</button>`
+      )
+      .join("<br>")}
   `;
-  document.querySelectorAll(".optBtn").forEach((btn) =>
-    btn.addEventListener("click", () => checkListening(parseInt(btn.dataset.opt)))
-  );
+  document.querySelectorAll(".optBtn").forEach((btn) => {
+    btn.onclick = () => checkOlimpAnswer(btn.dataset.opt);
+  });
 }
 
-// ------------------------------
-// Check Answer
-// ------------------------------
-function checkListening(choice) {
-  const q = listeningData[currentListen];
-  const correctAnswers = q.questions.map(x => x.a);
-  if (correctAnswers.includes(choice)) {
-    listenScore++;
-    playStar();
+function checkOlimpAnswer(choice) {
+  const correct = olimpData[currentOlimp].a;
+  if (choice === correct) {
+    olimpScore++;
+    playStarAnimation();
     new Audio("sound/ding.wav").play();
-  } else {
-    new Audio("sound/error.wav").play();
   }
-  currentListen++;
-  if (currentListen < listeningData.length) {
-    showListening();
+  currentOlimp++;
+  if (currentOlimp < olimpData.length) {
+    showOlimpQuestion();
   } else {
-    document.getElementById("listeningContent").innerHTML = `
-      <h3>🎉 Well done! You finished the Listening Olympiad!</h3>
-      <p>Your score: ${listenScore} / ${listeningData.length * 3}</p>
+    olimpContent.innerHTML = `
+      <h3>🎉 Well done!</h3>
+      <p>You finished all ${olimpData.length} questions.<br>
+      Your final score: <b>${olimpScore} / ${olimpData.length}</b></p>
+      <button id='oMenu2'>🏠 Back to Menu</button>
     `;
+    document.getElementById("oMenu2").onclick = () => show("menu");
   }
 }
 
-// ------------------------------
-// Star Animation
-// ------------------------------
-function playStar() {
+function playStarAnimation() {
   const star = document.createElement("div");
   star.textContent = "⭐";
   star.style.position = "absolute";
@@ -162,41 +106,60 @@ function playStar() {
   setTimeout(() => star.remove(), 1000);
 }
 
-// ------------------------------
-// Listening Olimp Screen
-// ------------------------------
-document.body.insertAdjacentHTML(
-  "beforeend",
-  `
-  <div id='listeningOlimp' class='screen section'>
-    <h2>🎧 Listening Olympiad — A2</h2>
-    <div id='listeningContent'></div>
-    <div class='nav-buttons'>
-      <button id='lBack'>Back</button>
-      <button id='lNext'>Next</button>
-    </div>
-  </div>`
-);
-
-document.getElementById("lBack").addEventListener("click", () => {
-  currentListen = Math.max(0, currentListen - 1);
-  showListening();
-});
-document.getElementById("lNext").addEventListener("click", () => {
-  currentListen = Math.min(listeningData.length - 1, currentListen + 1);
-  showListening();
+document.getElementById("oNext").addEventListener("click", () => {
+  currentOlimp++;
+  if (currentOlimp >= olimpData.length) currentOlimp = olimpData.length - 1;
+  showOlimpQuestion();
 });
 
-// ------------------------------
-// Menu Link Activation
-// ------------------------------
-document.querySelectorAll("#menu button[data-target]").forEach((btn) => {
-  if (btn.dataset.target === "listeningOlimp") {
-    btn.addEventListener("click", () => {
-      currentListen = 0;
-      listenScore = 0;
-      show("listeningOlimp");
-      showListening();
-    });
-  }
+document.getElementById("oBack").addEventListener("click", () => {
+  currentOlimp--;
+  if (currentOlimp < 0) currentOlimp = 0;
+  showOlimpQuestion();
 });
+
+document.getElementById("oMenu").addEventListener("click", () => {
+  show("menu");
+});
+
+showOlimpQuestion();
+// ------------------------------
+// 🎧 AI Bayan Listening Olympiad — A2 Level (Darын Style)
+// 10 audios × 3 questions each
+// ------------------------------
+
+const listeningData = [
+  {
+    title: "1. Morning Routine",
+    audio: "https://audio-lingua.ac-versailles.fr/IMG/mp3/morning_routine.mp3",
+    questions: [
+      { q: "What time does the boy wake up?", options: ["6:30", "7:00", "8:00"], a: "a" },
+      { q: "What does he eat for breakfast?", options: ["Cereal", "Toast", "Eggs"], a: "a" },
+      { q: "How does he go to school?", options: ["By bus", "On foot", "By car"], a: "b" },
+    ],
+  },
+  {
+    title: "2. At the Café",
+    audio: "https://audio-lingua.ac-versailles.fr/IMG/mp3/at_the_cafe.mp3",
+    questions: [
+      { q: "What drink does the woman order?", options: ["Tea", "Coffee", "Juice"], a: "b" },
+      { q: "What size drink does she choose?", options: ["Small", "Medium", "Large"], a: "c" },
+      { q: "How much does it cost?", options: ["£2.50", "£3.00", "£3.50"], a: "b" },
+    ],
+  },
+  {
+    title: "3. Weekend Plans",
+    audio: "https://audio-lingua.ac-versailles.fr/IMG
+  {
+    title: "3. Weekend Plans",
+    audio: "https://audio-lingua.ac-versailles.fr/IMG/mp3/weekend_plans.mp3",
+    questions: [
+      { q: "Where is Tom going this weekend?", options: ["To the beach", "To the mountains", "To the city"], a: "a" },
+      { q: "Who is he going with?", options: ["His friends", "His parents", "Alone"], a: "a" },
+      { q: "What will they do there?", options: ["Swim", "Hike", "Shop"], a: "a" },
+    ],
+  },
+  {
+    title: "4. At the Library",
+    audio: "https
+
