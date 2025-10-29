@@ -101,3 +101,31 @@ button.back-menu {
   border-top: 2px solid #eee;
   z-index: 10;
 }
+.msg {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 90%;
+  line-height: 1.4;
+}
+
+.msg.user {
+  background: #ffec99;
+  align-self: flex-end;
+}
+
+.msg.ai {
+  background: #fff;
+  border-left: 4px solid #ffb300;
+}
+
+#chatBox {
+  display: flex;
+  flex-direction: column;
+  background: #fff7d1;
+  padding: 12px;
+  border-radius: 10px;
+  height: 400px;
+  overflow-y: auto;
+  font-family: "Verdana", sans-serif;
+}
