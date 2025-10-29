@@ -31,8 +31,7 @@
       <button data-target="olimp">🏅 Grammar Olympiad</button>
       <button data-target="listening">🎧 Listening Olympiad</button>
       <button data-target="reading">📖 Reading Olympiad</button>
-     <button data-target="vocab">🧠 Vocabulary</button> 
-      <button data-target="general">📘 General English Trainer</button>
+      <button data-target="general">📗 General English Trainer</button>
     </div>
   </div>
 
@@ -73,84 +72,88 @@
     </div>
   </div>
 
+  <!-- 📖 Reading Olympiad -->
   <div id="reading" class="screen section">
-  <h2>📖 Reading Olympiad — A2</h2>
-  <div id="readingContent"></div>
-  <div class="nav-buttons">
-    <button id="rPrev">⬅️ Previous</button>
-    <button id="rNext">➡️ Next</button>
+    <h2>📖 Reading Olympiad — A2</h2>
+    <div id="readingContent"></div>
+    <div class="nav-buttons">
+      <button id="rPrev">⬅️ Previous</button>
+      <button id="rNext">➡️ Next</button>
+    </div>
+    <div class="menu-return">
+      <button id="rMenu" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
   </div>
-  <div class="menu-return">
-    <button id="rMenu">🏠 Back to Menu</button>
-  </div>
-</div>
+
   <!-- 🧠 Vocabulary Olympiad -->
-<div id="vocab" class="screen section">
-  <h2>🧠 Vocabulary Olympiad — A2</h2>
-  <div id="vocabContent"></div>
-</div>
-<div id="general" class="screen section">
-  <h2>📘 General English Trainer — A2</h2>
-  <div id="generalContent"></div>
-</div>
+  <div id="vocab" class="screen section">
+    <h2>🧠 Vocabulary Olympiad — A2</h2>
+    <div id="vocabContent"></div>
+    <div class="menu-return">
+      <button onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- 📗 General Trainer -->
+  <div id="general" class="screen section">
+    <h2>📗 General English Trainer — A2</h2>
+    <div id="generalContent"></div>
+    <div class="menu-return">
+      <button onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- ==================================== -->
+  <!-- 🤖 AI Bayan Floating Chat -->
+  <!-- ==================================== -->
+  <div id="aiBayanBtn">
+    <img src="ai_bayan_logo.png" alt="AI Bayan" />
+  </div>
+
+  <div id="chatBox" class="hidden">
+    <div id="chatHeader">
+      <img src="ai_bayan_logo.png" alt="AI Bayan" class="chat-logo" />
+      <span>AI Bayan — English Buddy 💬</span>
+      <button id="closeChat">✖</button>
+    </div>
+
+    <div id="chatMessages"></div>
+
+    <div id="chatInputArea">
+      <input id="chatInput" type="text" placeholder="Type your message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
   <!-- ⚙️ Scripts -->
   <script>
     // Простая функция для переключения экранов
     function show(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
     }
 
     // Пример: переход с логина в меню
-    document.getElementById('loginBtn').addEventListener('click', () => {
-      show('menu');
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      show("menu");
     });
 
     // Навигация по меню
-    document.querySelectorAll('#menu button[data-target]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-target');
+    document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
         show(target);
       });
     });
   </script>
 
-  <!-- Подключение JS-файлов -->
+  <!-- Подключение JS -->
   <script src="js/app.js"></script>
   <script src="js/grammar_olimp.js"></script>
   <script src="js/listening_olimp.js"></script>
   <script src="js/reading_olimp.js"></script>
   <script src="js/vocab_olimp.js"></script>
   <script src="js/general_trainer.js"></script>
-  <!-- 🤖 Floating AI Bayan Chat -->
-<div id="aiBayanBtn">
-  <img src="ai_bayan_logo.png" alt="AI Bayan" />
-</div>
-
-<!-- 💬 AI Bayan Chat Window -->
-<div id="chatBox" class="hidden">
-  <div id="chatHeader">
-    <img src="ai_bayan_logo.png" alt="AI Bayan" class="chat-logo" />
-    <span>AI Bayan — English Buddy 💬</span>
-    <button id="closeChat">✖</button>
-  </div>
-
-  <div id="chatMessages"></div>
-
-  <div id="chatInputArea">
-    <input id="chatInput" type="text" placeholder="Type your message..." />
-    <button id="sendBtn">Send</button>
-  </div>
-</div>
-
-<!-- 🔘 Floating AI Button -->
-<button id="aiBayanBtn" class="ai-bayan-btn">AI Bayan</button>
-
-<!-- ⚙️ Scripts -->
-<script src="js/ai_bayan_chat.js"></script>
-
-  </div>
-</div>
-
-
-  
+  <script src="js/ai_bayan_chat.js"></script>
+</body>
+</html>
