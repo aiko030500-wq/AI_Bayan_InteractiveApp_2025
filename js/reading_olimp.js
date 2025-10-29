@@ -1,81 +1,77 @@
-// ------------------------------
-// 📖 AI Bayan Reading Olympiad — A2
-// Дарын-стиль: Полные ответы, звуки, звёздная анимация и навигация
-// ------------------------------
+// =====================================================
+// 📖 AI Bayan Reading Olympiad — Level A2 (Darын-style)
+// 5 texts × 4 questions | Animated | Scoring | Stars
+// =====================================================
 document.addEventListener("DOMContentLoaded", function () {
 
   let currentReading = 0;
   let totalScore = 0;
 
   const readingData = [
+    // === 1. Spam Email Warning ===
     {
-      title: "1. A Day in London",
-      text: "Anna is spending her holiday in London, one of the most exciting cities in the world. Every morning she takes the underground to visit famous places such as the Tower of London, the British Museum, and Buckingham Palace. She enjoys walking through Hyde Park, taking photos of squirrels, and watching people feeding birds near the lake. For lunch, she usually eats fish and chips at a small café. In the evening, she likes to go shopping or watch a musical at the theatre.",
+      title: "1. Spam Email Warning",
+      text: "An American court has sent a strong warning to people who send spam emails. A man from Virginia sent millions of junk messages to Internet users. The judge said he must pay a $7,000 fine and go to prison for nine years. The court said that spam steals people’s time and uses their computers without permission.",
       questions: [
-        { q: "Where is Anna spending her holiday?", options: [
-          "She is spending her holiday in Paris.",
-          "She is spending her holiday in London.",
-          "She is spending her holiday in Rome."
-        ], a: 1 },
-        { q: "What transport does she use to visit places?", options: [
-          "She travels by bus every morning.",
-          "She takes the underground to visit places.",
-          "She walks to every famous place."
-        ], a: 1 },
-        { q: "What does Anna like doing in Hyde Park?", options: [
-          "She likes feeding birds and taking photos.",
-          "She likes jogging every morning.",
-          "She likes playing football with friends."
-        ], a: 0 },
-        { q: "What does Anna usually eat for lunch?", options: [
-          "She eats pizza at a restaurant.",
-          "She eats fish and chips at a small café.",
-          "She eats soup at home."
-        ], a: 1 },
-        { q: "What does she enjoy doing in the evening?", options: [
-          "She stays at home and reads a book.",
-          "She goes shopping or watches a musical.",
-          "She studies for her exams."
-        ], a: 1 }
+        { q: "Who sent millions of spam emails?", options: ["A man from Virginia", "A woman from California", "A group of students"], a: 0 },
+        { q: "What must the man do?", options: ["Pay a fine and go to prison", "Work for the government", "Write a letter to the court"], a: 0 },
+        { q: "How long will he stay in prison?", options: ["Five years", "Seven years", "Nine years"], a: 2 },
+        { q: "What did the court say about spam?", options: ["It helps people", "It steals time and computer use", "It is safe for everyone"], a: 1 }
       ]
     },
 
+    // === 2. Living in Trees (Korowai Tribe) ===
     {
-      title: "2. A Visit to the Countryside",
-      text: "Last weekend, Tom went to visit his grandparents in the countryside. Their house is near a big forest and a small river. In the morning, Tom helped his grandfather feed the chickens and collect eggs. Later, they went fishing and caught two small fish. In the afternoon, Tom and his grandmother made an apple pie and drank tea together. In the evening, he watched the stars in the clear sky. He loves the countryside because it’s quiet and beautiful.",
+      title: "2. Living in Trees (The Korowai Tribe)",
+      text: "The Korowai tribe lives in the rainforests of Papua, Indonesia. They build wooden houses high in the trees to stay safe from wild animals and floods. Their homes can be twenty meters above the ground. The Korowai hunt, fish, and grow food near their villages. They live a simple life and rarely meet people from outside their tribe.",
       questions: [
-        { q: "Where did Tom go last weekend?", options: [
-          "He went to the city to visit his friends.",
-          "He went to the countryside to visit his grandparents.",
-          "He stayed at home and watched TV."
-        ], a: 1 },
-        { q: "What did Tom help his grandfather do?", options: [
-          "He helped to feed the chickens and collect eggs.",
-          "He helped to clean the house.",
-          "He helped to plant flowers."
-        ], a: 0 },
-        { q: "What did they do after feeding the animals?", options: [
-          "They went fishing in the river.",
-          "They went shopping in the town.",
-          "They took a nap in the garden."
-        ], a: 0 },
-        { q: "What did Tom make with his grandmother?", options: [
-          "They made an apple pie and drank tea.",
-          "They cooked soup for dinner.",
-          "They made cookies for the neighbors."
-        ], a: 0 },
-        { q: "Why does Tom love the countryside?", options: [
-          "Because it is quiet and beautiful.",
-          "Because it is full of shops and cars.",
-          "Because all his friends live there."
-        ], a: 0 }
+        { q: "Where do the Korowai people live?", options: ["In large cities", "In the rainforests of Papua", "In the mountains of Japan"], a: 1 },
+        { q: "Why do they build their houses in trees?", options: ["To watch the sunset", "To stay safe from animals and floods", "To see the village"], a: 1 },
+        { q: "What do the Korowai people eat?", options: ["Only fruits", "Fast food", "Food they hunt, fish and grow"], a: 2 },
+        { q: "Do they often meet people from outside their tribe?", options: ["Yes, very often", "No, rarely", "Every week"], a: 1 }
+      ]
+    },
+
+    // === 3. Do What You Love ===
+    {
+      title: "3. Do What You Love",
+      text: "Many people say that to be happy, you should do what you love. Anna is a young woman who loves painting. She works as an art teacher and spends her free time creating pictures. Her friends earn more money, but Anna says she feels rich because she enjoys her work and follows her dream.",
+      questions: [
+        { q: "What does Anna love doing?", options: ["Cooking", "Painting", "Singing"], a: 1 },
+        { q: "What is Anna’s job?", options: ["A designer", "An art teacher", "A student"], a: 1 },
+        { q: "Why does Anna feel rich?", options: ["Because she enjoys her work", "Because she travels a lot", "Because she buys expensive things"], a: 0 },
+        { q: "What is the main idea of the text?", options: ["Work is difficult", "Money is everything", "Do what makes you happy"], a: 2 }
+      ]
+    },
+
+    // === 4. Hi Ellie, I’m So... ===
+    {
+      title: "4. Hi Ellie, I’m So...",
+      text: "Hi Ellie! I’m so excited to tell you about my new school. It’s bigger than my old one and has a lot of clubs. I joined the music club and the swimming team. My new friends are friendly and help me with homework. Next week we will have a sports day. I can’t wait to send you photos!",
+      questions: [
+        { q: "Who is writing the message?", options: ["Ellie", "The writer’s friend", "The writer"], a: 2 },
+        { q: "What club did the writer join?", options: ["Art club", "Music club", "Reading club"], a: 1 },
+        { q: "What will happen next week?", options: ["A school concert", "A sports day", "A swimming lesson"], a: 1 },
+        { q: "How does the writer feel about the new school?", options: ["Excited and happy", "Bored", "Nervous"], a: 0 }
+      ]
+    },
+
+    // === 5. Dear Sir/Madam, I Would Like... ===
+    {
+      title: "5. Dear Sir/Madam, I Would Like...",
+      text: "Dear Sir/Madam, I would like to apply for a part-time job at your café. I am sixteen years old and study at Green High School. I am responsible, polite, and enjoy working with people. I can work after school and on weekends. Please find my CV attached. Thank you for your time. Yours faithfully, Emily Brown.",
+      questions: [
+        { q: "What is the purpose of this letter?", options: ["To order food", "To apply for a job", "To invite a friend"], a: 1 },
+        { q: "Where does Emily want to work?", options: ["In a restaurant", "In a café", "In a school"], a: 1 },
+        { q: "When can she work?", options: ["Only on weekdays", "Only at night", "After school and on weekends"], a: 2 },
+        { q: "What personal quality does she mention?", options: ["She is lazy", "She is responsible", "She is shy"], a: 1 }
       ]
     }
   ];
 
   const readingContent = document.getElementById("readingContent");
 
-  // 🌟 Анимация звезды при правильном ответе
+  // 🌟 Анимация звёзд при правильных ответах
   function showStar() {
     const star = document.createElement("div");
     star.textContent = "⭐";
@@ -92,24 +88,23 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => star.remove(), 1000);
   }
 
-  // 🎯 Проверка ответов
+  // 🎯 Проверка ответа
   function checkAnswer(button, correctIndex, chosenIndex) {
     if (chosenIndex === correctIndex) {
-      button.style.backgroundColor = "#9df59d";
+      button.style.backgroundColor = "#aaf0a0";
       button.innerHTML += " ✅";
       totalScore++;
       showStar();
     } else {
-      button.style.backgroundColor = "#f5a1a1";
+      button.style.backgroundColor = "#f2a1a1";
       button.innerHTML += " ❌";
     }
   }
 
-  // 📖 Отображение текущего текста
+  // 📖 Показ текста и вопросов
   function showReading() {
     const r = readingData[currentReading];
-    let html = `<h3>${r.title}</h3><p>${r.text}</p>`;
-    html += `<div class='progress'>Score: ${totalScore}</div>`;
+    let html = `<h3>${r.title}</h3><p>${r.text}</p><div class='progress'>Score: ${totalScore}</div>`;
 
     r.questions.forEach((q, i) => {
       html += `<div class='question-block'><p><b>${i + 1}. ${q.q}</b></p>`;
@@ -120,8 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     readingContent.innerHTML = html;
-    const buttons = document.querySelectorAll(".optBtn");
-    buttons.forEach((btn) => {
+
+    document.querySelectorAll(".optBtn").forEach(btn => {
       btn.addEventListener("click", () => {
         const qi = parseInt(btn.dataset.q);
         const oi = parseInt(btn.dataset.opt);
@@ -130,12 +125,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // 🔄 плавное появление
     readingContent.style.animation = "none";
     setTimeout(() => { readingContent.style.animation = ""; }, 50);
   }
 
-  // 🧭 Кнопки навигации
+  // 🧭 Навигация
   const navDiv = document.createElement("div");
   navDiv.className = "nav-buttons";
   navDiv.innerHTML = `
@@ -150,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
   readingContent.after(navDiv);
   readingContent.after(menuDiv);
 
-  // Навигация
   document.getElementById("rPrev")?.addEventListener("click", () => {
     if (currentReading > 0) {
       currentReading--;
@@ -163,15 +156,10 @@ document.addEventListener("DOMContentLoaded", function () {
       currentReading++;
       showReading();
     } else {
-      readingContent.innerHTML = `<h3>🎉 Great job!</h3><p>You finished the Reading Olympiad!</p><p>Your total score: ${totalScore}</p>`;
+      readingContent.innerHTML = `<h3>🎉 Great job!</h3><p>You finished the Reading Olympiad!</p><p>Your total score: ${totalScore} / ${readingData.length * 4}</p>`;
     }
   });
 
   // 🚀 Запуск
   showReading();
 });
-
-
-    
-
-   
