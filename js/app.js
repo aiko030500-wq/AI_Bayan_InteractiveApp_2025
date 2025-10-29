@@ -27,20 +27,152 @@ document.getElementById("loginBtn").addEventListener("click", () => {
 // ------------------------------
 // 📘 Simple Grammar Trainer (kept)
 // ------------------------------
+// ------------------------------
+// 📘 Grammar Trainer Topics — A1–A2 full set
+// ------------------------------
 const grammarData = [
   { topic: "Present Simple", questions:[
-    { q:"She ____ to school every day.", a:"b", options:["go","goes","going"] },
-    { q:"They ____ football after school.", a:"a", options:["play","plays","playing"] },
-    { q:"He ____ TV every evening.", a:"b", options:["watch","watches","watching"] },
-    { q:"I ____ in Astana.", a:"a", options:["live","lives","living"] },
-    { q:"My brother ____ a bike.", a:"a", options:["has","have","having"] },
+    { q:"She ___ to school every day.", a:"b", options:["go","goes","going"] },
+    { q:"They ___ football after school.", a:"a", options:["play","plays","playing"] },
+    { q:"He ___ TV every evening.", a:"b", options:["watch","watches","watching"] },
+    { q:"I ___ in Astana.", a:"a", options:["live","lives","living"] },
+    { q:"My brother ___ a bike.", a:"a", options:["has","have","having"] },
   ]},
+
   { topic: "Past Simple", questions:[
-    { q:"I ____ to school yesterday.", a:"b", options:["go","went","gone"] },
-    { q:"We ____ our homework last night.", a:"a", options:["did","do","done"] },
-    { q:"They ____ football last weekend.", a:"b", options:["play","played","plays"] },
-    { q:"She ____ a new dress yesterday.", a:"b", options:["buys","bought","buy"] },
-    { q:"He ____ TV after dinner.", a:"a", options:["watched","watches","watch"] },
+    { q:"I ___ to school yesterday.", a:"b", options:["go","went","gone"] },
+    { q:"We ___ our homework last night.", a:"a", options:["did","do","done"] },
+    { q:"They ___ football last weekend.", a:"b", options:["play","played","plays"] },
+    { q:"She ___ a new dress yesterday.", a:"b", options:["buys","bought","buy"] },
+    { q:"He ___ TV after dinner.", a:"a", options:["watched","watches","watch"] },
+  ]},
+
+  { topic: "Present Continuous", questions:[
+    { q:"She ___ now.", a:"b", options:["reads","is reading","read"] },
+    { q:"They ___ football at the moment.", a:"c", options:["play","playing","are playing"] },
+    { q:"I ___ to music now.", a:"c", options:["listen","listening","am listening"] },
+    { q:"He ___ his homework.", a:"b", options:["do","is doing","does"] },
+    { q:"We ___ breakfast right now.", a:"b", options:["have","are having","has"] },
+  ]},
+
+  { topic: "Future Simple (Will)", questions:[
+    { q:"I think it ___ rain tomorrow.", a:"a", options:["will","is","was"] },
+    { q:"We ___ go to the cinema tonight.", a:"a", options:["will","are","was"] },
+    { q:"She ___ be happy to see you.", a:"a", options:["will","is","was"] },
+    { q:"They ___ study for the test.", a:"a", options:["will","are","were"] },
+    { q:"He ___ call you later.", a:"a", options:["will","is","was"] },
+  ]},
+
+  { topic: "There is / There are", questions:[
+    { q:"___ a cat on the table.", a:"a", options:["There is","There are","It is"] },
+    { q:"___ many books on the shelf.", a:"b", options:["There is","There are","It are"] },
+    { q:"___ some milk in the fridge.", a:"a", options:["There is","There are","It is"] },
+    { q:"___ two apples on the table.", a:"b", options:["There is","There are","It are"] },
+    { q:"___ a computer in the room.", a:"a", options:["There is","There are","It has"] },
+  ]},
+
+  { topic: "Have got / Has got", questions:[
+    { q:"I ___ a dog.", a:"a", options:["have got","has got","having"] },
+    { q:"She ___ a brother.", a:"b", options:["have got","has got","have"] },
+    { q:"They ___ many friends.", a:"a", options:["have got","has got","has"] },
+    { q:"He ___ a car.", a:"b", options:["have got","has got","have"] },
+    { q:"We ___ new books.", a:"a", options:["have got","has got","has"] },
+  ]},
+
+  { topic: "Can / Can't", questions:[
+    { q:"I ___ swim very well.", a:"a", options:["can","can’t","must"] },
+    { q:"She ___ drive a car.", a:"b", options:["can","can’t","must"] },
+    { q:"We ___ play the guitar.", a:"a", options:["can","must","has"] },
+    { q:"He ___ cook delicious food.", a:"a", options:["can","mustn’t","was"] },
+    { q:"They ___ speak Chinese.", a:"b", options:["can","can’t","must"] },
+  ]},
+
+  { topic: "Must / Mustn't", questions:[
+    { q:"You ___ do your homework.", a:"a", options:["must","mustn’t","can"] },
+    { q:"You ___ smoke here.", a:"b", options:["must","mustn’t","can"] },
+    { q:"Students ___ wear uniforms.", a:"a", options:["must","mustn’t","can’t"] },
+    { q:"You ___ be late for class.", a:"b", options:["must","mustn’t","don’t have to"] },
+    { q:"We ___ respect our teachers.", a:"a", options:["must","mustn’t","can’t"] },
+  ]},
+
+  { topic: "Comparatives", questions:[
+    { q:"A car is ___ than a bike.", a:"a", options:["faster","fast","the fastest"] },
+    { q:"My house is ___ than yours.", a:"a", options:["bigger","big","the biggest"] },
+    { q:"Today is ___ than yesterday.", a:"a", options:["colder","cold","the coldest"] },
+    { q:"English is ___ than Math.", a:"a", options:["easier","easy","the easiest"] },
+    { q:"This book is ___ than that one.", a:"a", options:["more interesting","interesting","the most interesting"] },
+  ]},
+
+  { topic: "Superlatives", questions:[
+    { q:"Mount Everest is ___ mountain in the world.", a:"a", options:["the highest","higher","high"] },
+    { q:"This is ___ day of my life!", a:"a", options:["the best","better","good"] },
+    { q:"He is ___ student in the class.", a:"a", options:["the smartest","smarter","smart"] },
+    { q:"February is ___ month of the year.", a:"a", options:["the shortest","short","shorter"] },
+    { q:"That was ___ film I’ve ever seen.", a:"a", options:["the funniest","funny","funnier"] },
+  ]},
+
+  { topic: "Countable / Uncountable nouns", questions:[
+    { q:"How many ___ are there?", a:"a", options:["apples","milk","bread"] },
+    { q:"How much ___ do you drink?", a:"b", options:["bananas","water","oranges"] },
+    { q:"There isn’t any ___ left.", a:"c", options:["apple","juice","bread"] },
+    { q:"I bought some ___ at the shop.", a:"a", options:["cheese","chairs","tables"] },
+    { q:"We need some ___ for breakfast.", a:"a", options:["eggs","waters","milks"] },
+  ]},
+
+  { topic: "Some / Any / Much / Many", questions:[
+    { q:"There are ___ students in the room.", a:"a", options:["many","much","some"] },
+    { q:"There isn’t ___ sugar in the cup.", a:"b", options:["many","much","some"] },
+    { q:"Do you have ___ friends?", a:"a", options:["many","much","some"] },
+    { q:"I need ___ help, please.", a:"c", options:["many","much","some"] },
+    { q:"There are ___ apples on the table.", a:"a", options:["many","much","some"] },
+  ]},
+
+  { topic: "Prepositions of place", questions:[
+    { q:"The cat is ___ the table.", a:"b", options:["in","on","under"] },
+    { q:"The shoes are ___ the bed.", a:"c", options:["in","on","under"] },
+    { q:"The picture is ___ the wall.", a:"b", options:["under","on","in"] },
+    { q:"The dog is ___ the box.", a:"a", options:["in","on","under"] },
+    { q:"The ball is ___ the chair.", a:"c", options:["on","in","under"] },
+  ]},
+
+  { topic: "Prepositions of time", questions:[
+    { q:"My birthday is ___ May.", a:"a", options:["in","on","at"] },
+    { q:"We go to school ___ the morning.", a:"a", options:["in","on","at"] },
+    { q:"The lesson starts ___ 9 o’clock.", a:"c", options:["in","on","at"] },
+    { q:"They visit us ___ Sunday.", a:"b", options:["in","on","at"] },
+    { q:"He studies ___ night.", a:"c", options:["in","on","at"] },
+  ]},
+
+  { topic: "Adverbs of frequency", questions:[
+    { q:"I ___ go to school by bus.", a:"b", options:["never","always","sometimes"] },
+    { q:"She is ___ late for class.", a:"a", options:["never","always","rarely"] },
+    { q:"We ___ play football on Fridays.", a:"c", options:["never","always","usually"] },
+    { q:"They are ___ on time.", a:"b", options:["never","always","often"] },
+    { q:"He ___ forgets his homework.", a:"c", options:["always","never","sometimes"] },
+  ]},
+
+  { topic: "Question words", questions:[
+    { q:"___ are you from?", a:"a", options:["Where","Who","When"] },
+    { q:"___ is your name?", a:"b", options:["What","Who","Where"] },
+    { q:"___ is that boy?", a:"b", options:["Where","Who","When"] },
+    { q:"___ do you go to school?", a:"a", options:["When","Where","How"] },
+    { q:"___ is your favorite color?", a:"a", options:["What","Who","Where"] },
+  ]},
+
+  { topic: "Possessive adjectives", questions:[
+    { q:"This is ___ book.", a:"a", options:["my","me","mine"] },
+    { q:"Is this ___ pencil?", a:"b", options:["you","your","yours"] },
+    { q:"He loves ___ dog.", a:"b", options:["him","his","he’s"] },
+    { q:"We are in ___ classroom.", a:"b", options:["we","us","our"] },
+    { q:"They have ___ own house.", a:"b", options:["them","their","theirs"] },
+  ]},
+
+  { topic: "Demonstratives", questions:[
+    { q:"___ is my pen.", a:"a", options:["This","That","These"] },
+    { q:"___ are my friends.", a:"c", options:["This","That","These"] },
+    { q:"___ is my bag over there.", a:"b", options:["This","That","These"] },
+    { q:"___ shoes are nice.", a:"c", options:["This","That","These"] },
+    { q:"___ is an apple.", a:"a", options:["This","Those","These"] },
   ]},
 ];
 
