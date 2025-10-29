@@ -33,7 +33,7 @@ document.getElementById("loginBtn").addEventListener("click", () => {
 });
 
 // навигация между разделами меню
-document.querySelectorAll("#menu button[data-target]").forEach((btn) => {
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
   btn.addEventListener("click", () => {
     const target = btn.getAttribute("data-target");
     show(target);
