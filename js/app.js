@@ -86,22 +86,49 @@ function playStar(){
 }
 
 // ------------------------------
-// 🧭 Menu routing (includes Olympiads)
+// 🧭 Menu routing (fixed version)
 // ------------------------------
-document.querySelectorAll("#menu button[data-target]").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+  btn.addEventListener("click", () => {
     const target = btn.getAttribute("data-target");
-    if (target === "olimp") {
-      window.currentOlimp = 0; window.olimpScore = 0;
-      show("olimp"); if (typeof showOlimpQuestion === "function") showOlimpQuestion();
-    } else if (target === "listening") {
-      window.currentListening = 0; window.listeningScore = 0;
-      show("listening"); if (typeof showListening === "function") showListening();
-    } else {
+
+    // 🎯 Grammar Trainer
+    if (target === "grammar") {
+      show("grammar");
+      if (typeof showQuestion === "function") {
+        currentTopic = 0;
+        currentQuestion = 0;
+        score = 0;
+        showQuestion();
+      }
+    }
+
+    // 🏅 Grammar Olympiad
+    else if (target === "olimp") {
+      show("olimp");
+      if (typeof showOlimpQuestion === "function") {
+        currentOlimp = 0;
+        olimpScore = 0;
+        showOlimpQuestion();
+      }
+    }
+
+    // 🎧 Listening Olympiad
+    else if (target === "listening") {
+      show("listening");
+      if (typeof showListening === "function") {
+        currentListening = 0;
+        listeningScore = 0;
+        showListening();
+      }
+    }
+
+    // 🧠 Vocabulary etc.
+    else {
       show(target);
     }
   });
 });
 
-// start trainer
-showQuestion();
+
+
