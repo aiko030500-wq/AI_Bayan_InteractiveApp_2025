@@ -1,39 +1,29 @@
 // ------------------------------
-// 🎧 AI Bayan Listening Olympiad — A2 (fixed and working)
+// 🎧 AI Bayan Listening Olympiad — A2 (final fixed)
 // ------------------------------
 document.addEventListener("DOMContentLoaded", function() {
 
   const listeningData = [
-    { title:"1. At the Library",
-      audio:"https://cdn.pixabay.com/download/audio/2022/10/31/audio_b7c0e9a03f.mp3?filename=calm-reading-room-12410.mp3",
+    { title:"1. At the Library", audio:"sound/library.mp3",
       q:"Where is the speaker?", options:["At a restaurant","At the library","At the park","At school"], a:"b" },
-    { title:"2. The Weather",
-      audio:"https://cdn.pixabay.com/download/audio/2021/09/20/audio_3b88c9b9b2.mp3?filename=rain-and-thunder-ambient-8633.mp3",
+    { title:"2. The Weather", audio:"sound/weather.mp3",
       q:"What is the weather like?", options:["Sunny","Rainy","Windy","Snowy"], a:"b" },
-    { title:"3. At the Airport",
-      audio:"https://cdn.pixabay.com/download/audio/2022/03/15/audio_2e48f6c203.mp3?filename=airport-announcement-ambient-14526.mp3",
+    { title:"3. At the Airport", audio:"sound/airport.mp3",
       q:"Where are the people?", options:["In a shop","At the airport","At home","In a cinema"], a:"b" },
-    { title:"4. Morning Routine",
-      audio:"https://cdn.pixabay.com/download/audio/2022/03/09/audio_5f3b602d8c.mp3?filename=morning-birds-and-cooking-14340.mp3",
+    { title:"4. Morning Routine", audio:"sound/morning.mp3",
       q:"What does the boy do in the morning?", options:["Plays football","Eats breakfast","Goes shopping","Sleeps"], a:"b" },
-    { title:"5. A Trip to the Zoo",
-      audio:"https://cdn.pixabay.com/download/audio/2021/08/04/audio_81b4efb9e7.mp3?filename=zoo-animals-soundscape-7548.mp3",
+    { title:"5. A Trip to the Zoo", audio:"sound/zoo.mp3",
       q:"Where are the children?", options:["At the park","At the zoo","At home","At school"], a:"b" },
-    { title:"6. In the Classroom",
-      audio:"https://cdn.pixabay.com/download/audio/2021/09/20/audio_9e3f6f2734.mp3?filename=students-in-classroom-8638.mp3",
+    { title:"6. In the Classroom", audio:"sound/classroom.mp3",
       q:"What are the students doing?", options:["Sleeping","Reading","Cooking","Running"], a:"b" },
-    { title:"7. Visiting Grandma",
-      audio:"https://cdn.pixabay.com/download/audio/2022/01/17/audio_267cb1e5a4.mp3?filename=family-talking-ambient-10479.mp3",
+    { title:"7. Visiting Grandma", audio:"sound/grandma.mp3",
       q:"Who are they visiting?", options:["Their teacher","Their grandma","Their friend","Their neighbor"], a:"b" },
-    { title:"8. At the Restaurant",
-      audio:"https://cdn.pixabay.com/download/audio/2021/09/20/audio_25e2d4ac74.mp3?filename=restaurant-ambience-8631.mp3",
+    { title:"8. At the Restaurant", audio:"sound/restaurant.mp3",
       q:"Where are the people?", options:["At home","At a restaurant","At the airport","At the library"], a:"b" },
-    { title:"9. The Birthday Party",
-      audio:"https://cdn.pixabay.com/download/audio/2021/09/20/audio_cce1986c23.mp3?filename=kids-party-8630.mp3",
+    { title:"9. The Birthday Party", audio:"sound/party.mp3",
       q:"What is the event?", options:["A concert","A lesson","A birthday party","A trip"], a:"c" },
-    { title:"10. Shopping Day",
-      audio:"https://cdn.pixabay.com/download/audio/2021/09/20/audio_23e0b9a0c6.mp3?filename=shopping-mall-ambience-8636.mp3",
-      q:"Where is the woman?", options:["In a park","At home","At the shopping mall","In the kitchen"], a:"c" },
+    { title:"10. Shopping Day", audio:"sound/shopping.mp3",
+      q:"Where is the woman?", options:["In a park","At home","At the shopping mall","In the kitchen"], a:"c" }
   ];
 
   let currentListening = 0;
@@ -63,9 +53,8 @@ document.addEventListener("DOMContentLoaded", function() {
       try { new Audio("sound/ding.wav").play(); } catch(e){}
     }
     currentListening++;
-    if (currentListening < listeningData.length){
-      showListening();
-    } else {
+    if (currentListening < listeningData.length){ showListening(); }
+    else {
       listeningContent.innerHTML = `
         <h3>🎧 Finished!</h3>
         <p>Your score: <b>${listeningScore} / ${listeningData.length}</b></p>
@@ -75,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Навигация
+  // Navigation
   document.getElementById("lMenu").addEventListener("click", ()=> show("menu"));
   document.getElementById("lNext").addEventListener("click", ()=>{
     currentListening = Math.min(currentListening+1, listeningData.length-1);
@@ -83,14 +72,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   document.getElementById("lPrev").addEventListener("click", ()=>{
     currentListening = Math.max(currentListening-1, 0);
-      // Первая загрузка
+    showListening();
+  });
+
   showListening();
-
-});
-
-
-
-  // Первая загрузка
-  showListening();
-
 });
