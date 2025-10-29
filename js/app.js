@@ -32,14 +32,6 @@ document.getElementById("loginBtn").addEventListener("click", () => {
   }
 });
 
-// навигация между разделами меню
-document.querySelectorAll("#menu button[data-target]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const target = btn.getAttribute("data-target");
-    show(target);
-  });
-});
-
 // ------------------------------
 // 📘 AI Bayan Grammar Trainer (A2 Level)
 // ------------------------------
@@ -139,6 +131,28 @@ function playStarAnimation() {
   document.body.appendChild(star);
   setTimeout(() => star.remove(), 1000);
 }
+
+// ------------------------------
+// 🏅 Navigation for Olympiads
+// ------------------------------
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+  const target = btn.getAttribute("data-target");
+  btn.addEventListener("click", () => {
+    if (target === "olimp") {
+      currentOlimp = 0;
+      olimpScore = 0;
+      show("olimp");
+      showOlimpQuestion();
+    } else if (target === "listening") {
+      currentListening = 0;
+      listeningScore = 0;
+      show("listening");
+      showListening();
+    } else {
+      show(target);
+    }
+  });
+});
 
 // запуск первого вопроса
 showQuestion();
