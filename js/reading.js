@@ -1,152 +1,104 @@
 // ------------------------------
 // AI Bayan Reading Trainer 2025 — Level A2 (Olympiad Edition)
-// 12 texts × 5 multiple-choice questions
 // ------------------------------
 
+let currentReading = 0;
+let currentScore = 0;
+
+// ==============================
+// 12 texts × 5 multiple-choice questions
+// ==============================
 const readingData = [
   {
     title: "1. A Day in London",
-    text: "London is one of the most exciting cities in the world. You can visit the London Eye, see Big Ben, and walk near the River Thames. Many tourists enjoy going to museums and eating fish and chips. The weather is sometimes rainy, but people still smile and take photos everywhere.",
+    text: "Anna is spending her holiday in London. Every morning, she takes the underground to visit famous places like the Tower of London and the British Museum. She loves walking in Hyde Park and eating fish and chips. In the evening, she watches the lights of the city from the London Eye. It’s her first time abroad, and she finds the city both busy and beautiful.",
     questions: [
-      { q: "Where is Big Ben?", a: "b", options: ["In Paris", "In London", "In New York"] },
-      { q: "What do tourists often eat?", a: "c", options: ["Pizza", "Pasta", "Fish and chips"] },
-      { q: "What river goes through London?", a: "b", options: ["The Seine", "The Thames", "The Nile"] },
-      { q: "How is the weather often in London?", a: "a", options: ["Rainy", "Sunny", "Hot"] },
-      { q: "What do people do in London?", a: "b", options: ["Sleep all day", "Visit museums", "Go skiing"] }
+      { q: "Where is Anna spending her holiday?", options: ["Paris", "London", "Rome"], a: 1 },
+      { q: "How does she travel around the city?", options: ["By bus", "By underground", "By taxi"], a: 1 },
+      { q: "What food does she like?", options: ["Sushi", "Fish and chips", "Pizza"], a: 1 },
+      { q: "Where does she go in the evening?", options: ["Big Ben", "London Eye", "Hyde Park"], a: 1 },
+      { q: "Is it her first trip abroad?", options: ["Yes", "No", "Not mentioned"], a: 0 }
     ]
   },
   {
-    title: "2. My Favourite Hobby",
-    text: "My name is Aigerim and I love painting. Every weekend I take my brushes, sit near the window, and draw what I see. Sometimes I paint mountains, sometimes the sea. My dream is to become an artist and open my own gallery.",
+    title: "2. My Best Friend",
+    text: "My best friend is Tom. He is 14 years old and studies in the same class as me. He always helps others and is very good at football. Every weekend we play in the park, and sometimes we watch movies together. He is honest, friendly, and I can always trust him.",
     questions: [
-      { q: "What is Aigerim’s hobby?", a: "a", options: ["Painting", "Singing", "Dancing"] },
-      { q: "Where does she paint?", a: "b", options: ["In a park", "Near the window", "At school"] },
-      { q: "What does she sometimes draw?", a: "a", options: ["Mountains", "Cars", "Animals"] },
-      { q: "What is her dream?", a: "c", options: ["Be a teacher", "Be a pilot", "Be an artist"] },
-      { q: "When does she usually paint?", a: "a", options: ["On weekends", "At night", "Every morning"] }
+      { q: "How old is Tom?", options: ["12", "13", "14"], a: 2 },
+      { q: "What sport does Tom play well?", options: ["Basketball", "Football", "Tennis"], a: 1 },
+      { q: "Where do they play every weekend?", options: ["At school", "In the park", "In the yard"], a: 1 },
+      { q: "What do they sometimes do together?", options: ["Cook", "Watch movies", "Study"], a: 1 },
+      { q: "What kind of person is Tom?", options: ["Lazy", "Selfish", "Honest"], a: 2 }
     ]
   },
   {
-    title: "3. The Smart Dolphin",
-    text: "Dolphins are very intelligent animals. They can swim fast, jump high, and even help people in the sea. Scientists say dolphins can talk to each other using sounds. They live in groups called pods and eat fish.",
+    title: "3. My School Day",
+    text: "I usually wake up at seven o’clock and go to school at eight. My favorite subject is English because I love learning new words. At lunchtime, I eat with my friends in the school canteen. After school, I do my homework and play computer games. In the evening, I read books or watch TV.",
     questions: [
-      { q: "What kind of animals are dolphins?", a: "b", options: ["Dangerous", "Intelligent", "Slow"] },
-      { q: "What do dolphins eat?", a: "c", options: ["Grass", "Fruits", "Fish"] },
-      { q: "How do dolphins communicate?", a: "a", options: ["By sounds", "By letters", "By pictures"] },
-      { q: "Where do dolphins live?", a: "b", options: ["In forests", "In the sea", "On land"] },
-      { q: "What are groups of dolphins called?", a: "c", options: ["Flocks", "Families", "Pods"] }
+      { q: "What time does the writer wake up?", options: ["6", "7", "8"], a: 1 },
+      { q: "What is the writer’s favorite subject?", options: ["Math", "English", "Art"], a: 1 },
+      { q: "Where does the writer eat lunch?", options: ["At home", "In the canteen", "At a café"], a: 1 },
+      { q: "What does the writer do after school?", options: ["Plays football", "Does homework", "Watches movies"], a: 1 },
+      { q: "What does the writer do in the evening?", options: ["Reads or watches TV", "Plays games", "Visits friends"], a: 0 }
     ]
   },
   {
-    title: "4. The School Trip",
-    text: "Last Friday, our class went on a trip to the zoo. We saw lions, giraffes, monkeys, and zebras. The weather was sunny and we took many photos. Our teacher bought us ice cream. It was the best day of the week!",
+    title: "4. A Trip to the Mountains",
+    text: "Last weekend, my family went to the mountains. The air was fresh, and the view was beautiful. We climbed a small hill, took many photos, and had a picnic. My little sister found colorful flowers and butterflies. It was a perfect day full of nature and joy.",
     questions: [
-      { q: "Where did the class go?", a: "a", options: ["To the zoo", "To the park", "To the cinema"] },
-      { q: "What animals did they see?", a: "c", options: ["Dogs and cats", "Fish and birds", "Lions and giraffes"] },
-      { q: "How was the weather?", a: "b", options: ["Rainy", "Sunny", "Cold"] },
-      { q: "What did the teacher buy?", a: "a", options: ["Ice cream", "Books", "Juice"] },
-      { q: "How did they feel?", a: "c", options: ["Sad", "Bored", "Happy"] }
+      { q: "Where did the family go?", options: ["To the sea", "To the mountains", "To the park"], a: 1 },
+      { q: "What did they do there?", options: ["Swam", "Climbed", "Slept"], a: 1 },
+      { q: "Who found flowers?", options: ["Mother", "Brother", "Sister"], a: 2 },
+      { q: "What did they have for lunch?", options: ["A picnic", "Fast food", "Dinner"], a: 0 },
+      { q: "How was the weather?", options: ["Rainy", "Cold", "Fresh"], a: 2 }
     ]
   },
   {
-    title: "5. A Robot Helper",
-    text: "In the future, robots will help people at home. They will cook food, clean rooms, and even teach children. Some people already have small robots that can answer questions and play music. Life will be easier with robots.",
+    title: "5. My Favorite Hobby",
+    text: "My favorite hobby is drawing. I started drawing when I was five. I love using colors to make animals and nature. Every evening, I spend one hour drawing in my sketchbook. My parents always support me and say that I’m talented.",
     questions: [
-      { q: "What will robots do in the future?", a: "a", options: ["Help people", "Play games", "Go to school"] },
-      { q: "Where will robots work?", a: "b", options: ["In shops", "At home", "In the forest"] },
-      { q: "What can small robots do now?", a: "a", options: ["Answer questions", "Fly", "Sleep"] },
-      { q: "How will life be with robots?", a: "c", options: ["Harder", "The same", "Easier"] },
-      { q: "Who will robots teach?", a: "b", options: ["Parents", "Children", "Animals"] }
-    ]
-  },
-  {
-    title: "6. My Pet Cat",
-    text: "I have a white cat. Her name is Snowy. She likes to sleep on my bed and play with a ball. Every morning I feed her milk and she follows me everywhere. Snowy is my best friend.",
-    questions: [
-      { q: "What colour is the cat?", a: "a", options: ["White", "Black", "Brown"] },
-      { q: "What is the cat’s name?", a: "c", options: ["Kitty", "Misty", "Snowy"] },
-      { q: "What does the cat like to do?", a: "b", options: ["Run in the park", "Sleep and play", "Catch birds"] },
-      { q: "What does the owner give the cat?", a: "a", options: ["Milk", "Fish", "Bread"] },
-      { q: "Why is Snowy special?", a: "c", options: ["She talks", "She is big", "She is her best friend"] }
-    ]
-  },
-  {
-    title: "7. The Internet Café",
-    text: "There is a new Internet café in my town. You can drink coffee, eat cake, and use the Wi-Fi for free. Many students come here to do homework or play games. The owner is very friendly and helps everyone.",
-    questions: [
-      { q: "What is new in the town?", a: "b", options: ["A park", "An Internet café", "A supermarket"] },
-      { q: "What can you do there?", a: "a", options: ["Drink coffee and use Wi-Fi", "Swim", "Dance"] },
-      { q: "Who visits the café often?", a: "b", options: ["Old people", "Students", "Teachers"] },
-      { q: "What is free there?", a: "a", options: ["Wi-Fi", "Food", "Drinks"] },
-      { q: "What is the owner like?", a: "b", options: ["Angry", "Friendly", "Busy"] }
-    ]
-  },
-  {
-    title: "8. Summer Camp",
-    text: "Every summer, children from different cities come to our camp near the lake. They sleep in wooden houses, go hiking, and play sports. In the evening, we sit near the fire, sing songs, and tell stories. Everyone has fun and makes new friends.",
-    questions: [
-      { q: "Where is the camp?", a: "c", options: ["In the city", "In the mountains", "Near the lake"] },
-      { q: "What do children do in the camp?", a: "b", options: ["Work", "Play sports", "Study"] },
-      { q: "What do they do in the evening?", a: "a", options: ["Sing songs", "Sleep", "Watch TV"] },
-      { q: "What are the houses made of?", a: "b", options: ["Stone", "Wood", "Glass"] },
-      { q: "Why do children like the camp?", a: "c", options: ["They eat a lot", "They travel alone", "They make new friends"] }
-    ]
-  },
-  {
-    title: "9. Traditional Food",
-    text: "Every country has its own traditional food. In Kazakhstan, people like to eat beshbarmak. It is made from meat and noodles. In Japan, people eat sushi, and in Italy, they eat pasta. Food is an important part of every culture.",
-    questions: [
-      { q: "What do people in Kazakhstan eat?", a: "a", options: ["Beshbarmak", "Pizza", "Sushi"] },
-      { q: "What is beshbarmak made from?", a: "c", options: ["Rice", "Fish", "Meat and noodles"] },
-      { q: "Where do people eat sushi?", a: "b", options: ["France", "Japan", "Brazil"] },
-      { q: "What do Italians like to eat?", a: "c", options: ["Soup", "Bread", "Pasta"] },
-      { q: "What is important in every culture?", a: "a", options: ["Food", "Music", "Sports"] }
-    ]
-  },
-  {
-    title: "10. Visiting the Space Museum",
-    text: "Our school visited the Space Museum last month. We learned about astronauts, rockets, and planets. I saw a real space suit and watched a film about Yuri Gagarin. Now I want to study science and become an astronaut.",
-    questions: [
-      { q: "Where did the class go?", a: "b", options: ["To a zoo", "To the Space Museum", "To the cinema"] },
-      { q: "What did they learn about?", a: "a", options: ["Astronauts", "Animals", "Mountains"] },
-      { q: "Who is Yuri Gagarin?", a: "b", options: ["A singer", "An astronaut", "A teacher"] },
-      { q: "What did the narrator see?", a: "a", options: ["A real space suit", "A car", "A computer"] },
-      { q: "What does the narrator want to be?", a: "c", options: ["Doctor", "Artist", "Astronaut"] }
-    ]
-  },
-  {
-    title: "11. A Rainy Day",
-    text: "Today is rainy and cold. I can’t play outside, so I am reading my favourite book. My sister is watching a movie. Our dog is sleeping near the sofa. Even though it’s raining, we are having a good time at home.",
-    questions: [
-      { q: "What is the weather like today?", a: "b", options: ["Sunny", "Rainy", "Windy"] },
-      { q: "What is the narrator doing?", a: "a", options: ["Reading a book", "Sleeping", "Watching TV"] },
-      { q: "What is the sister doing?", a: "b", options: ["Reading", "Watching a movie", "Cooking"] },
-      { q: "Where is the dog?", a: "c", options: ["In the garden", "On the bed", "Near the sofa"] },
-      { q: "How do they feel?", a: "a", options: ["Happy", "Sad", "Angry"] }
-    ]
-  },
-  {
-    title: "12. My Dream Job",
-    text: "I want to become a doctor. I think helping people is important. Doctors work in hospitals and help sick people get better. My parents say it’s a hard job, but I am ready to study hard to make my dream come true.",
-    questions: [
-      { q: "What is the narrator’s dream job?", a: "a", options: ["Doctor", "Teacher", "Artist"] },
-      { q: "Where do doctors work?", a: "c", options: ["In a shop", "At school", "In hospitals"] },
-      { q: "What do doctors do?", a: "b", options: ["Play football", "Help people", "Build houses"] },
-      { q: "What do the parents say?", a: "a", options: ["It’s a hard job", "It’s an easy job", "It’s boring"] },
-      { q: "What will the narrator do to reach the dream?", a: "c", options: ["Sleep", "Travel", "Study hard"] }
+      { q: "What is the writer’s hobby?", options: ["Drawing", "Dancing", "Singing"], a: 0 },
+      { q: "When did the writer start drawing?", options: ["At 5", "At 7", "At 10"], a: 0 },
+      { q: "What does the writer like to draw?", options: ["People", "Animals and nature", "Cars"], a: 1 },
+      { q: "How often does the writer draw?", options: ["Every day", "Every evening", "Every weekend"], a: 1 },
+      { q: "What do the writer’s parents say?", options: ["You are lazy", "You are talented", "You need to study"], a: 1 }
     ]
   }
 ];
 
 // ------------------------------
-// Core Logic for Reading Trainer
+// Display function
 // ------------------------------
+function showReadingText() {
+  const data = readingData[currentReading];
+  const readingContent = document.getElementById("readingContent");
+  let html = `<h3>${data.title}</h3><p>${data.text}</p><ol>`;
+  data.questions.forEach((item, i) => {
+    html += `<li>${item.q}<br>${item.options.map((opt, j) => 
+      `<button class='rOpt' data-i='${i}' data-a='${j}'>${opt}</button>`
+    ).join(" ")}</li>`;
+  });
+  html += "</ol><p><b>Score:</b> " + currentScore + "</p>";
+  readingContent.innerHTML = html;
 
-let currentText = 0;
-let currentQ = 0;
-let readingScore = 0;
+  document.querySelectorAll(".rOpt").forEach(btn => {
+    btn.onclick = () => checkReadingAnswer(btn.dataset.i, btn.dataset.a);
+  });
+}
 
-const readingContent = document.getElementById("readingContent");
+// ------------------------------
+// Check answers
+// ------------------------------
+function checkReadingAnswer(i, a) {
+  if (parseInt(a) === readingData[currentReading].questions[i].a) {
+    currentScore++;
+    new Audio("sound/ding.wav").play();
+  } else {
+    new Audio("sound/error.wav").play();
+  }
+  showReadingText();
+}
+
 // ------------------------------
 // Navigation buttons
 // ------------------------------
@@ -165,61 +117,5 @@ document.getElementById("rNext").addEventListener("click", () => {
 document.getElementById("rMenu").addEventListener("click", () => {
   show("menu");
 });
-
-function showReadingText() {
-  const textObj = readingData[currentText];
-  readingContent.innerHTML = `
-    <h3>${textObj.title}</h3>
-    <p>${textObj.text}</p>
-    <div id="readingQuestions"></div>
-  `;
-  showReadingQuestions();
-}
-
-function showReadingQuestions() {
-  const textObj = readingData[currentText];
-  const q = textObj.questions[currentQ];
-  document.getElementById("readingQuestions").innerHTML = `
-    <p><b>Q${currentQ + 1}.</b> ${q.q}</p>
-    ${q.options.map((opt, i) => 
-      `<button class='optBtn' data-opt='${String.fromCharCode(97 + i)}'>${opt}</button>`).join("<br>")}
-  `;
-  document.querySelectorAll(".optBtn").forEach(btn => {
-    btn.onclick = () => checkReadingAnswer(btn.dataset.opt);
-  });
-}
-
-function checkReadingAnswer(choice) {
-  const correct = readingData[currentText].questions[currentQ].a;
-  if (choice === correct) {
-    readingScore++;
-    playStarAnimation();
-    new Audio("sound/ding.wav").play();
-  }
-  currentQ++;
-  if (currentQ < readingData[currentText].questions.length) {
-    showReadingQuestions();
-  } else {
-    currentText++;
-    currentQ = 0;
-    if (currentText < readingData.length) {
-      showReadingText();
-    } else {
-      readingContent.innerHTML = `<h3>🎉 Excellent!</h3><p>You finished all texts.<br>Your score: ${readingScore}</p>`;
-    }
-  }
-}
-
-function playStarAnimation() {
-  const star = document.createElement("div");
-  star.textContent = "⭐";
-  star.style.position = "absolute";
-  star.style.left = "50%";
-  star.style.top = "50%";
-  star.style.fontSize = "40px";
-  star.style.animation = "fly 1s ease-out";
-  document.body.appendChild(star);
-  setTimeout(() => star.remove(), 1000);
-}
 
 showReadingText();
