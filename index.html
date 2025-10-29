@@ -33,12 +33,11 @@
     </div>
   </div>
 
- <!-- 📘 Grammar Trainer -->
-<div id="grammar" class="screen section">
-  <h2>Grammar — Topic <span id="gTopicNo">1</span></h2>
-  <div id="grammarContent"></div>
-  <div class="nav-buttons">
-    <button
+  <!-- 📘 Grammar Trainer -->
+  <div id="grammar" class="screen section">
+    <h2>Grammar — Topic <span id="gTopicNo">1</span></h2>
+    <div id="grammarContent"></div>
+    <div class="nav-buttons">
       <button id="gBack">⬅️ Back</button>
       <button id="gNext">➡️ Next</button>
       <button class="back-menu" onclick="show('menu')">🏠 Back to Menu</button>
@@ -54,7 +53,7 @@
       <button id="oNext">➡️ Next</button>
     </div>
     <div class="menu-return">
-      <button id="oMenu">🏠 Back to Menu</button>
+      <button id="oMenu" onclick="show('menu')">🏠 Back to Menu</button>
     </div>
   </div>
 
@@ -67,13 +66,32 @@
       <button id="lNext">➡️ Next</button>
     </div>
     <div class="menu-return">
-      <button id="lMenu">🏠 Back to Menu</button>
+      <button id="lMenu" onclick="show('menu')">🏠 Back to Menu</button>
     </div>
   </div>
 
-  <!-- ============================== -->
   <!-- ⚙️ Scripts -->
-  <!-- ============================== -->
+  <script>
+    // Простая функция для переключения экранов
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Пример: переход с логина в меню
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      show('menu');
+    });
+
+    // Навигация по меню
+    document.querySelectorAll('#menu button[data-target]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        show(target);
+      });
+    });
+  </script>
+
   <script src="js/app.js"></script>
   <script src="js/grammar_olimp.js"></script>
   <script src="js/listening_olimp.js"></script>
