@@ -129,3 +129,158 @@ button.back-menu {
   overflow-y: auto;
   font-family: "Verdana", sans-serif;
 }
+/* ======================================= */
+/* 💬 AI Bayan Floating Chat Styles         */
+/* ======================================= */
+
+/* 🔘 Плавающая кнопка AI Bayan */
+#aiBayanBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#aiBayanBtn img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  animation: glowPulse 3s infinite ease-in-out;
+}
+
+#aiBayanBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 210, 0, 0.8);
+}
+
+/* ✨ Эффект мягкого свечения логотипа */
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 0px rgba(255, 210, 0, 0)); }
+  50% { filter: drop-shadow(0 0 10px rgba(255, 210, 0, 0.8)); }
+}
+
+/* 💛 Окно чата */
+#chatBox {
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  width: 330px;
+  height: 460px;
+  background: #fffdf3;
+  border: 2px solid #ffd43b;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10000;
+  animation: fadeInChat 0.5s ease forwards;
+}
+
+#chatBox.active {
+  display: flex;
+}
+
+/* 🌟 Анимация появления чата */
+@keyframes fadeInChat {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🟨 Заголовок чата */
+#chatHeader {
+  background: linear-gradient(90deg, #ffe066, #ffcc00);
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #ffd43b;
+}
+
+#chatHeader .chat-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* 💬 Сообщения */
+#chatMessages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+#chatMessages div {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  max-width: 90%;
+}
+
+#chatMessages div.user {
+  background: #ffef99;
+  align-self: flex-end;
+  text-align: right;
+}
+
+#chatMessages div.ai {
+  background: #fff7cc;
+  align-self: flex-start;
+}
+
+/* ✏️ Поле ввода */
+#chatInputArea {
+  display: flex;
+  border-top: 1px solid #ccc;
+  background: #fffbe6;
+}
+
+#chatInputArea input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  outline: none;
+  background: transparent;
+}
+
+#chatInputArea button {
+  background: #ffcc00;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  border-left: 1px solid #ffd43b;
+}
+
+#chatInputArea button:hover {
+  background: #ffe066;
+}
+
+/* ❌ Кнопка закрытия */
+#closeChat {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#closeChat:hover {
+  transform: scale(1.2);
+}
