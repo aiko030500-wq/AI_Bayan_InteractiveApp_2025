@@ -5,20 +5,42 @@
 const STUDENT_PIN = "2361";  // ученический
 const TEACHER_PIN = "9996";  // учительский
 
-// показывать только один экран
+// Функция показа нужного экрана
 function show(screenId) {
   document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
   const target = document.getElementById(screenId);
   if (target) target.classList.add("active");
 }
 
-// обработка логина
+// Обработка логина
 document.getElementById("loginBtn").addEventListener("click", () => {
   const name = document.getElementById("nameInput").value.trim();
   const pin = document.getElementById("pinInput").value.trim();
 
   if (!name || !pin) {
-    alert("Please enter your name and
+    alert("Please enter your name and access code.");
+    return;
+  }
+
+  if (pin === STUDENT_PIN) {
+    localStorage.setItem("studentName", name);
+    show("menu");
+  } else if (pin === TEACHER_PIN) {
+    show("teacher");
+  } else {
+    alert("❌ Wrong PIN. Try again.");
+  }
+});
+
+// ------------------------------
+// Навигация из меню
+// ------------------------------
+document.querySelectorAll("#menu button[data-target]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const target = btn.getAttribute("data-target");
+    show(target);
+  });
+});
 
 const grammarData = [
   {
