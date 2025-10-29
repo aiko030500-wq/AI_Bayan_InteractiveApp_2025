@@ -1,7 +1,14 @@
 // ==============================
 // 🤖 AI Bayan — English Teacher Chat
 // Дружелюбный текстовый помощник без голоса
-// ==============================
+// =============================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const aiBtn = document.getElementById("aiBayanBtn");
+  aiBtn.addEventListener("click", () => {
+    alert("👩🏻‍🏫 Hello! AI Bayan is here to help you!");
+  });
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const chatBox = document.getElementById("chatBox");
