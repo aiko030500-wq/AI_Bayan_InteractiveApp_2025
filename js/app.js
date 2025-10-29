@@ -316,6 +316,22 @@ function show(section) {
 }
 
 showQuestion();
+// ------------------------------
+// 🟡 AI Bayan Login System 2025
+// ------------------------------
+
+const STUDENT_PIN = "2361";  // для учеников
+const TEACHER_PIN = "9996";  // для учителя
+
+// функция показа нужного экрана
+function show(screenId) {
+  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+  const target = document.getElementById(screenId);
+  if (target) target.classList.add("active");
+}
+
+//
+
 Qqq, [29.10.2025 13:50]
 // ------------------------------
 // 🏅 AI Bayan Grammar Olympiad — A2 Level (2025)
