@@ -284,4 +284,144 @@ function show(section) {
 }
 
 showQuestion();
+// ------------------------------
+// AI Bayan Grammar Olympiad 2025 — Level A2
+// ------------------------------
 
+let currentOlimp = 0;
+let olimpScore = 0;
+
+const olimpData = [
+  // ---------- Grammar (10) ----------
+  { q: "He ____ to school every morning.", options: ["go", "goes", "going"], a: 1 },
+  { q: "They ____ playing football now.", options: ["is", "are", "am"], a: 1 },
+  { q: "I ____ breakfast at 8 o’clock.", options: ["have", "has", "having"], a: 0 },
+  { q: "She ____ like coffee.", options: ["doesn’t", "don’t", "isn’t"], a: 0 },
+  { q: "We ____ to Astana last summer.", options: ["go", "went", "going"], a: 1 },
+  { q: "My brother can ____ the guitar.", options: ["play", "plays", "playing"], a: 0 },
+  { q: "I ____ seen that film before.", options: ["have", "has", "am"], a: 0 },
+  { q: "There ____ many people in the park.", options: ["is", "are", "be"], a: 1 },
+  { q: "She is ____ than her sister.", options: ["more tall", "taller", "tallest"], a: 1 },
+  { q: "We will go out if it ____ rain.", options: ["doesn’t", "don’t", "isn’t"], a: 0 },
+
+  // ---------- Vocabulary (10) ----------
+  { q: "You need a ____ to cut paper.", options: ["knife", "scissors", "spoon"], a: 1 },
+  { q: "A place where you borrow books is a ____.", options: ["library", "school", "shop"], a: 0 },
+  { q: "The opposite of 'cheap' is ____.", options: ["expensive", "costly", "valuable"], a: 0 },
+  { q: "A person who teaches is a ____.", options: ["doctor", "teacher", "pilot"], a: 1 },
+  { q: "We wear gloves on our ____.", options: ["hands", "feet", "head"], a: 0 },
+  { q: "When it rains, we use an ____.", options: ["umbrella", "cap", "coat"], a: 0 },
+  { q: "We watch movies in the ____.", options: ["museum", "cinema", "library"], a: 1 },
+  { q: "He is very ____ — he always helps people.", options: ["kind", "lazy", "angry"], a: 0 },
+  { q: "A baby cat is called a ____.", options: ["puppy", "kitten", "duckling"], a: 1 },
+  { q: "We need a ____ to write a letter.", options: ["pen", "knife", "spoon"], a: 0 },
+
+  // ---------- Mixed (10) ----------
+  { q: "There ____ some apples on the table.", options: ["is", "are", "be"], a: 1 },
+  { q: "She ____ to music every evening.", options: ["listens", "listen", "is listening"], a: 0 },
+  { q: "I have lived here ____ five years.", options: ["since", "for", "at"], a: 1 },
+  { q: "If I ____ time, I’ll visit you.", options: ["have", "has", "will have"], a: 0 },
+  { q: "How ____ money do you have?", options: ["many", "much", "lot"], a: 1 },
+  { q: "She ____ swim when she was five.", options: ["can", "could", "may"], a: 1 },
+  { q: "I’m interested ____ learning English.", options: ["at", "in", "for"], a: 1 },
+  { q: "He drives very ____. He never has accidents.", options: ["careful", "carefully", "careless"], a: 1 },
+  { q: "This book is ____ than that one.", options: ["good", "better", "best"], a: 1 },
+  { q: "Let’s go to the park, ____?", options: ["shall we", "don’t we", "will we"], a: 0 }
+];
+
+// ------------------------------
+// Функции отображения вопросов
+// ------------------------------
+function showOlimpQuestion() {
+  const q = olimpData[currentOlimp];
+  const container = document.getElementById("olimpContent");
+  container.innerHTML = `
+    <h3>Question ${currentOlimp + 1} of ${olimpData.length}</h3>
+    <p>${q.q}</p>
+    ${q.options
+      .map(
+        (opt, i) =>
+          `<button class='optBtn' data-opt='${i}'>${opt}</button>`
+      )
+      .join("<br>")}
+  `;
+
+  document.querySelectorAll(".optBtn").forEach((btn) => {
+    btn.onclick = () => checkOlimpAnswer(parseInt(btn.dataset.opt));
+  });
+}
+
+function checkOlimpAnswer(choice) {
+  const correct = olimpData[currentOlimp].a;
+  if (choice === correct) {
+    olimpScore++;
+    playStarAnimation();
+    new Audio("sound/ding.wav").play();
+  } else {
+    new Audio("sound/error.wav").play();
+  }
+  currentOlimp++;
+  if (currentOlimp < olimpData.length) {
+    showOlimpQuestion();
+  } else {
+    document.getElementById("olimpContent").innerHTML = `
+      <h3>🎉 Well done! You finished the Olympiad!</h3>
+      <p>Your score: ${olimpScore} / ${olimpData.length}</p>
+    `;
+  }
+}
+
+// ------------------------------
+// Анимация звезды ⭐
+// ------------------------------
+function playStarAnimation() {
+  const star = document.createElement("div");
+  star.textContent = "⭐";
+  star.style.position = "absolute";
+  star.style.left = "50%";
+  star.style.top = "50%";
+  star.style.fontSize = "40px";
+  star.style.animation = "fly 1s ease-out";
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 1000);
+}
+
+// ------------------------------
+// Кнопки навигации
+// ------------------------------
+document.body.insertAdjacentHTML(
+  "beforeend",
+  `
+  <div id='olimp' class='screen section'>
+    <h2>🏅 Grammar Olympiad — A2</h2>
+    <div id='olimpContent'></div>
+    <div class='nav-buttons'>
+      <button id='oBack'>Back</button>
+      <button id='oNext'>Next</button>
+    </div>
+  </div>`
+);
+
+document.getElementById("oBack").addEventListener("click", () => {
+  currentOlimp = Math.max(0, currentOlimp - 1);
+  showOlimpQuestion();
+});
+
+document.getElementById("oNext").addEventListener("click", () => {
+  currentOlimp = Math.min(olimpData.length - 1, currentOlimp + 1);
+  showOlimpQuestion();
+});
+
+// ------------------------------
+// Запуск раздела
+// ------------------------------
+document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+  if (btn.dataset.target === "olimp") {
+    btn.addEventListener("click", () => {
+      currentOlimp = 0;
+      olimpScore = 0;
+      show("olimp");
+      showOlimpQuestion();
+    });
+  }
+});
