@@ -127,21 +127,30 @@
   <img src="ai_bayan_logo.png" alt="AI Bayan" />
 </div>
 
-<div id="aiBayanChat">
-  <div class="chat-header">
+<!-- 💬 AI Bayan Chat Window -->
+<div id="chatBox" class="hidden">
+  <div id="chatHeader">
     <img src="ai_bayan_logo.png" alt="AI Bayan" class="chat-logo" />
     <span>AI Bayan — English Buddy 💬</span>
     <button id="closeChat">✖</button>
   </div>
-  <div class="chat-body" id="chatBody">
-    <div class="bayan-msg">Hello! I’m AI Bayan, your English assistant 🌸<br>Ask me anything!</div>
-  </div>
-  <div class="chat-input">
-    <input type="text" id="userInput" placeholder="Type your message..." />
+
+  <div id="chatMessages"></div>
+
+  <div id="chatInputArea">
+    <input id="chatInput" type="text" placeholder="Type your message..." />
     <button id="sendBtn">Send</button>
   </div>
 </div>
-</body>
-</html>
+
+<!-- 🔘 Floating AI Button -->
+<button id="aiBayanBtn" class="ai-bayan-btn">AI Bayan</button>
+
+<!-- ⚙️ Scripts -->
+<script src="js/ai_bayan_chat.js"></script>
+
+  </div>
+</div>
+
 
   
