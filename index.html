@@ -1,119 +1,80 @@
-дада<!DOCTYPE html>
-<html lang='en'> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>AI Bayan 2025</title>
-<link rel='stylesheet' href='css/style.css'>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Bayan 2025</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<div id='ai-bayan-logo' class='logo-float'><img src='ai_bayan_logo.svg' alt='AI Bayan'></div>
-<div id='login' class='screen active'>
-  <div class='center card'>
-    <h1>Welcome to AI Bayan 2025</h1>
-    <input type='text' id='nameInput' placeholder='Enter your name'>
-    <input type='password' id='pinInput' placeholder='Enter access code'>
-    <button id='loginBtn'>Login</button>
+  <!-- 🌟 Logo -->
+  <div id="ai-bayan-logo" class="logo-float">
+    <img src="ai_bayan_logo.svg" alt="AI Bayan" />
   </div>
-</div>
 
-<div id='menu' class='screen'>
-  <h2>Main Menu</h2>
-  <div class='menu-grid'>
-    <button data-target='grammar'>Grammar</button>
-    <button data-target='vocab'>Vocabulary</button>
-    <button data-target='reading'>Reading</button>
-   <button data-target="olimp">Grammar Olympiad</button>
-<button data-target="listening">Listening Olympiad</button>
-    
+  <!-- 🔐 Login Screen -->
+  <div id="login" class="screen active">
+    <div class="center card">
+      <h1>Welcome to AI Bayan 2025</h1>
+      <input type="text" id="nameInput" placeholder="Enter your name" />
+      <input type="password" id="pinInput" placeholder="Enter access code" />
+      <button id="loginBtn">Login</button>
+    </div>
   </div>
-</div>
-<div id='grammar' class='screen section'>
-  <h2>Grammar — Topic <span id='gTopicNo'>1</span></h2>
-  <div id='grammarContent'></div>
-  <div class='nav-buttons'>
-    <button id='gBack'>Back</button>
-    <button id='gNext'>Next</button>
-<button class="back-menu" onclick="show('menu')">🏠 Back to Menu</button>
+
+  <!-- 🏠 Main Menu -->
+  <div id="menu" class="screen">
+    <h2>Main Menu</h2>
+    <div class="menu-grid">
+      <button data-target="grammar">📘 Grammar</button>
+      <button data-target="vocab">🧠 Vocabulary</button>
+      <button data-target="olimp">🏅 Grammar Olympiad</button>
+      <button data-target="listening">🎧 Listening Olympiad</button>
+    </div>
   </div>
-</div>
-<div id='teacher' class='screen section'>
-  <h2>Teacher Journal</h2>
-  <table><thead><tr><th>Name</th><th>Score</th></tr></thead><tbody id='journalTable'></tbody></table>
-</div>
+
+  <!-- 📘 Grammar Trainer -->
+  <div id="grammar" class="screen section">
+    <h2>Grammar — Topic <span id="gTopicNo">1</span></h2>
+    <div id="grammarContent"></div>
+    <div class="nav-buttons">
+      <button id="gBack">⬅️ Back</button>
+      <button id="gNext">➡️ Next</button>
+      <button class="back-menu" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- 🏅 Grammar Olympiad -->
+  <div id="olimp" class="screen section">
+    <h2>🏅 Grammar Olympiad — A2</h2>
+    <div id="olimpContent"></div>
+    <div class="nav-buttons">
+      <button id="oBack">⬅️ Previous</button>
+      <button id="oNext">➡️ Next</button>
+    </div>
+    <div class="menu-return">
+      <button id="oMenu">🏠 Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- 🎧 Listening Olympiad -->
+  <div id="listening" class="screen section">
+    <h2>🎧 Listening Olympiad — A2</h2>
+    <div id="listeningContent"></div>
+    <div class="nav-buttons">
+      <button id="lPrev">⬅️ Previous</button>
+      <button id="lNext">➡️ Next</button>
+    </div>
+    <div class="menu-return">
+      <button id="lMenu">🏠 Back to Menu</button>
+    </div>
+  </div>
+
   <!-- ============================== -->
-<!-- 📘 Grammar Trainer -->
-<!-- ============================== -->
-<div id='grammar' class='screen section'>
-  <h2>Grammar Trainer</h2>
-  <div id='grammarContent'></div>
-  <div class='nav-buttons'>
-    <button id='gBack'>Back</button>
-    <button id='gNext'>Next</button>
-  </div>
-</div>
-<!-- ============================== -->
-<!-- 📖 Reading Trainer -->
-<!-- ============================== -->
-<div id='reading' class='screen section'>
-  <h2>Reading Trainer</h2>
-  <div id='readingContent'></div>
-  <div class='nav-buttons'>
-    <button id='rPrev'>Previous</button>
-    <button id='rNext'>Next</button>
-  </div>
-  <div class='menu-return'>
-    <button id='rMenu'>🏠 Back to Menu</button>
-  </div>
-</div>
-<script src="js/listening_olimp.js"></script>
-</tbody>
-  </table>
-</div>
-  
-</tbody>
-</table>
-</div>
-
-<!-- 🏅 Grammar Olympiad -->
-<div id="olimp" class="screen section">
-  <h2>🏅 Grammar Olympiad — A2</h2>
-  <div id="olimpContent"></div>
-  <div class="nav-buttons">
-    <button id="oBack">⬅️ Previous</button>
-    <button id="oNext">➡️ Next</button>
-  </div>
-  <div class="menu-return">
-    <button id="oMenu">🏠 Back to Menu</button>
-  </div>
-</div>
-
-<!-- 🎧 Listening Olympiad -->
-<div id="listening" class="screen section">
-  <h2>🎧 Listening Olympiad — A2</h2>
-  <div id="listeningContent"></div>
-  <div class="nav-buttons">
-    <button id="lPrev">⬅️
-
-  <div class="menu-return"><button id="lMenu">🏠 Back to Menu</button></div>
-</div>
-
-  <div class="menu-return">
-    <button id="lMenu">🏠 Back to Menu</button>
-  </div>
-</div>
-
-  <div class="menu-return">
-    <button id="lMenu">🏠 Back to Menu</button>
-  </div>
-</div>
-<!-- ============================== -->
-<!-- ⚙️ Scripts -->
-<!-- ============================== -->
-<script src="js/app.js"></script>
-<script src="js/grammar_olimp.js"></script>
-<script src="js/listening_olimp.js"></script>
+  <!-- ⚙️ Scripts -->
+  <!-- ============================== -->
+  <script src="js/app.js"></script>
+  <script src="js/grammar_olimp.js"></script>
+  <script src="js/listening_olimp.js"></script>
 </body>
 </html>
-
-
