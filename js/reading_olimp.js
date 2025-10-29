@@ -140,6 +140,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentReading < readingData.length - 1) {
         currentReading++;
         showReading();
+        // эффект плавного появления при каждой загрузке текста
+readingContent.style.animation = "none";
+setTimeout(() => {
+  readingContent.style.animation = "";
+}, 10);
       } else {
         showFinalReadingResult();
       }
