@@ -90,20 +90,16 @@ function playStarAnimation() {
   setTimeout(() => star.remove(), 1000);
 }
 
+// Кнопки навигации
+document.getElementById("oMenu").addEventListener("click", () => show("menu"));
 document.getElementById("oNext").addEventListener("click", () => {
   currentOlimp++;
   if (currentOlimp >= olimpData.length) currentOlimp = olimpData.length - 1;
   showOlimpQuestion();
 });
-
 document.getElementById("oBack").addEventListener("click", () => {
   currentOlimp--;
   if (currentOlimp < 0) currentOlimp = 0;
   showOlimpQuestion();
 });
-
-document.getElementById("oMenu").addEventListener("click", () => {
-  show("menu");
-});
-
 showOlimpQuestion();
