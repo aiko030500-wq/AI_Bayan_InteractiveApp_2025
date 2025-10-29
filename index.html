@@ -78,11 +78,19 @@
       document.getElementById(id).classList.add('active');
     }
 
-    // Пример: переход с логина в меню
+     <!-- Пример: переход с логина в меню -->
+  <script>
     document.getElementById('loginBtn').addEventListener('click', () => {
       show('menu');
     });
+  </script>
 
+  <!-- ⚙️ Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/grammar_olimp.js"></script>
+  <script src="js/listening_olimp.js"></script>
+
+  <script>
     // Навигация по меню
     document.querySelectorAll('#menu button[data-target]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -91,9 +99,7 @@
       });
     });
   </script>
-  <!-- ⚙️ Scripts -->
-  <script src="js/app.js"></script>
-  <script src="js/grammar_olimp.js"></script>
-  <script src="js/listening_olimp.js"></script>
 </body>
 </html>
+
+
