@@ -1,24 +1,24 @@
 // ------------------------------
-// AI Bayan Login System 2025
+// 🟡 AI Bayan Login System 2025
 // ------------------------------
 
 const STUDENT_PIN = "2361";  // ученический
 const TEACHER_PIN = "9996";  // учительский
 
-// Функция показа нужного экрана
+// показать экран
 function show(screenId) {
   document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
   const target = document.getElementById(screenId);
   if (target) target.classList.add("active");
 }
 
-// Обработка логина
+// обработка логина
 document.getElementById("loginBtn").addEventListener("click", () => {
   const name = document.getElementById("nameInput").value.trim();
   const pin = document.getElementById("pinInput").value.trim();
 
   if (!name || !pin) {
-    alert("Please enter your name and access code.");
+    alert("Please enter your name and PIN code.");
     return;
   }
 
@@ -32,9 +32,7 @@ document.getElementById("loginBtn").addEventListener("click", () => {
   }
 });
 
-// ------------------------------
-// Навигация из меню
-// ------------------------------
+// кнопки перехода между разделами
 document.querySelectorAll("#menu button[data-target]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const target = btn.getAttribute("data-target");
