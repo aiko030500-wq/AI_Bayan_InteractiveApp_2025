@@ -1,14 +1,24 @@
 // ------------------------------
-// AI Bayan Login System 
+// AI Bayan Login System 2025
 // ------------------------------
 
-const STUDENT_PIN = "2361";
-const TEACHER_PIN = "9996";
+const STUDENT_PIN = "2361";  // ученический
+const TEACHER_PIN = "9996";  // учительский
 
-// ------------------------------
-// AI Bayan Grammar Trainer 2025 — Level A2+
-// 18 topics × 5 questions
-// ------------------------------
+// показывать только один экран
+function show(screenId) {
+  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+  const target = document.getElementById(screenId);
+  if (target) target.classList.add("active");
+}
+
+// обработка логина
+document.getElementById("loginBtn").addEventListener("click", () => {
+  const name = document.getElementById("nameInput").value.trim();
+  const pin = document.getElementById("pinInput").value.trim();
+
+  if (!name || !pin) {
+    alert("Please enter your name and
 
 const grammarData = [
   {
