@@ -2,7 +2,6 @@
 // 🏅 AI Bayan Grammar Olympiad — Level A2 (fixed)
 // ------------------------------
 document.addEventListener("DOMContentLoaded", function() {
-
   const olimpData = [
     { q:"She ___ to school every day.", a:"b", options:["go","goes","going"] },
     { q:"They ___ football after school.", a:"a", options:["play","plays","playing"] },
@@ -83,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("oBack").addEventListener("click", ()=>{
     currentOlimp = Math.max(currentOlimp-1, 0);
     showOlimpQuestion();
-  });
+ });
+
 
   // Инициализация
   showOlimpQuestion();
