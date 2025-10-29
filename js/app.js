@@ -64,16 +64,36 @@ function showQuestion() {
   });
 }
 
-function checkAnswer(choice){
-  const correct = grammarData[currentTopic].questions[currentQuestion].a;
-  if (choice === correct) { score++; playStar(); try{ new Audio("sound/ding.wav").play(); }catch(e){} }
+function checkAnswer(choice) {
+  const topic = grammarData[currentTopic];
+  const question = topic.questions[currentQuestion];
+  const correct = question.a;
+
+  if (choice === correct) {
+    score++;
+    playStar();
+    try { new Audio("sound/ding.wav").play(); } catch(e) {}
+  }
+
+  // переход к следующему вопросу
   currentQuestion++;
-  if (currentQuestion < grammarData[currentTopic].questions.length) {
+
+  // если вопросы в теме ещё есть
+  if (currentQuestion < topic.questions.length) {
     showQuestion();
-  } else {
-    currentTopic++; currentQuestion = 0;
-    if (currentTopic < grammarData.length) showQuestion();
-    else grammarContent.innerHTML = `<h3>🎉 Well done!</h3><p>Your score: ${score}</p>`;
+  }
+  // если вопросы в теме закончились, но есть следующая тема
+  else if (currentTopic + 1 < grammarData.length) {
+    currentTopic++;
+    currentQuestion = 0;
+    showQuestion();
+  }
+  // если все темы пройдены
+  else {
+    grammarContent.innerHTML = `
+      <h3>🎉 Well done!</h3>
+      <p>Your total score: <b>${score}</b> out of ${grammarData.reduce((sum,t)=>sum+t.questions.length,0)}</p>
+    `;
   }
 }
 
