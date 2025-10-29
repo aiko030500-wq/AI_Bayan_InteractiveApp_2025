@@ -146,5 +146,42 @@ function playStarAnimation() {
   document.body.appendChild(star);
   setTimeout(() => star.remove(), 1000);
 }
+// ... здесь весь код с вопросами и функциями ...
+
+function showListening() {
+  const item = listeningData[currentListening];
+  listeningContent.innerHTML = `
+    <h3>Listening ${currentListening + 1} of ${listeningData.length}</h3>
+    <p>${item.question}</p>
+    <audio controls>
+      <source src="${item.audio}" type="audio/mpeg">
+    </audio>
+    ${item.options
+      .map(
+        (opt, i) =>
+          `<button class='optBtn' data-opt='${String.fromCharCode(97 + i)}'>${opt}</button>`
+      )
+      .join("<br>")}
+  `;
+  document.querySelectorAll(".optBtn").forEach((btn) => {
+    btn.onclick = () => checkListeningAnswer(btn.dataset.opt);
+  });
+}
+
+// 🎯 Добавляем этот блок СЮДА:
+document.getElementById("lMenu").addEventListener("click", () => show("menu"));
+document.getElementById("lNext").addEventListener("click", () => {
+  currentListening++;
+  if (currentListening >= listeningData.length) currentListening = listeningData.length - 1;
+  showListening();
+});
+document.getElementById("lPrev").addEventListener("click", () => {
+  currentListening--;
+  if (currentListening < 0) currentListening = 0;
+  showListening();
+});
+
+// 🔚 И уже после него:
+showListening();
 
 showListening();
