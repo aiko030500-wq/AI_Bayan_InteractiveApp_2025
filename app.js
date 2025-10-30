@@ -24,8 +24,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const pin = document.getElementById("pinInput").value.trim();
 
     if (!name || !pin) {
-      alert
-// star helper (used by trainers)
+      alert("Please enter your name and PIN code.");
+      return;
+    }
+
+    if (pin === STUDENT_PIN) {
+      localStorage.setItem("studentName", name);
+      show("menu");
+    } else if (pin === TEACHER_PIN) {
+      show("teacher");
+    } else {
+      alert("❌ Wrong PIN. Try again.");
+    }
+  });
+});
+
 window.popStar = function(x=null,y=null){
   const s = document.createElement("div");
   s.className = "star";
