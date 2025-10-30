@@ -1,114 +1,49 @@
-// ==============================
-// 🤖 AI Bayan — English Teacher Chat
-// Дружелюбный текстовый помощник без голоса
-// =============================
-
 document.addEventListener("DOMContentLoaded", () => {
-  const aiBtn = document.getElementById("aiBayanBtn");
-  aiBtn.addEventListener("click", () => {
-    alert("👩🏻‍🏫 Hello! AI Bayan is here to help you!");
-  });
-});
+  const btn = document.getElementById("aiBayanBtn");
+  const box = document.getElementById("chatBox");
+  const closeBtn = document.getElementById("closeChat");
+  const messages = document.getElementById("chatMessages");
+  const input = document.getElementById("chatInput");
+  const send = document.getElementById("sendBtn");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const chatBox = document.getElementById("chatBox");
-  const chatInput = document.getElementById("chatInput");
-  const sendBtn = document.getElementById("sendBtn");
-  const clearBtn = document.getElementById("clearChat");
+  const say = (who, text) => {
+    const row = document.createElement("div");
+    row.style.margin = "6px 0";
+    row.innerHTML = `<b>${who}:</b> ${text}`;
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+  };
 
-  function appendMessage(sender, text) {
-    const msg = document.createElement("div");
-    msg.className = sender === "ai" ? "msg ai" : "msg user";
-    msg.innerHTML = `<b>${sender === "ai" ? "AI Bayan 👩🏻‍🏫" : "You"}:</b> ${text}`;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  // 🌸 Приветственное сообщение
-  appendMessage("ai", "Hello! I'm <b>AI Bayan</b> — your English teacher and study buddy! 💬 Ask me about grammar, vocabulary, reading, or your Olympiad practice!");
-
-  // ✨ Обработка сообщений
-  sendBtn.addEventListener("click", () => {
-    const text = chatInput.value.trim();
-    if (text === "") return;
-    appendMessage("user", text);
-    chatInput.value = "";
-    generateResponse(text);
+  btn.addEventListener("click", () => {
+    box.classList.remove("hidden");
+    if (!messages.dataset.greeted) {
+      say("AI Bayan", "Hello! I’m your friendly English teacher. Ask me about grammar, phonics, vocabulary — I’ll explain simply 😊");
+      messages.dataset.greeted = "1";
+    }
   });
 
-  chatInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") sendBtn.click();
-  });
+  closeBtn.addEventListener("click", () => box.classList.add("hidden"));
+  send.addEventListener("click", sendMsg);
+  input.addEventListener("keydown", e => (e.key === "Enter") && sendMsg());
 
-  clearBtn.addEventListener("click", () => {
-    chatBox.innerHTML = "";
-    appendMessage("ai", "Chat cleared! Let's continue learning together 💛");
-  });
+  function sendMsg() {
+    const text = (input.value || "").trim();
+    if (!text) return;
+    say("You", text);
+    input.value = "";
 
-  // ==========================
-  // 🧠 Основная логика ответов
-  // ==========================
-  function generateResponse(input) {
-    const text = input.toLowerCase();
-    let reply = "";
-
-    // 👋 Приветствия
-    if (text.includes("hello") || text.includes("hi") || text.includes("hey")) {
-      reply = "Hello there! How are you today? 😊";
+    // Very small rule-based help
+    const t = text.toLowerCase();
+    if (t.includes("present simple")) {
+      say("AI Bayan", "Present Simple = subject + V1 (add -s/-es for he/she/it). E.g., “She plays.” Use for habits and facts.");
+    } else if (t.includes("past simple")) {
+      say("AI Bayan", "Past Simple = subject + V2 (regular: -ed, irregular: 2nd form). E.g., “They went.” Use for finished actions in the past.");
+    } else if (t.includes("phonics") || t.includes("vowel") || t.includes("sound")) {
+      say("AI Bayan", "Phonics tip: vowel team ‘ea’ can be /iː/ in “tea” or /e/ in “bread”. Try reading minimal pairs aloud.");
+    } else if (t.includes("irregular")) {
+      say("AI Bayan", "Irregular verbs: learn by small groups with similar patterns (e.g., come–came–come; run–ran–run).");
+    } else {
+      say("AI Bayan", "Great question! Let me give a simple rule or example:\n— Try to build a short sentence and I’ll correct it for you.");
     }
-
-    // 📘 Грамматика
-    else if (text.includes("grammar") || text.includes("tense")) {
-      reply = "Grammar helps you build correct sentences. Which topic would you like to review — tenses, articles, or question forms?";
-    }
-
-    // 📚 Словарный запас
-    else if (text.includes("vocabulary") || text.includes("word")) {
-      reply = "A good way to improve your vocabulary is to learn 5–10 new words daily and use them in sentences. Would you like me to give you a small vocabulary quiz?";
-    }
-
-    // ✍️ Irregular verbs
-    else if (text.includes("irregular") || text.includes("verb")) {
-      reply = "Irregular verbs don’t follow normal rules. For example: <b>go – went – gone</b>, <b>see – saw – seen</b>, <b>eat – ate – eaten</b>.";
-    }
-
-    // 🕒 Время, даты, дни недели
-    else if (text.includes("time") || text.includes("clock")) {
-      reply = "To tell the time, we say things like <b>It’s half past three</b> or <b>It’s quarter to nine</b>. Would you like a mini clock exercise?";
-    } else if (text.includes("day") || text.includes("week")) {
-      reply = "The days of the week are: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday 🌞";
-    } else if (text.includes("month") || text.includes("date")) {
-      reply = "Months of the year are: January, February, March, April, May, June, July, August, September, October, November, December 📅";
-    }
-
-    // 📖 Reading / Олимпиада
-    else if (text.includes("reading") || text.includes("olympiad")) {
-      reply = "Reading Olympiad tests your understanding of texts. Read carefully, underline key words, and don’t rush the answers. Would you like me to show you some A2-level reading tasks?";
-    }
-
-    // 💬 Фонетика
-    else if (text.includes("phonetics") || text.includes("sound")) {
-      reply = "Phonetics is about pronunciation and sounds! For example, the word <b>knight</b> has a silent 'k'. Would you like a short phonetics exercise?";
-    }
-
-    // 💡 Ошибка / исправление
-    else if (text.startsWith("check:") || text.startsWith("correct:")) {
-      const phrase = input.replace(/check:|correct:/gi, "").trim();
-      reply = `Let's check your sentence: "${phrase}". ✏️ I’ll help correct it step by step — type it again, and I’ll explain the grammar.`;
-    }
-
-    // ❤️ Поддержка и мотивация
-    else if (text.includes("thank")) {
-      reply = "You’re very welcome! I’m proud of your progress 🌟";
-    } else if (text.includes("tired") || text.includes("difficult")) {
-      reply = "Don’t worry! Every great learner feels that sometimes. Take a deep breath — learning English step by step is success itself 💛";
-    }
-
-    // 🌈 Неопознанные запросы
-    else {
-      reply = "That's interesting! Could you tell me a bit more or ask about grammar, vocabulary, or reading?";
-    }
-
-    setTimeout(() => appendMessage("ai", reply), 600);
   }
 });
