@@ -1,147 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Bayan 2025</title>
-  <link rel="stylesheet" href="css/style.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Bayan 2025 — Login</title>
+  <style>
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f2f7ff;font-family:Arial,Helvetica,sans-serif}
+    .card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(15,30,60,.08);width:320px;text-align:center}
+    input{width:100%;padding:10px 12px;margin:10px 0;border:1px solid #d7e0f2;border-radius:6px;font-size:15px}
+    button{width:100%;padding:10px;border-radius:8px;border:none;font-size:16px;cursor:pointer;background:#155edf;color:#fff}
+    .error{color:#b00020;font-size:13px;margin-top:6px}
+    .hidden{display:none}
+    header.top-hero{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+    .brand{margin:0;font-weight:700}
+    .app-screen{padding:20px;text-align:left}
+  </style>
 </head>
 <body>
-  <!-- HERO LOGO (девочка) -->
-  <header class="top-hero">
-    <img src="ai_bayan_logo.png" alt="AI Bayan" class="hero-logo"/>
-    <h1 class="brand">AI BAYAN 2025</h1>
-  </header>
 
   <!-- LOGIN -->
-  <section id="login" class="screen active">
-    <div class="card login-card">
-      <h2>Welcome to AI Bayan 2025</h2>
-      <input id="nameInput" type="text" placeholder="Enter your name"/>
-      <input id="pinInput" type="password" placeholder="Enter access code"/>
-      <button id="loginBtn">Login</button>
-      <p class="hint">Student PIN: 2361 (не показываем детям на экране)</p>
-    </div>
-  </section>
+  <div id="loginScreen" class="card">
+    <header class="top-hero">
+      <img src="ai_bayan_logo.png" alt="AI Bayan" style="width:56px;height:56px;border-radius:8px;object-fit:cover"/>
+      <h1 class="brand">AI BAYAN 2025</h1>
+    </header>
 
-  <!-- MAIN MENU -->
-  <section id="menu" class="screen">
-    <h2 class="menu-title">Welcome to<br/>AI Bayan 2025</h2>
-    <div class="menu-grid">
-      <button class="btn tile blue"     data-target="grammar">📘 Grammar</button>
-      <button class="btn tile gold"     data-target="vocab">🧠 Vocabulary</button>
-      <button class="btn tile green"    data-target="olimp">🏅 Grammar Olympiad</button>
-      <button class="btn tile blue"     data-target="listening">🎧 Listening Olympiad</button>
-      <button class="btn tile gold"     data-target="reading">📖 Reading Olympiad</button>
-      <button class="btn tile teal"     data-target="general">📘 General English Trainer</button>
-    </div>
-  </section>
+    <h2>Вход</h2>
+    <input id="nameInput" type="text" placeholder="Введите имя" autocomplete="off" />
+    <input id="pinInput" type="password" placeholder="Введите access code" inputmode="numeric" pattern="\d*" maxlength="6" />
+    <div id="error" class="error hidden"></div>
 
-  <!-- GRAMMAR OLYMPIAD -->
-  <section id="olimp" class="screen section">
-    <h2>🏅 Grammar Olympiad — A2</h2>
-    <div id="olimpContent"></div>
-    <div class="scorebar"><span>Score:</span> <b id="olimpScore">0</b></div>
-    <div class="nav">
-      <button id="oPrev">⬅️ Previous</button>
-      <button id="oNext">➡️ Next</button>
-      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
-    </div>
-  </section>
+    <button id="loginBtn">Войти</button>
+  </div>
 
-  <!-- VOCAB OLYMPIAD -->
-  <section id="vocab" class="screen section">
-    <h2>🧠 Vocabulary Olympiad — A2</h2>
-    <div id="vocabContent"></div>
-    <div class="scorebar"><span>Score:</span> <b id="vocabScore">0</b></div>
-    <div class="nav">
-      <button id="vPrev">⬅️ Previous</button>
-      <button id="vNext">➡️ Next</button>
-      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
-    </div>
-  </section>
-
-  <!-- LISTENING OLYMPIAD -->
-  <section id="listening" class="screen section">
-    <h2>🎧 Listening Olympiad — A2</h2>
-    <div id="listeningContent"></div>
-    <div class="scorebar"><span>Score:</span> <b id="listeningScore">0</b></div>
-    <div class="nav">
-      <button id="lPrev">⬅️ Previous</button>
-      <button id="lNext">➡️ Next</button>
-      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
-    </div>
-  </section>
-
-  <!-- READING OLYMPIAD -->
-  <section id="reading" class="screen section">
-    <h2>📖 Reading Olympiad — A2</h2>
-    <div id="readingContent"></div>
-    <div class="scorebar"><span>Score:</span> <b id="readingScore">0</b></div>
-    <div class="nav">
-      <button id="rPrev">⬅️ Previous</button>
-      <button id="rNext">➡️ Next</button>
-      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
-    </div>
-  </section>
-
-  <!-- GENERAL TRAINER -->
-  <section id="general" class="screen section">
-    <h2>📘 General English Trainer — A2</h2>
-
-    <div class="subtabs">
-      <button class="subtab active" data-sub="irregulars">Irregular Verbs</button>
-      <button class="subtab" data-sub="phonetics">Phonetics</button>
-    </div>
-
-    <div id="irregulars" class="subscreen active">
-      <div id="irregularsContent"></div>
-      <div class="scorebar"><span>Score:</span> <b id="irregularsScore">0</b></div>
-      <div class="nav">
-        <button id="irPrev">⬅️ Previous</button>
-        <button id="irNext">➡️ Next</button>
-        <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
-      </div>
-    </div>
-
-    <div id="phonetics" class="subscreen">
-      <div id="phoneticsContent"></div>
-      <div class="scorebar"><span>Score:</span> <b id="phoneticsScore">0</b></div>
-      <div class="nav">
-        <button id="phPrev">⬅️ Previous</button>
-        <button id="phNext">➡️ Next</button>
-        <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- FLOAT CHAT BUTTON -->
-  <button id="aiBayanBtn" class="ai-bayan-btn">
-    <img src="ai_bayan_logo.png" alt="AI Bayan"/>
-  </button>
-
-  <!-- CHAT WINDOW -->
-  <div id="chatBox" class="hidden">
-    <div id="chatHeader">
-      <img src="ai_bayan_logo.png" alt="AI Bayan" class="chat-logo"/>
-      <span>AI Bayan — English Buddy 💬</span>
-      <button id="closeChat">✖</button>
-    </div>
-    <div id="chatMessages"></div>
-    <div id="chatInputArea">
-      <input id="chatInput" type="text" placeholder="Type your message..."/>
-      <button id="sendBtn">Send</button>
+  <!-- УЧЕНИК -->
+  <div id="studentScreen" class="card hidden" style="width:680px;">
+    <div class="app-screen">
+      <h2>Добро пожаловать, <span id="studentName">Ученик</span>!</h2>
+      <p>Это ученический режим приложения.</p>
+      <button id="logoutBtn1">Выйти</button>
     </div>
   </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/grammar_olimp.js"></script>
-  <script src="js/vocab_olimp.js"></script>
-  <script src="js/listening_olimp.js"></script>
-  <script src="js/reading_olimp.js"></script>
-  <script src="js/irregulars_trainer.js"></script>
-  <script src="js/phonetics_trainer.js"></script>
-  <script src="js/general_trainer.js"></script>
-  <script src="js/ai_bayan_chat.js"></script>
+  <!-- УЧИТЕЛЬ -->
+  <div id="teacherScreen" class="card hidden" style="width:680px;">
+    <div class="app-screen">
+      <h2>👩‍🏫 Режим учителя</h2>
+      <p>Добро пожаловать, <span id="teacherName">Учитель</span>!</p>
+      <ul>
+        <li>Просмотр прогресса учеников</li>
+        <li>Настройки приложения</li>
+        <li>Панель управления</li>
+      </ul>
+      <button id="logoutBtn2">Выйти</button>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // 🔐 ПИН-КОДЫ — не показываются на экране
+  const STUDENT_PIN = '2361';
+  const TEACHER_PIN = '9996';
+
+  const loginScreen = document.getElementById('loginScreen');
+  const studentScreen = document.getElementById('studentScreen');
+  const teacherScreen = document.getElementById('teacherScreen');
+  const nameInput = document.getElementById('nameInput');
+  const pinInput = document.getElementById('pinInput');
+  const loginBtn = document.getElementById('loginBtn');
+  const errorEl = document.getElementById('error');
+  const studentNameEl = document.getElementById('studentName');
+  const teacherNameEl = document.getElementById('teacherName');
+  const logoutBtn1 = document.getElementById('logoutBtn1');
+  const logoutBtn2 = document.getElementById('logoutBtn2');
+
+  function showError(msg){
+    errorEl.textContent = msg;
+    errorEl.classList.remove('hidden');
+  }
+  function clearError(){
+    errorEl.textContent = '';
+    errorEl.classList.add('hidden');
+  }
+
+  function login(){
+    clearError();
+    const pin = pinInput.value.trim();
+    const name = nameInput.value.trim() || 'Ученик';
+
+    if(!pin){showError('Введите PIN.');return;}
+    if(pin === STUDENT_PIN){
+      studentNameEl.textContent = name;
+      loginScreen.classList.add('hidden');
+      studentScreen.classList.remove('hidden');
+    } else if(pin === TEACHER_PIN){
+      teacherNameEl.textContent = name || 'Учитель';
+      loginScreen.classList.add('hidden');
+      teacherScreen.classList.remove('hidden');
+    } else {
+      showError('Неверный PIN. Попробуйте ещё раз.');
+    }
+
+    pinInput.value = '';
+    nameInput.value = '';
+  }
+
+  loginBtn.addEventListener('click', login);
+  pinInput.addEventListener('keydown', e => { if(e.key === 'Enter') login(); });
+  logoutBtn1.addEventListener('click', () => { studentScreen.classList.add('hidden'); loginScreen.classList.remove('hidden'); });
+  logoutBtn2.addEventListener('click', () => { teacherScreen.classList.add('hidden'); loginScreen.classList.remove('hidden'); });
+})();
+</script>
+
 </body>
 </html>
+
