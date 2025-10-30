@@ -115,14 +115,12 @@ body{
 .subtab.active{background:#ffd463}
 
 /* ⭐ animation */
-@keyframes flyStar {
-  0% { transform: scale(0.6) translateY(0); opacity: 1; }
-  100% { transform: scale(1.4) translateY(-100px); opacity: 0; }
+@keyframes flyStar{
+  0%{ transform: scale(.6) translateY(0); opacity:1; }
+  100%{ transform: scale(1.4) translateY(-100px); opacity:0; }
 }
-.star{
-  position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
-  font-size:32px; animation:flyStar 900ms ease-out forwards; z-index:9999;
-}
+.star{ position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+       font-size:32px; animation:flyStar 900ms ease-out forwards; z-index:9999; }
 
 
 
