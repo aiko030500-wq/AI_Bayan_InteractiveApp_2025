@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function() {
     showOlimpQuestion();
  });
 
-
   // Инициализация
   showOlimpQuestion();
 });
