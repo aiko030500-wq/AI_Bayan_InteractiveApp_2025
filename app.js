@@ -32,19 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // ✅ Проверка кода
     if (pin === STUDENT_PIN) {
       localStorage.setItem("studentName", name);
       show("menu");
 
-      // 👋 Добавим приветствие
+      // 👋 Приветствие
       setTimeout(() => {
         alert(`Welcome, ${name}! 🌟 Let's learn English together!`);
       }, 300);
-
-    } else if (pin === TEACHER_PIN) {
-      alert("Welcome, Teacher 👩🏻‍🏫");
+    } 
+    else if (pin === TEACHER_PIN) {
+      alert("👩‍🏫 Welcome, Teacher!");
       show("menu");
-    } else {
+    } 
+    else {
       alert("❌ Wrong PIN. Try again.");
     }
   });
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const target = btn.getAttribute("data-target");
       show(target);
 
-      // Auto-start modules if they exist
+      // 🧠 Автозапуск разделов
       if (target === "olimp" && typeof showOlimpQuestion === "function") showOlimpQuestion();
       if (target === "vocab" && typeof showVocab === "function") showVocab();
       if (target === "listening" && typeof showListening === "function") showListening();
