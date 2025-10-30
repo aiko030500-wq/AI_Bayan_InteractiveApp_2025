@@ -1,397 +1,133 @@
-body{font-family:Arial;background:#ffeb99;margin:0;overflow:hidden}
-.screen{display:none;position:fixed;inset:0;padding:20px}
+:root{
+  --gold:#f4c542;
+  --gold-deep:#e4ae00;
+  --brown:#c6954d;
+  --brown-deep:#9e6d2d;
+  --ink:#2a2a2a;
+  --card:#fff7e8;
+  --blue:#4e8bd5;
+  --teal:#2ea7a0;
+  --green:#2fb269;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #d1a158, #b0782e 60%);
+  color:var(--ink);
+}
+
+/* hero */
+.top-hero{
+  text-align:center;
+  padding:10px 0 0;
+}
+.hero-logo{
+  width:140px; height:auto;
+  display:block; margin:10px auto 0;
+  border-radius:18px;
+}
+.brand{
+  margin:6px 0 0;
+  letter-spacing:2px;
+  color:#4b2e05;
+}
+
+/* screens */
+.screen{display:none; padding:16px}
 .screen.active{display:block}
-.center{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
-.card{background:white;padding:20px;border-radius:12px}
-button{padding:10px 20px;border:none;border-radius:8px;background:#ffd700;font-weight:bold;margin:4px}
-.nav-buttons{text-align:center;margin-top:20px}
-.logo-float{position:fixed;top:10px;right:10px;width:60px;height:60px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center}
-.logo-float img{width:50px}
-/* ------------------------------
-   BACK TO MENU BUTTON STYLE
------------------------------- */
-button.back-menu {
-  background: linear-gradient(135deg, #4da6ff, #0099cc);
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
+.section h2{margin-top:0}
+
+.login-card{
+  max-width:520px; margin:60px auto; padding:18px;
+  background:#fff; border-radius:14px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
 }
+.login-card input{
+  width:100%; padding:10px 12px; margin:8px 0;
+  border:1px solid #ddd; border-radius:8px;
+}
+.login-card button{
+  width:100%; padding:10px; border:none; border-radius:10px;
+  background:var(--gold); font-weight:bold; cursor:pointer;
+}
+.hint{opacity:.5; font-size:12px; text-align:center}
 
-/* <-- вот здесь новая скобка закрывает кнопку ↑↑↑ */
+/* menu */
+.menu-title{
+  text-align:center; margin:6px 0 10px; font-size:28px;
+}
+.menu-grid{
+  max-width:800px; margin:0 auto; display:grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap:14px;
+}
+.btn.tile{
+  padding:16px; border:none; border-radius:14px;
+  color:#1a1a1a; font-weight:800; font-size:18px;
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
+  cursor:pointer;
+}
+.blue{background:#d9ecff}
+.gold{background:#ffec9a}
+.green{background:#d9ffe9}
+.teal{background:#d6fff8}
 
+/* section content */
+.card{background:var(--card); border-radius:14px; padding:14px}
+.nav{display:flex; gap:8px; align-items:center; margin-top:12px}
+.nav button, .back{
+  padding:10px 12px; border:none; border-radius:10px;
+  background:var(--gold); cursor:pointer; font-weight:bold;
+}
+.back{background:#ffe6a9}
+.scorebar{margin:8px 0 4px; font-weight:bold}
+
+/* chat */
+.ai-bayan-btn{
+  position:fixed; right:20px; bottom:20px;
+  width:64px; height:64px; border-radius:50%;
+  border:none; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.2);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.ai-bayan-btn img{width:100%; height:100%; border-radius:50%}
+
+#chatBox{
+  position:fixed; right:20px; bottom:96px; width:320px; max-height:60vh;
+  background:#fff; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.25);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.hidden{display:none}
+#chatHeader{
+  display:flex; gap:8px; align-items:center; padding:8px 10px; background:#ffec9a;
+}
+.chat-logo{width:28px; height:28px; border-radius:50%}
+#chatMessages{padding:10px; overflow:auto; flex:1; font-size:14px}
+#chatInputArea{display:flex; gap:6px; padding:8px; border-top:1px solid #eee}
+#chatInput{flex:1; padding:8px; border:1px solid #ddd; border-radius:8px}
+#sendBtn,#closeChat{padding:8px 10px; border:none; border-radius:8px; background:var(--gold); font-weight:bold; cursor:pointer}
+
+/* subtabs in general */
+.subtabs{display:flex; gap:8px; margin:6px 0 12px}
+.subtab{border:none; padding:10px 12px; border-radius:10px; background:#eee; cursor:pointer; font-weight:bold}
+.subtab.active{background:#ffd463}
+
+/* ⭐ animation */
 @keyframes flyStar {
-  0% { transform: scale(0.5) translateY(0); opacity: 1; }
-  100% { transform: scale(1.5) translateY(-100px); opacity: 0; }
+  0% { transform: scale(0.6) translateY(0); opacity: 1; }
+  100% { transform: scale(1.4) translateY(-100px); opacity: 0; }
+}
+.star{
+  position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-size:32px; animation:flyStar 900ms ease-out forwards; z-index:9999;
 }
 
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
 
-.final-screen { text-align: center; }
-.fade-in { opacity: 0; animation: fadeIn 1s forwards; }
-.fade-in.delay { animation-delay: 0.5s; }
-.fade-in.delay2 { animation-delay: 1s; }
 
-@keyframes fadeIn { to { opacity: 1; } }
 
-.progress {
-  margin-top: 20px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-}
-/* ✨ Плавная анимация появления текста и вопросов */
-#readingContent {
-  animation: fadeSlideIn 0.8s ease-in-out;
-}
+  
 
-.question-block {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInUp 0.7s forwards;
-  animation-delay: 0.3s;
-}
 
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* фиксируем область чтения и кнопки */
-#reading {
-  max-height: 80vh;
-  overflow-y: auto;
-  padding-bottom: 100px;
-}
-
-.nav-buttons,
-.menu-return {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-  position: sticky;
-  bottom: 0;
-  background: #fff;
-  padding: 10px;
-   #general {
-  display: flex;
-  flex-direction: column;
-  height: 85vh;
-  overflow-y: auto;
-  padding: 16px;
-}
-
-#generalContent { animation: fadeSlideIn 0.7s ease; }
-@keyframes fadeSlideIn { from {opacity:0; transform:translateY(10px)} to {opacity:1; transform:translateY(0)} }
-
-.nav-buttons, .menu-return {
-  position: sticky; bottom: 0; z-index: 10;
-  display: flex; justify-content: center; gap: 16px;
-  background: #fff; padding: 10px; border-top: 2px solid #eee;
-}
-
-  border-top: 2px solid #eee;
-  z-index: 10;
-}
-.msg {
-  margin: 8px 0;
-  padding: 8px 12px;
-  border-radius: 10px;
-  max-width: 90%;
-  line-height: 1.4;
-}
-
-.msg.user {
-  background: #ffec99;
-  align-self: flex-end;
-}
-
-.msg.ai {
-  background: #fff;
-  border-left: 4px solid #ffb300;
-}
-
-#chatBox {
-  display: flex;
-  flex-direction: column;
-  background: #fff7d1;
-  padding: 12px;
-  border-radius: 10px;
-  height: 400px;
-  overflow-y: auto;
-  font-family: "Verdana", sans-serif;
-}
-/* 🌟 Irregular & Phonetics animation effects */
-@keyframes flyStar {
-  0% { transform: scale(0.5) translateY(0); opacity: 1; }
-  100% { transform: scale(1.5) translateY(-100px); opacity: 0; }
-}
-
-.fade {
-  opacity: 1;
-  transition: opacity 0.4s ease;
-}
-
-/* ======================================= */
-/* 💬 AI Bayan Floating Chat Styles         */
-/* ======================================= */
-
-/* 🔘 Плавающая кнопка AI Bayan */
-#aiBayanBtn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-#aiBayanBtn img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  animation: glowPulse 3s infinite ease-in-out;
-}
-
-#aiBayanBtn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 25px rgba(255, 210, 0, 0.8);
-}
-
-/* ✨ Эффект мягкого свечения логотипа */
-@keyframes glowPulse {
-  0%, 100% { filter: drop-shadow(0 0 0px rgba(255, 210, 0, 0)); }
-  50% { filter: drop-shadow(0 0 10px rgba(255, 210, 0, 0.8)); }
-}
-
-/* 💛 Окно чата */
-#chatBox {
-  position: fixed;
-  bottom: 120px;
-  right: 30px;
-  width: 330px;
-  height: 460px;
-  background: #fffdf3;
-  border: 2px solid #ffd43b;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 10000;
-  animation: fadeInChat 0.5s ease forwards;
-}
-
-#chatBox.active {
-  display: flex;
-}
-
-/* 🌟 Анимация появления чата */
-@keyframes fadeInChat {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 🟨 Заголовок чата */
-#chatHeader {
-  background: linear-gradient(90deg, #ffe066, #ffcc00);
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  font-weight: bold;
-  border-bottom: 2px solid #ffd43b;
-}
-
-#chatHeader .chat-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-
-/* 💬 Сообщения */
-#chatMessages {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-#chatMessages div {
-  margin-bottom: 10px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  max-width: 90%;
-}
-
-#chatMessages div.user {
-  background: #ffef99;
-  align-self: flex-end;
-  text-align: right;
-}
-
-#chatMessages div.ai {
-  background: #fff7cc;
-  align-self: flex-start;
-}
-
-/* ✏️ Поле ввода */
-#chatInputArea {
-  display: flex;
-  border-top: 1px solid #ccc;
-  background: #fffbe6;
-}
-
-#chatInputArea input {
-  flex: 1;
-  border: none;
-  padding: 10px;
-  outline: none;
-  background: transparent;
-}
-
-#chatInputArea button {
-  background: #ffcc00;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-weight: bold;
-  border-left: 1px solid #ffd43b;
-}
-
-#chatInputArea button:hover {
-  background: #ffe066;
-}
-
-/* ❌ Кнопка закрытия */
-#closeChat {
-  background: transparent;
-  border: none;
-  font-size: 18px;
-  color: #333;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-#closeChat:hover {
-  transform: scale(1.2);
-}
-/* Base */
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, system-ui, -apple-system, Segoe UI, sans-serif;
-  color: #2b2316;
-  background: linear-gradient(180deg, #c99b4d 0%, #b9863d 40%, #a26f31 100%);
-  min-height: 100dvh;
-}
-
-/* Top hero */
-.top-hero {
-  display: grid;
-  justify-items: center;
-  gap: .25rem;
-  padding: .75rem 1rem 0.25rem;
-}
-.hero-logo { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 18px rgba(0,0,0,.15); }
-.brand { margin: 0; letter-spacing: 4px; color: #3b2a16; }
-
-/* Screens */
-.screen { display: none; padding: 1rem; }
-.screen.active { display: block; }
-.section h2 { margin-top: 0; }
-
-/* Menu grid 3×3 */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  max-width: 980px; margin: 1rem auto;
-}
-.tile {
-  border: 0; padding: 18px 14px; border-radius: 16px;
-  font-weight: 800; font-size: 18px; cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  transition: transform .08s ease, box-shadow .2s ease;
-}
-.tile:active { transform: translateY(1px); }
-.t-blue   { background:#3a80b5; color:#fff; }
-.t-orange { background:#d8892d; color:#fff; }
-.t-green  { background:#6aa84f; color:#0b1a0a; }
-.t-teal   { background:#3aa6a1; color:#042a28; }
-.t-amber  { background:#d0a130; color:#2b210c; }
-.t-sand   { background:#d4c0a1; color:#2b2316; }
-.t-indigo { background:#5b6bc7; color:#fff; }
-.t-cyan   { background:#37a9d6; color:#00212b; }
-.t-violet { background:#a075d8; color:#261338; }
-
-/* Reading compact top spacing */
-.reading-tight { padding-top: .25rem; }
-
-/* Cards / inputs */
-.card {
-  background: rgba(255,255,255,.85);
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.15);
-  margin: 0 auto;
-}
-.card.narrow { max-width: 420px; }
-.card input, .card button {
-  width: 100%; padding: 12px 14px; border-radius: 10px; border: 0; margin-top: 10px;
-}
-.card button { background:#ffcc00; font-weight: 800; }
-
-/* Floating chat button */
-.ai-bayan-btn {
-  position: fixed; right: 18px; bottom: 18px;
-  width: 64px; height: 64px; border-radius: 50%; border: 0; cursor: pointer;
-  box-shadow: 0 10px 24px rgba(0,0,0,.2); background: #fff; padding: 0;
-}
-.ai-bayan-btn img { width:100%; height:100%; border-radius:50%; object-fit: cover; }
-
-/* Chat window */
-.chat {
-  position: fixed; right: 18px; bottom: 94px;
-  width: 320px; max-height: 70dvh; display: grid; grid-template-rows: auto 1fr auto;
-  background: #fff8ef; border-radius: 16px; box-shadow: 0 18px 48px rgba(0,0,0,.28);
-  overflow: hidden; border: 1px solid rgba(0,0,0,.08);
-}
-.hidden { display: none; }
-.chat-header {
-  display:flex; align-items:center; gap:.5rem; padding:.5rem .75rem;
-  background: #f1dfc2; border-bottom: 1px solid rgba(0,0,0,.08);
-}
-.chat-logo { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-#closeChat { margin-left:auto; background:transparent; border:0; font-size:18px; cursor:pointer; }
-.chat-messages { padding: .6rem .75rem; overflow:auto; }
-.chat-input { display:flex; gap:.4rem; padding:.5rem; border-top: 1px solid rgba(0,0,0,.08); }
-.chat-input input { flex:1; border-radius: 10px; border:1px solid #d9c7a9; padding:.55rem .7rem; }
-.chat-input button { background:#ffcc00; border:0; border-radius:10px; padding:.55rem .9rem; font-weight:800; }
-
-/* Star animation (без звука) */
-@keyframes flyStar {
-  0% { transform: scale(.5) translateY(0); opacity: 1; }
-  100% { transform: scale(1.6) translateY(-100px); opacity: 0; }
-}
-.fade { opacity: 1; transition: opacity .4s ease; }
-
+  
