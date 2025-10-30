@@ -17,35 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ---------- BANK ----------
   // Формат записи: {cat, q, options[4], a}
   const bank = [
-    // ===== PHONETICS (Improved Informative) =====
-    // Diphthongs
-    {cat:"Phonetics", q:"Which word contains the diphthong /aɪ/? 💡 Tip: The sound /aɪ/ is like in 'time' or 'five'.", options:["sit","ship","time","pen"], a:2},
-    {cat:"Phonetics", q:"Which word contains the diphthong /eɪ/? 💡 Tip: /eɪ/ sounds like in 'name' or 'train'.", options:["bed","hat","train","bus"], a:2},
-    {cat:"Phonetics", q:"Which word contains the diphthong /əʊ/? 💡 Tip: /əʊ/ is in 'go', 'home', 'nose'.", options:["pen","hot","home","bat"], a:2},
-    {cat:"Phonetics", q:"Which word has the sound /ɔɪ/? 💡 Tip: It’s the sound in 'boy' or 'toy'.", options:["top","boy","bag","ten"], a:1},
-    {cat:"Phonetics", q:"Which word has the sound /aʊ/? 💡 Tip: /aʊ/ sounds like in 'house' or 'mouse'.", options:["cup","house","pen","tree"], a:1},
-    // Silent letters
-    {cat:"Phonetics", q:"Which word has a silent 'k'? 💡 Tip: 'k' is silent before 'n'.", options:["know","king","kite","kick"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent 'w'? 💡 Tip: 'w' is silent before 'r'.", options:["write","white","water","word"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent 'b'? 💡 Tip: 'b' is silent after 'm'.", options:["bomb","baby","rabbit","bamboo"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent 'g'? 💡 Tip: 'g' is silent before 'n'.", options:["sign","go","green","gift"], a:0},
-    {cat:"Phonetics", q:"Which word has a silent 'h'? 💡 Tip: 'h' is silent after 'w'.", options:["white","where","how","house"], a:1},
-    // Soft/Hard C–G
-    {cat:"Phonetics", q:"Choose the word with soft C /s/. 💡 Tip: 'C' before 'e, i, y' sounds /s/.", options:["cat","city","cold","cup"], a:1},
-    {cat:"Phonetics", q:"Choose the word with hard C /k/. 💡 Tip: 'C' before 'a, o, u' sounds /k/.", options:["cent","city","cat","ceiling"], a:2},
-    {cat:"Phonetics", q:"Choose the word with soft G /dʒ/. 💡 Tip: 'G' before 'e, i, y' is soft.", options:["go","game","giant","green"], a:2},
-    {cat:"Phonetics", q:"Choose the word with hard G /g/. 💡 Tip: 'G' before 'a, o, u' is hard.", options:["giraffe","giant","gem","goat"], a:3},
-    // Vowel patterns (types 1–4)
-    {cat:"Phonetics", q:"Choose the word with long vowel pattern (a_e). 💡 Tip: 'a' + consonant + 'e' makes long /eɪ/.", options:["cap","cat","cake","can"], a:2},
-    {cat:"Phonetics", q:"Choose the word with long vowel pattern (i_e). 💡 Tip: 'i' + consonant + 'e' makes long /aɪ/.", options:["pin","pig","pink","pine"], a:3},
-    {cat:"Phonetics", q:"Choose the word with long vowel pattern (o_e). 💡 Tip: 'o' + consonant + 'e' makes long /əʊ/.", options:["hop","hot","hope","hole"], a:2},
-    {cat:"Phonetics", q:"Choose the word with long vowel pattern (u_e). 💡 Tip: 'u' + consonant + 'e' makes /juː/ as in 'cube'.", options:["cup","cut","cube","cute"], a:2},
-    // Mixed add.
-    {cat:"Phonetics", q:"Which word has the same vowel sound as 'train'?", options:["men","pen","plane","pan"], a:2},
-    {cat:"Phonetics", q:"Which word has a long vowel sound?", options:["ship","sheep","sit","sick"], a:1},
-    {cat:"Phonetics", q:"Which word has the same sound as 'go'?", options:["got","gone","show","good"], a:2},
-    {cat:"Phonetics", q:"Which word has the same sound as 'time'?", options:["team","tame","fine","tin"], a:2},
-    {cat:"Phonetics", q:"Which word has the same sound as 'toy'?", options:["tie","boy","bee","bay"], a:1},
+ 
 
    // ==========================================
 // 📘 AI Bayan — Irregular Verbs Trainer (Translate to Russian)
@@ -55,7 +27,124 @@ document.addEventListener("DOMContentLoaded", () => {
   const content = document.getElementById("irregularContent");
 
   const verbs = [
-    ["be", "was / were", "been", "быть"],
+ // ==========================================
+// 🔤 AI Bayan — Phonetics Trainer
+// Дифтонги, silent letters, soft/hard C-G, vowel types
+// Без звука, со звёздами и прогрессом
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const content = document.getElementById("phoneticsContent");
+
+  const phonetics = [
+    // Diphthongs
+    { q: "Which word has the sound [aɪ]?", options: ["see", "fly", "book"], a: 1 },
+    { q: "Which word has the sound [eɪ]?", options: ["name", "sit", "sun"], a: 0 },
+    { q: "Which word has the sound [ɔɪ]?", options: ["boy", "car", "run"], a: 0 },
+    { q: "Which word has the sound [aʊ]?", options: ["home", "mouse", "pen"], a: 1 },
+    { q: "Which word has the sound [əʊ]?", options: ["go", "dog", "cat"], a: 0 },
+
+    // Silent letters
+    { q: "Which letter is silent in the word 'knight'?", options: ["k", "n", "g"], a: 0 },
+    { q: "Which letter is silent in the word 'write'?", options: ["r", "w", "t"], a: 1 },
+    { q: "Which letter is silent in the word 'climb'?", options: ["c", "b", "m"], a: 1 },
+    { q: "Which letter is silent in the word 'island'?", options: ["s", "l", "a"], a: 0 },
+    { q: "Which letter is silent in the word 'honest'?", options: ["h", "n", "t"], a: 0 },
+
+    // Soft/Hard C-G
+    { q: "Which word has a soft 'C' sound?", options: ["cat", "city", "cold"], a: 1 },
+    { q: "Which word has a hard 'C' sound?", options: ["cent", "circle", "cup"], a: 2 },
+    { q: "Which word has a soft 'G' sound?", options: ["game", "giant", "goat"], a: 1 },
+    { q: "Which word has a hard 'G' sound?", options: ["gem", "giraffe", "garden"], a: 2 },
+
+    // Vowel types
+    { q: "Which word has a short vowel sound?", options: ["ship", "sheep", "leave"], a: 0 },
+    { q: "Which word has a long vowel sound?", options: ["sit", "seat", "men"], a: 1 },
+    { q: "Which word has vowel type 3 (open syllable)?", options: ["me", "men", "mat"], a: 0 },
+    { q: "Which word has vowel type 4 (magic e)?", options: ["hop", "hope", "hot"], a: 1 },
+    { q: "Which word has vowel type 2 (closed syllable)?", options: ["dog", "go", "me"], a: 0 }
+  ];
+
+  let i = 0;
+  let score = 0;
+
+  showQuestion();
+
+  function showQuestion() {
+    const p = phonetics[i];
+    content.innerHTML = `
+      <h3>${i + 1}. ${p.q}</h3>
+      ${p.options.map((opt, idx) =>
+        `<button class='optBtn' data-opt='${idx}'>${opt}</button>`
+      ).join("<br>")}
+      <div class="progress">Question ${i + 1} / ${phonetics.length}</div>
+    `;
+
+    document.querySelectorAll(".optBtn").forEach(btn => {
+      btn.onclick = () => checkAnswer(parseInt(btn.dataset.opt));
+    });
+  }
+
+  function checkAnswer(choice) {
+    const correct = phonetics[i].a;
+    if (choice === correct) {
+      score++;
+      playStar();
+      nextQuestion();
+    } else {
+      alert(`❌ Wrong! Correct: ${phonetics[i].options[correct]}`);
+      nextQuestion();
+    }
+  }
+
+  function nextQuestion() {
+    i++;
+    if (i < phonetics.length) showQuestion();
+    else {
+      content.innerHTML = `
+        <h3>🎉 Great job!</h3>
+        <p>Your score: ${score} / ${phonetics.length}</p>
+      `;
+      showFinalStars();
+    }
+  }
+
+  // 🌟 Звёзды при правильном ответе
+  function playStar() {
+    const star = document.createElement("div");
+    star.textContent = "⭐";
+    Object.assign(star.style, {
+      position: "fixed",
+      left: `${Math.random() * 80 + 10}%`,
+      top: `${Math.random() * 60 + 20}%`,
+      fontSize: `${25 + Math.random() * 25}px`,
+      opacity: 0.9,
+      animation: "flyStar 1s ease-out forwards",
+      zIndex: 1000
+    });
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 1000);
+  }
+
+  // 🌟 Финальные звёзды
+  function showFinalStars() {
+    for (let s = 0; s < 20; s++) {
+      const star = document.createElement("div");
+      star.textContent = "⭐";
+      Object.assign(star.style, {
+        position: "fixed",
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        fontSize: `${20 + Math.random() * 30}px`,
+        opacity: 0.8,
+        animation: "flyStar 2s ease-out forwards",
+        zIndex: 999
+      });
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 2000);
+    }
+  }
+});
+   ["be", "was / were", "been", "быть"],
     ["begin", "began", "begun", "начинать"],
     ["break", "broke", "broken", "ломать"],
     ["bring", "brought", "brought", "приносить"],
