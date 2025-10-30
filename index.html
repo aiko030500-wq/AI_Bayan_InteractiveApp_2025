@@ -1,174 +1,147 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Bayan 2025 — Login</title>
-  <style>
-    body {
-      font-family: "Arial", sans-serif;
-      background: #f2f7ff;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-      text-align: center;
-      width: 340px;
-      transition: 0.4s;
-    }
-    .hidden { display: none; }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    button {
-      background: #155edf;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      width: 100%;
-    }
-    button:hover {
-      background: #0d4dc0;
-    }
-    .error {
-      color: #c00;
-      font-size: 14px;
-    }
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 14px;
-      margin-top: 20px;
-    }
-    .menu button {
-      font-size: 15px;
-      background: #e9f0ff;
-      color: #155edf;
-      border: 2px solid #155edf;
-      font-weight: 600;
-    }
-    .menu button:hover {
-      background: #155edf;
-      color: white;
-    }
-    header.top-hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    header img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    h1.brand {
-      margin: 0;
-      font-size: 22px;
-      color: #155edf;
-      font-weight: 700;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Bayan 2025</title>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+  <!-- HERO LOGO (девочка) -->
+  <header class="top-hero">
+    <img src="ai_bayan_logo.png" alt="AI Bayan" class="hero-logo"/>
+    <h1 class="brand">AI BAYAN 2025</h1>
+  </header>
 
-  <!-- LOGIN SCREEN -->
-  <div id="loginScreen" class="card">
-    <header class="top-hero">
-      <img src="ai_bayan_logo.png" alt="AI Bayan" />
-      <h1 class="brand">AI BAYAN 2025</h1>
-    </header>
-
-    <h2>Вход</h2>
-    <input id="nameInput" type="text" placeholder="Введите имя" autocomplete="off" />
-    <input id="pinInput" type="password" placeholder="Введите access code" inputmode="numeric" maxlength="6" />
-    <div id="error" class="error hidden"></div>
-    <button id="loginBtn">Войти</button>
-  </div>
-
-  <!-- STUDENT MENU -->
-  <div id="studentMenu" class="card hidden" style="width: 480px;">
-    <h2>Добро пожаловать, <span id="studentName">Ученик</span>!</h2>
-    <p>Выберите раздел, чтобы начать учиться:</p>
-    <div class="menu">
-      <button>📘 Grammar</button>
-      <button>🧠 Vocabulary</button>
-      <button>🎧 Listening</button>
-      <button>📖 Reading</button>
-      <button>🗣️ Speaking</button>
-      <button>✍️ Writing</button>
-      <button>📑 Irregular Verbs</button>
-      <button>🏅 Progress</button>
+  <!-- LOGIN -->
+  <section id="login" class="screen active">
+    <div class="card login-card">
+      <h2>Welcome to AI Bayan 2025</h2>
+      <input id="nameInput" type="text" placeholder="Enter your name"/>
+      <input id="pinInput" type="password" placeholder="Enter access code"/>
+      <button id="loginBtn">Login</button>
+      <p class="hint">Student PIN: 2361 (не показываем детям на экране)</p>
     </div>
-    <br/>
-    <button id="logoutBtn">Выйти</button>
+  </section>
+
+  <!-- MAIN MENU -->
+  <section id="menu" class="screen">
+    <h2 class="menu-title">Welcome to<br/>AI Bayan 2025</h2>
+    <div class="menu-grid">
+      <button class="btn tile blue"     data-target="grammar">📘 Grammar</button>
+      <button class="btn tile gold"     data-target="vocab">🧠 Vocabulary</button>
+      <button class="btn tile green"    data-target="olimp">🏅 Grammar Olympiad</button>
+      <button class="btn tile blue"     data-target="listening">🎧 Listening Olympiad</button>
+      <button class="btn tile gold"     data-target="reading">📖 Reading Olympiad</button>
+      <button class="btn tile teal"     data-target="general">📘 General English Trainer</button>
+    </div>
+  </section>
+
+  <!-- GRAMMAR OLYMPIAD -->
+  <section id="olimp" class="screen section">
+    <h2>🏅 Grammar Olympiad — A2</h2>
+    <div id="olimpContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="olimpScore">0</b></div>
+    <div class="nav">
+      <button id="oPrev">⬅️ Previous</button>
+      <button id="oNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
+
+  <!-- VOCAB OLYMPIAD -->
+  <section id="vocab" class="screen section">
+    <h2>🧠 Vocabulary Olympiad — A2</h2>
+    <div id="vocabContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="vocabScore">0</b></div>
+    <div class="nav">
+      <button id="vPrev">⬅️ Previous</button>
+      <button id="vNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
+
+  <!-- LISTENING OLYMPIAD -->
+  <section id="listening" class="screen section">
+    <h2>🎧 Listening Olympiad — A2</h2>
+    <div id="listeningContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="listeningScore">0</b></div>
+    <div class="nav">
+      <button id="lPrev">⬅️ Previous</button>
+      <button id="lNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
+
+  <!-- READING OLYMPIAD -->
+  <section id="reading" class="screen section">
+    <h2>📖 Reading Olympiad — A2</h2>
+    <div id="readingContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="readingScore">0</b></div>
+    <div class="nav">
+      <button id="rPrev">⬅️ Previous</button>
+      <button id="rNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
+
+  <!-- GENERAL TRAINER -->
+  <section id="general" class="screen section">
+    <h2>📘 General English Trainer — A2</h2>
+
+    <div class="subtabs">
+      <button class="subtab active" data-sub="irregulars">Irregular Verbs</button>
+      <button class="subtab" data-sub="phonetics">Phonetics</button>
+    </div>
+
+    <div id="irregulars" class="subscreen active">
+      <div id="irregularsContent"></div>
+      <div class="scorebar"><span>Score:</span> <b id="irregularsScore">0</b></div>
+      <div class="nav">
+        <button id="irPrev">⬅️ Previous</button>
+        <button id="irNext">➡️ Next</button>
+        <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+      </div>
+    </div>
+
+    <div id="phonetics" class="subscreen">
+      <div id="phoneticsContent"></div>
+      <div class="scorebar"><span>Score:</span> <b id="phoneticsScore">0</b></div>
+      <div class="nav">
+        <button id="phPrev">⬅️ Previous</button>
+        <button id="phNext">➡️ Next</button>
+        <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOAT CHAT BUTTON -->
+  <button id="aiBayanBtn" class="ai-bayan-btn">
+    <img src="ai_bayan_logo.png" alt="AI Bayan"/>
+  </button>
+
+  <!-- CHAT WINDOW -->
+  <div id="chatBox" class="hidden">
+    <div id="chatHeader">
+      <img src="ai_bayan_logo.png" alt="AI Bayan" class="chat-logo"/>
+      <span>AI Bayan — English Buddy 💬</span>
+      <button id="closeChat">✖</button>
+    </div>
+    <div id="chatMessages"></div>
+    <div id="chatInputArea">
+      <input id="chatInput" type="text" placeholder="Type your message..."/>
+      <button id="sendBtn">Send</button>
+    </div>
   </div>
 
-<script>
-(() => {
-  const STUDENT_PIN = "2361";
-
-  const loginScreen = document.getElementById("loginScreen");
-  const studentMenu = document.getElementById("studentMenu");
-  const nameInput = document.getElementById("nameInput");
-  const pinInput = document.getElementById("pinInput");
-  const loginBtn = document.getElementById("loginBtn");
-  const errorEl = document.getElementById("error");
-  const studentName = document.getElementById("studentName");
-  const logoutBtn = document.getElementById("logoutBtn");
-
-  function showError(msg) {
-    errorEl.textContent = msg;
-    errorEl.classList.remove("hidden");
-  }
-  function clearError() {
-    errorEl.textContent = "";
-    errorEl.classList.add("hidden");
-  }
-
-  function login() {
-    clearError();
-    const pin = pinInput.value.trim();
-    const name = nameInput.value.trim() || "Ученик";
-    if (!pin) return showError("Введите PIN.");
-
-    if (pin === STUDENT_PIN) {
-      studentName.textContent = name;
-      loginScreen.classList.add("hidden");
-      studentMenu.classList.remove("hidden");
-      pinInput.value = "";
-      nameInput.value = "";
-    } else {
-      showError("Неверный PIN.");
-    }
-  }
-
-  loginBtn.addEventListener("click", login);
-  pinInput.addEventListener("keydown", e => { if (e.key === "Enter") login(); });
-  logoutBtn.addEventListener("click", () => {
-    studentMenu.classList.add("hidden");
-    loginScreen.classList.remove("hidden");
-  });
-})();
-</script>
-
+  <script src="js/app.js"></script>
+  <script src="js/grammar_olimp.js"></script>
+  <script src="js/vocab_olimp.js"></script>
+  <script src="js/listening_olimp.js"></script>
+  <script src="js/reading_olimp.js"></script>
+  <script src="js/irregulars_trainer.js"></script>
+  <script src="js/phonetics_trainer.js"></script>
+  <script src="js/general_trainer.js"></script>
+  <script src="js/ai_bayan_chat.js"></script>
 </body>
 </html>
