@@ -9,20 +9,52 @@
 const STUDENT_PIN = "2361";
 const TEACHER_PIN = "9996";
 
-function show(screenId) {
-  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
-  const target = document.getElementById(screenId);
-  if (target) target.classList.add("active");
+// Simple screen switcher
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
 }
 
-document.getElementById("loginBtn").addEventListener("click", () => {
-  const name = document.getElementById("nameInput").value.trim();
-  const pin = document.getElementById("pinInput").value.trim();
-  if (!name || !pin) { alert("Please enter your name and PIN code."); return; }
-  if (pin === STUDENT_PIN) { localStorage.setItem("studentName", name); show("menu"); }
-  else if (pin === TEACHER_PIN) { show("teacher"); }
-  else { alert("❌ Wrong PIN. Try again."); }
+// Login → Menu
+document.addEventListener('DOMContentLoaded', () => {
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn) loginBtn.addEventListener('click', () => show('menu'));
+
+  // Menu routing
+  document.querySelectorAll('#menu .tile[data-target]').forEach(btn => {
+    btn.addEventListener('click', () => show(btn.getAttribute('data-target')));
+  });
 });
+
+// Shared star (no sound)
+export function popStar(x = null, y = null) {
+  const star = document.createElement('div');
+  star.textContent = '⭐';
+  star.style.position = 'fixed';
+  star.style.left = (x ?? (window.innerWidth * 0.5)) + 'px';
+  star.style.top  = (y ?? (window.innerHeight * 0.5)) + 'px';
+  star.style.transform = 'translate(-50%, -50%)';
+  star.style.fontSize = (24 + Math.random() * 14) + 'px';
+  star.style.animation = 'flyStar 900ms ease-out forwards';
+  star.style.pointerEvents = 'none';
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 900);
+}
+
+// Simple score helper
+export function makeScoreBar(container, id = 'score') {
+  const bar = document.createElement('div');
+  bar.style.textAlign = 'center';
+  bar.style.margin = '10px 0 14px';
+  bar.innerHTML = `Score: <b id="${id}">0</b>`;
+  container.prepend(bar);
+  return (delta = 0) => {
+    const el = document.getElementById(id);
+    const val = Math.max(0, (parseInt(el.textContent, 10) || 0) + delta);
+    el.textContent = String(val);
+  };
+}
 
 // ------------------------------
 // 📘 Simple Grammar Trainer (kept)
