@@ -5,113 +5,170 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Bayan 2025 — Login</title>
   <style>
-    body{display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f2f7ff;font-family:Arial,Helvetica,sans-serif}
-    .card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(15,30,60,.08);width:320px;text-align:center}
-    input{width:100%;padding:10px 12px;margin:10px 0;border:1px solid #d7e0f2;border-radius:6px;font-size:15px}
-    button{width:100%;padding:10px;border-radius:8px;border:none;font-size:16px;cursor:pointer;background:#155edf;color:#fff}
-    .error{color:#b00020;font-size:13px;margin-top:6px}
-    .hidden{display:none}
-    header.top-hero{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
-    .brand{margin:0;font-weight:700}
-    .app-screen{padding:20px;text-align:left}
+    body {
+      font-family: "Arial", sans-serif;
+      background: #f2f7ff;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      text-align: center;
+      width: 340px;
+      transition: 0.4s;
+    }
+    .hidden { display: none; }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #155edf;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background: #0d4dc0;
+    }
+    .error {
+      color: #c00;
+      font-size: 14px;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .menu button {
+      font-size: 15px;
+      background: #e9f0ff;
+      color: #155edf;
+      border: 2px solid #155edf;
+      font-weight: 600;
+    }
+    .menu button:hover {
+      background: #155edf;
+      color: white;
+    }
+    header.top-hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    h1.brand {
+      margin: 0;
+      font-size: 22px;
+      color: #155edf;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
+  <!-- LOGIN SCREEN -->
   <div id="loginScreen" class="card">
     <header class="top-hero">
-      <img src="ai_bayan_logo.png" alt="AI Bayan" style="width:56px;height:56px;border-radius:8px;object-fit:cover"/>
+      <img src="ai_bayan_logo.png" alt="AI Bayan" />
       <h1 class="brand">AI BAYAN 2025</h1>
     </header>
 
     <h2>Вход</h2>
     <input id="nameInput" type="text" placeholder="Введите имя" autocomplete="off" />
-    <input id="pinInput" type="password" placeholder="Введите access code" inputmode="numeric" pattern="\d*" maxlength="6" />
+    <input id="pinInput" type="password" placeholder="Введите access code" inputmode="numeric" maxlength="6" />
     <div id="error" class="error hidden"></div>
-
     <button id="loginBtn">Войти</button>
   </div>
 
-  <!-- УЧЕНИК -->
-  <div id="studentScreen" class="card hidden" style="width:680px;">
-    <div class="app-screen">
-      <h2>Добро пожаловать, <span id="studentName">Ученик</span>!</h2>
-      <p>Это ученический режим приложения.</p>
-      <button id="logoutBtn1">Выйти</button>
+  <!-- STUDENT MENU -->
+  <div id="studentMenu" class="card hidden" style="width: 480px;">
+    <h2>Добро пожаловать, <span id="studentName">Ученик</span>!</h2>
+    <p>Выберите раздел, чтобы начать учиться:</p>
+    <div class="menu">
+      <button>📘 Grammar</button>
+      <button>🧠 Vocabulary</button>
+      <button>🎧 Listening</button>
+      <button>📖 Reading</button>
+      <button>🗣️ Speaking</button>
+      <button>✍️ Writing</button>
+      <button>📑 Irregular Verbs</button>
+      <button>🏅 Progress</button>
     </div>
-  </div>
-
-  <!-- УЧИТЕЛЬ -->
-  <div id="teacherScreen" class="card hidden" style="width:680px;">
-    <div class="app-screen">
-      <h2>👩‍🏫 Режим учителя</h2>
-      <p>Добро пожаловать, <span id="teacherName">Учитель</span>!</p>
-      <ul>
-        <li>Просмотр прогресса учеников</li>
-        <li>Настройки приложения</li>
-        <li>Панель управления</li>
-      </ul>
-      <button id="logoutBtn2">Выйти</button>
-    </div>
+    <br/>
+    <button id="logoutBtn">Выйти</button>
   </div>
 
 <script>
 (() => {
-  // 🔐 ПИН-КОДЫ — не показываются на экране
-  const STUDENT_PIN = '2361';
-  const TEACHER_PIN = '9996';
+  const STUDENT_PIN = "2361";
 
-  const loginScreen = document.getElementById('loginScreen');
-  const studentScreen = document.getElementById('studentScreen');
-  const teacherScreen = document.getElementById('teacherScreen');
-  const nameInput = document.getElementById('nameInput');
-  const pinInput = document.getElementById('pinInput');
-  const loginBtn = document.getElementById('loginBtn');
-  const errorEl = document.getElementById('error');
-  const studentNameEl = document.getElementById('studentName');
-  const teacherNameEl = document.getElementById('teacherName');
-  const logoutBtn1 = document.getElementById('logoutBtn1');
-  const logoutBtn2 = document.getElementById('logoutBtn2');
+  const loginScreen = document.getElementById("loginScreen");
+  const studentMenu = document.getElementById("studentMenu");
+  const nameInput = document.getElementById("nameInput");
+  const pinInput = document.getElementById("pinInput");
+  const loginBtn = document.getElementById("loginBtn");
+  const errorEl = document.getElementById("error");
+  const studentName = document.getElementById("studentName");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-  function showError(msg){
+  function showError(msg) {
     errorEl.textContent = msg;
-    errorEl.classList.remove('hidden');
+    errorEl.classList.remove("hidden");
   }
-  function clearError(){
-    errorEl.textContent = '';
-    errorEl.classList.add('hidden');
+  function clearError() {
+    errorEl.textContent = "";
+    errorEl.classList.add("hidden");
   }
 
-  function login(){
+  function login() {
     clearError();
     const pin = pinInput.value.trim();
-    const name = nameInput.value.trim() || 'Ученик';
+    const name = nameInput.value.trim() || "Ученик";
+    if (!pin) return showError("Введите PIN.");
 
-    if(!pin){showError('Введите PIN.');return;}
-    if(pin === STUDENT_PIN){
-      studentNameEl.textContent = name;
-      loginScreen.classList.add('hidden');
-      studentScreen.classList.remove('hidden');
-    } else if(pin === TEACHER_PIN){
-      teacherNameEl.textContent = name || 'Учитель';
-      loginScreen.classList.add('hidden');
-      teacherScreen.classList.remove('hidden');
+    if (pin === STUDENT_PIN) {
+      studentName.textContent = name;
+      loginScreen.classList.add("hidden");
+      studentMenu.classList.remove("hidden");
+      pinInput.value = "";
+      nameInput.value = "";
     } else {
-      showError('Неверный PIN. Попробуйте ещё раз.');
+      showError("Неверный PIN.");
     }
-
-    pinInput.value = '';
-    nameInput.value = '';
   }
 
-  loginBtn.addEventListener('click', login);
-  pinInput.addEventListener('keydown', e => { if(e.key === 'Enter') login(); });
-  logoutBtn1.addEventListener('click', () => { studentScreen.classList.add('hidden'); loginScreen.classList.remove('hidden'); });
-  logoutBtn2.addEventListener('click', () => { teacherScreen.classList.add('hidden'); loginScreen.classList.remove('hidden'); });
+  loginBtn.addEventListener("click", login);
+  pinInput.addEventListener("keydown", e => { if (e.key === "Enter") login(); });
+  logoutBtn.addEventListener("click", () => {
+    studentMenu.classList.add("hidden");
+    loginScreen.classList.remove("hidden");
+  });
 })();
 </script>
 
 </body>
 </html>
-
