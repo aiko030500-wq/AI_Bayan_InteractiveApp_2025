@@ -1,58 +1,84 @@
+// ==============================
+// 🤖 AI Bayan 2025 — Core Wiring (FIXED)
+// Login + Screen Routing + Helpers
+// ==============================
 
-// ====== ROUTER ======
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+// 🎯 Access PINs
+const STUDENT_PIN = "2361";
+const TEACHER_PIN = "9996";
+
+// ------------------------------
+// 📱 Screen Switching
+// ------------------------------
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  const el = document.getElementById(id);
+  if (el) el.classList.add("active");
 }
 
-window.popStar = function(x=null,y=null){
-  const s = document.createElement('div');
-  s.className='star'; s.textContent='⭐';
-  if(x!=null && y!=null){ s.style.left=x+'px'; s.style.top=y+'px'; s.style.transform='translate(-50%,-50%)'; }
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(), 950);
-};
+// ------------------------------
+// 🔐 Login System
+// ------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+  const nameInput = document.getElementById("nameInput");
+  const pinInput = document.getElementById("pinInput");
 
-}
-
-// ====== LOGIN ======
-const STUDENT_PIN = "2361";  // ты просила оставить этот код
-document.getElementById('loginBtn').addEventListener('click', ()=>{
-  const name = document.getElementById('nameInput').value.trim();
-  const pin  = document.getElementById('pinInput').value.trim();
-  if(!name || !pin){ alert('Enter your name and PIN'); return; }
-  if(pin===STUDENT_PIN){
-    localStorage.setItem('studentName', name);
-    show('menu');
-  } else {
-    alert('Wrong PIN');
+  if (!loginBtn || !nameInput || !pinInput) {
+    console.error("❌ Login elements not found in HTML");
+    return;
   }
-});
 
-// ====== MENU BUTTONS ======
-document.querySelectorAll('#menu .menu-grid .btn').forEach(b=>{
-  b.addEventListener('click', ()=>{
-    show(b.getAttribute('data-target'));
-    // Авто-инициализация экранов при входе
-    if(window.showOlimpQuestion)      showOlimpQuestion(true);
-    if(window.showVocabQuestion)      showVocabQuestion(true);
-    if(window.showListeningQuestion)  showListeningQuestion(true);
-    if(window.showReading)            showReading(true);
-    if(window.mountIrregularsTrainer) mountIrregularsTrainer(true);
-    if(window.mountPhoneticsTrainer)  mountPhoneticsTrainer(true);
+  loginBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    const pin = pinInput.value.trim();
+
+    if (!name || !pin) {
+      alert("Please enter your name and PIN code.");
+      return;
+    }
+
+    if (pin === STUDENT_PIN) {
+      localStorage.setItem("studentName", name);
+      show("menu");
+      console.log("✅ Student login successful:", name);
+    } else if (pin === TEACHER_PIN) {
+      alert("Welcome, Teacher 👩🏻‍🏫");
+      show("menu");
+      console.log("✅ Teacher login successful");
+    } else {
+      alert("❌ Incorrect PIN. Try again.");
+      console.warn("Entered wrong PIN:", pin);
+    }
   });
 });
 
-// ====== SUBTABS (GENERAL) ======
-document.querySelectorAll('.subtab').forEach(t=>{
-  t.addEventListener('click', ()=>{
-    document.querySelectorAll('.subtab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    const sub = t.getAttribute('data-sub');
-    document.querySelectorAll('.subscreen').forEach(s=>s.classList.remove('active'));
-    document.getElementById(sub).classList.add('active');
+// ------------------------------
+// 🌟 Star Animation (global helper)
+// ------------------------------
+window.popStar = function (x = null, y = null) {
+  const star = document.createElement("div");
+  star.textContent = "⭐";
+  Object.assign(star.style, {
+    position: "fixed",
+    left: x ? `${x}px` : `${Math.random() * 90 + 5}%`,
+    top: y ? `${y}px` : `${Math.random() * 80 + 10}%`,
+    fontSize: `${25 + Math.random() * 20}px`,
+    animation: "flyStar 1s ease-out forwards",
+    zIndex: 9999
+  });
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 1000);
+};
 
-    if(sub==='irregulars' && window.mountIrregularsTrainer) mountIrregularsTrainer();
-    if(sub==='phonetics'  && window.mountPhoneticsTrainer)  mountPhoneticsTrainer();
+// ------------------------------
+// 🧭 Menu Navigation
+// ------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("#menu button[data-target]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-target");
+      show(target);
+    });
   });
 });
