@@ -89,5 +89,61 @@
 
   <!-- AI Bayan chat -->
   <script src="js/ai_bayan_chat.js"></script>
+<script>
+  // 🌟 Простая функция для переключения экранов
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // 🔒 Проверка PIN-кода (твой секретный — 2361)
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    const name = document.getElementById('nameInput').value.trim();
+    const pin = document.getElementById('pinInput').value.trim();
+
+    if (!name) {
+      alert("Please enter your name 😊");
+      return;
+    }
+
+    // Твой секретный пин-код
+    if (pin === "2361") {
+      localStorage.setItem('userName', name);
+      show('menu');
+
+      // 🌟 Приветствие после входа
+      const welcome = document.createElement('div');
+      welcome.textContent = `Welcome, ${name}! 🌟`;
+      Object.assign(welcome.style, {
+        position: "fixed",
+        top: "20px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        background: "rgba(255, 215, 0, 0.9)",
+        color: "#5b3a00",
+        fontWeight: "bold",
+        padding: "10px 20px",
+        borderRadius: "20px",
+        boxShadow: "0 0 15px rgba(255, 200, 50, 0.7)",
+        zIndex: 2000,
+        animation: "fadeOut 3s forwards"
+      });
+      document.body.appendChild(welcome);
+      setTimeout(() => welcome.remove(), 3000);
+    } else {
+      alert("❌ Incorrect access code. Try again!");
+    }
+  });
+
+  // ✨ Анимация появления/исчезновения приветствия
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, -30px); }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
 </body>
 </html>
