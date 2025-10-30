@@ -1,0 +1,133 @@
+:root{
+  --gold:#f4c542;
+  --gold-deep:#e4ae00;
+  --brown:#c6954d;
+  --brown-deep:#9e6d2d;
+  --ink:#2a2a2a;
+  --card:#fff7e8;
+  --blue:#4e8bd5;
+  --teal:#2ea7a0;
+  --green:#2fb269;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #d1a158, #b0782e 60%);
+  color:var(--ink);
+}
+
+/* hero */
+.top-hero{
+  text-align:center;
+  padding:10px 0 0;
+}
+.hero-logo{
+  width:140px; height:auto;
+  display:block; margin:10px auto 0;
+  border-radius:18px;
+}
+.brand{
+  margin:6px 0 0;
+  letter-spacing:2px;
+  color:#4b2e05;
+}
+
+/* screens */
+.screen{display:none; padding:16px}
+.screen.active{display:block}
+.section h2{margin-top:0}
+
+.login-card{
+  max-width:520px; margin:60px auto; padding:18px;
+  background:#fff; border-radius:14px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+}
+.login-card input{
+  width:100%; padding:10px 12px; margin:8px 0;
+  border:1px solid #ddd; border-radius:8px;
+}
+.login-card button{
+  width:100%; padding:10px; border:none; border-radius:10px;
+  background:var(--gold); font-weight:bold; cursor:pointer;
+}
+.hint{opacity:.5; font-size:12px; text-align:center}
+
+/* menu */
+.menu-title{
+  text-align:center; margin:6px 0 10px; font-size:28px;
+}
+.menu-grid{
+  max-width:800px; margin:0 auto; display:grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap:14px;
+}
+.btn.tile{
+  padding:16px; border:none; border-radius:14px;
+  color:#1a1a1a; font-weight:800; font-size:18px;
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
+  cursor:pointer;
+}
+.blue{background:#d9ecff}
+.gold{background:#ffec9a}
+.green{background:#d9ffe9}
+.teal{background:#d6fff8}
+
+/* section content */
+.card{background:var(--card); border-radius:14px; padding:14px}
+.nav{display:flex; gap:8px; align-items:center; margin-top:12px}
+.nav button, .back{
+  padding:10px 12px; border:none; border-radius:10px;
+  background:var(--gold); cursor:pointer; font-weight:bold;
+}
+.back{background:#ffe6a9}
+.scorebar{margin:8px 0 4px; font-weight:bold}
+
+/* chat */
+.ai-bayan-btn{
+  position:fixed; right:20px; bottom:20px;
+  width:64px; height:64px; border-radius:50%;
+  border:none; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.2);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.ai-bayan-btn img{width:100%; height:100%; border-radius:50%}
+
+#chatBox{
+  position:fixed; right:20px; bottom:96px; width:320px; max-height:60vh;
+  background:#fff; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.25);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.hidden{display:none}
+#chatHeader{
+  display:flex; gap:8px; align-items:center; padding:8px 10px; background:#ffec9a;
+}
+.chat-logo{width:28px; height:28px; border-radius:50%}
+#chatMessages{padding:10px; overflow:auto; flex:1; font-size:14px}
+#chatInputArea{display:flex; gap:6px; padding:8px; border-top:1px solid #eee}
+#chatInput{flex:1; padding:8px; border:1px solid #ddd; border-radius:8px}
+#sendBtn,#closeChat{padding:8px 10px; border:none; border-radius:8px; background:var(--gold); font-weight:bold; cursor:pointer}
+
+/* subtabs in general */
+.subtabs{display:flex; gap:8px; margin:6px 0 12px}
+.subtab{border:none; padding:10px 12px; border-radius:10px; background:#eee; cursor:pointer; font-weight:bold}
+.subtab.active{background:#ffd463}
+
+/* ⭐ animation */
+@keyframes flyStar {
+  0% { transform: scale(0.6) translateY(0); opacity: 1; }
+  100% { transform: scale(1.4) translateY(-100px); opacity: 0; }
+}
+.star{
+  position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-size:32px; animation:flyStar 900ms ease-out forwards; z-index:9999;
+}
+
+
+
+
+  
+
+
+  
