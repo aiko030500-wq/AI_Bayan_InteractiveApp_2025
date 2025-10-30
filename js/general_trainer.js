@@ -47,77 +47,125 @@ document.addEventListener("DOMContentLoaded", function () {
     {cat:"Phonetics", q:"Which word has the same sound as 'time'?", options:["team","tame","fine","tin"], a:2},
     {cat:"Phonetics", q:"Which word has the same sound as 'toy'?", options:["tie","boy","bee","bay"], a:1},
 
-    // ===== IRREGULAR VERBS (Extended to 50, A2–B1) =====
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'be'.", options:["was/were","been","am","being"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'be'.", options:["been","was","were","being"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'begin'.", options:["began","begun","begin","begined"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'begin'.", options:["begun","began","begin","begined"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'break'.", options:["broke","broken","breaked","break"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'break'.", options:["broken","broke","breaked","breaks"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'bring'.", options:["brought","brang","bringed","broughted"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'bring'.", options:["brought","brang","bringed","broughted"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'build'.", options:["built","builded","build","builted"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'build'.", options:["built","builded","building","builds"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'buy'.", options:["bought","buyed","buys","buy"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'buy'.", options:["bought","buyed","buying","buy"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'catch'.", options:["caught","catched","catch","catching"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'catch'.", options:["caught","catched","catching","catches"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'choose'.", options:["chose","choosed","choose","chosen"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'choose'.", options:["chosen","chose","choose","choosed"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'come'.", options:["came","come","comed","comes"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'come'.", options:["come","came","comed","coming"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'do'.", options:["did","done","does","doing"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'do'.", options:["done","did","doing","does"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'drink'.", options:["drank","drunk","drinked","drinks"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'drink'.", options:["drunk","drank","drinked","drinks"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'drive'.", options:["drove","drived","driven","drives"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'drive'.", options:["driven","drove","drived","drives"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'eat'.", options:["ate","eated","eat","eaten"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'eat'.", options:["eaten","ate","eat","eated"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'fall'.", options:["fell","fallen","fall","falled"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'fall'.", options:["fallen","fell","fall","falled"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'find'.", options:["found","finded","find","finds"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'find'.", options:["found","finded","find","finds"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'fly'.", options:["flew","flied","flyed","flies"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'fly'.", options:["flown","flew","flyed","flies"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'forget'.", options:["forgot","forgetted","forget","forgets"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'forget'.", options:["forgotten","forgot","forgetted","forgets"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'get'.", options:["got","getted","get","gotten"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'get'.", options:["got/gotten","got","get","getting"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'give'.", options:["gave","given","give","gives"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'give'.", options:["given","gave","give","gives"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'go'.", options:["went","goed","gone","going"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'go'.", options:["gone","went","goed","going"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'grow'.", options:["grew","growed","grow","growen"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'grow'.", options:["grown","grew","growed","grow"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'know'.", options:["knew","knowed","know","known"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'know'.", options:["known","knew","knowed","know"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'make'.", options:["made","maked","make","maken"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'make'.", options:["made","maked","maken","makes"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'meet'.", options:["met","meet","meeting","meeted"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'meet'.", options:["met","meeted","meeting","meets"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'read'.", options:["read","red","reed","ridd"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'read'.", options:["read","red","reed","ridd"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'run'.", options:["ran","runned","run","runs"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'run'.", options:["run","ran","runned","runs"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'see'.", options:["saw","seen","see","seeing"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'see'.", options:["seen","saw","see","seeing"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'sing'.", options:["sang","singed","sung","song"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'sing'.", options:["sung","sang","singed","song"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'sit'.", options:["sat","sitted","sit","sats"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'sit'.", options:["sat","sitted","sit","sats"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'speak'.", options:["spoke","speaked","speak","spoken"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'speak'.", options:["spoken","spoke","speak","speaked"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'swim'.", options:["swam","swum","swim","swimming"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'swim'.", options:["swum","swam","swim","swimming"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'take'.", options:["took","taken","take","takes"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'take'.", options:["taken","took","take","takes"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'teach'.", options:["taught","teached","teach","teachened"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'teach'.", options:["taught","teached","teach","teaching"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'think'.", options:["thought","thinked","thank","thinking"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'think'.", options:["thought","thinked","thank","thinking"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 2nd form of 'write'.", options:["wrote","written","writes","write"], a:0},
-    {cat:"Irregular Verbs", q:"Choose the correct 3rd form of 'write'.", options:["written","wrote","write","writes"], a:0},
+   // ==========================================
+// 📘 AI Bayan — Irregular Verbs Trainer (Translate to Russian)
+// 🌟 Без звука, только анимация звёздочек
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const content = document.getElementById("irregularContent");
+
+  const verbs = [
+    ["be", "was / were", "been", "быть"],
+    ["begin", "began", "begun", "начинать"],
+    ["break", "broke", "broken", "ломать"],
+    ["bring", "brought", "brought", "приносить"],
+    ["build", "built", "built", "строить"],
+    ["buy", "bought", "bought", "покупать"],
+    ["come", "came", "come", "приходить"],
+    ["do", "did", "done", "делать"],
+    ["drink", "drank", "drunk", "пить"],
+    ["eat", "ate", "eaten", "есть"],
+    ["find", "found", "found", "находить"],
+    ["fly", "flew", "flown", "летать"],
+    ["get", "got", "got / gotten", "получать"],
+    ["give", "gave", "given", "давать"],
+    ["go", "went", "gone", "идти"],
+    ["have", "had", "had", "иметь"],
+    ["know", "knew", "known", "знать"],
+    ["leave", "left", "left", "уходить"],
+    ["make", "made", "made", "делать, создавать"],
+    ["read", "read", "read", "читать"],
+    ["run", "ran", "run", "бежать"],
+    ["say", "said", "said", "сказать"],
+    ["see", "saw", "seen", "видеть"],
+    ["sleep", "slept", "slept", "спать"],
+    ["speak", "spoke", "spoken", "говорить"],
+    ["take", "took", "taken", "брать"],
+    ["teach", "taught", "taught", "учить (кого-то)"],
+    ["think", "thought", "thought", "думать"],
+    ["write", "wrote", "written", "писать"]
+  ];
+
+  let i = 0;
+  let score = 0;
+
+  showVerb();
+
+  function showVerb() {
+    const [v1, v2, v3] = verbs[i];
+    content.innerHTML = `
+      <h3>${i + 1}. ${v1} — ${v2} — ${v3}</h3>
+      <p>Write the Russian meaning:</p>
+      <input type="text" id="answerInput" placeholder="Введите перевод..." />
+      <button id="checkBtn">Check</button>
+      <div class="progress">Word ${i + 1} / ${verbs.length}</div>
+    `;
+
+    document.getElementById("checkBtn").onclick = checkAnswer;
+  }
+
+  function checkAnswer() {
+    const input = document.getElementById("answerInput").value.trim().toLowerCase();
+    const correct = verbs[i][3].toLowerCase();
+
+    if (input === correct) {
+      score++;
+      playStar();
+      nextVerb();
+    } else {
+      alert(`❌ Wrong! Correct: ${verbs[i][3]}`);
+      nextVerb();
+    }
+  }
+
+  function nextVerb() {
+    i++;
+    if (i < verbs.length) showVerb();
+    else {
+      content.innerHTML = `
+        <h3>🎉 Great job!</h3>
+        <p>Your score: ${score} / ${verbs.length}</p>
+      `;
+      showFinalStars();
+    }
+  }
+
+  // 🌟 Анимация звёзд при правильном ответе
+  function playStar() {
+    const star = document.createElement("div");
+    star.textContent = "⭐";
+    Object.assign(star.style, {
+      position: "fixed",
+      left: `${Math.random() * 80 + 10}%`,
+      top: `${Math.random() * 60 + 20}%`,
+      fontSize: `${25 + Math.random() * 25}px`,
+      opacity: 0.9,
+      animation: "flyStar 1s ease-out forwards",
+      zIndex: 1000
+    });
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 1000);
+  }
+
+  // 🌟 Финальные звёзды в конце
+  function showFinalStars() {
+    for (let s = 0; s < 20; s++) {
+      const star = document.createElement("div");
+      star.textContent = "⭐";
+      Object.assign(star.style, {
+        position: "fixed",
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        fontSize: `${20 + Math.random() * 30}px`,
+        opacity: 0.8,
+        animation: "flyStar 2s ease-out forwards",
+        zIndex: 999
+      });
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 2000);
+    }
+  }
+});
 
     // ===== TIME & SEASONS =====
     // Time
