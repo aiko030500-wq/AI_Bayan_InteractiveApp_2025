@@ -5,13 +5,14 @@ function show(id){
   document.getElementById(id).classList.add('active');
 }
 
-// ⭐ simple star
-function popStar(){
+window.popStar = function(x=null,y=null){
   const s = document.createElement('div');
-  s.className='star';
-  s.textContent='⭐';
+  s.className='star'; s.textContent='⭐';
+  if(x!=null && y!=null){ s.style.left=x+'px'; s.style.top=y+'px'; s.style.transform='translate(-50%,-50%)'; }
   document.body.appendChild(s);
   setTimeout(()=>s.remove(), 950);
+};
+
 }
 
 // ====== LOGIN ======
