@@ -12,7 +12,19 @@ function show(id){
   const el = document.getElementById(id);
   if(el) el.classList.add("active");
 }
+// =======================
+// 🔐 Проверка PIN-кода
+// =======================
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+  if (!loginBtn) return;
 
+  loginBtn.addEventListener("click", () => {
+    const name = document.getElementById("nameInput").value.trim();
+    const pin = document.getElementById("pinInput").value.trim();
+
+    if (!name || !pin) {
+      alert
 // star helper (used by trainers)
 window.popStar = function(x=null,y=null){
   const s = document.createElement("div");
