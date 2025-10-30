@@ -2,148 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Bayan 2025</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-
-  <!-- Top centered logo -->
+  <!-- HERO LOGO (девочка) -->
   <header class="top-hero">
-    <img src="ai_bayan_logo.png" alt="AI Bayan" class="hero-logo" />
-    <h1 class="brand">AI BAYAN</h1>
+    <img src="ai_bayan_logo.png" alt="AI Bayan" class="hero-logo"/>
+    <h1 class="brand">AI BAYAN 2025</h1>
   </header>
 
-  <!-- Login -->
+  <!-- LOGIN -->
   <section id="login" class="screen active">
-    <div class="card narrow">
+    <div class="card login-card">
       <h2>Welcome to AI Bayan 2025</h2>
-      <input id="nameInput" type="text" placeholder="Enter your name" />
-      <input id="pinInput" type="password" placeholder="Enter access code" />
+      <input id="nameInput" type="text" placeholder="Enter your name"/>
+      <input id="pinInput" type="password" placeholder="Enter access code"/>
       <button id="loginBtn">Login</button>
+      <p class="hint">Student PIN: 2361 (не показываем детям на экране)</p>
     </div>
   </section>
 
-  <!-- Main Menu (3×3) -->
+  <!-- MAIN MENU -->
   <section id="menu" class="screen">
+    <h2 class="menu-title">Welcome to<br/>AI Bayan 2025</h2>
     <div class="menu-grid">
-      <button class="tile t-blue"      data-target="grammar">📘 Grammar</button>
-      <button class="tile t-orange"    data-target="phonetics">🔊 Phonics</button>
-      <button class="tile t-green"     data-target="vocab">💡 Vocabulary</button>
-
-      <button class="tile t-teal"      data-target="listening">🎧 Listening</button>
-      <button class="tile t-amber"     data-target="reading">📖 Reading</button>
-      <button class="tile t-sand"      data-target="irregulars">％ Irregular Verbs</button>
-
-      <button class="tile t-indigo"    data-target="olimp">🏅 Grammar Olympiad</button>
-      <button class="tile t-cyan"      data-target="general">🧩 General Trainer</button>
-      <button class="tile t-violet"    data-target="dictionary">🔤 Dictionary</button>
+      <button class="btn tile blue"     data-target="grammar">📘 Grammar</button>
+      <button class="btn tile gold"     data-target="vocab">🧠 Vocabulary</button>
+      <button class="btn tile green"    data-target="olimp">🏅 Grammar Olympiad</button>
+      <button class="btn tile blue"     data-target="listening">🎧 Listening Olympiad</button>
+      <button class="btn tile gold"     data-target="reading">📖 Reading Olympiad</button>
+      <button class="btn tile teal"     data-target="general">📘 General English Trainer</button>
     </div>
   </section>
 
-  <!-- Placeholders for sections you уже используете -->
-  <section id="grammar"    class="screen section"><h2>Grammar</h2><div id="grammarContent"></div></section>
-  <section id="olimp"      class="screen section"><h2>Grammar Olympiad — A2</h2><div id="olimpContent"></div></section>
-  <section id="listening"  class="screen section"><h2>Listening Olympiad — A2</h2><div id="listeningContent"></div></section>
-  <section id="reading"    class="screen section reading-tight"><h2>Reading Olympiad — A2</h2><div id="readingContent"></div></section>
-  <section id="vocab"      class="screen section"><h2>Vocabulary Olympiad — A2</h2><div id="vocabContent"></div></section>
+  <!-- GRAMMAR OLYMPIAD -->
+  <section id="olimp" class="screen section">
+    <h2>🏅 Grammar Olympiad — A2</h2>
+    <div id="olimpContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="olimpScore">0</b></div>
+    <div class="nav">
+      <button id="oPrev">⬅️ Previous</button>
+      <button id="oNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
 
-  <!-- New: General + Irregulars + Phonetics (контейнеры) -->
-  <section id="general"    class="screen section"><h2>General English Trainer — A2</h2><div id="generalContent"></div></section>
-  <section id="irregulars" class="screen section"><h2>Irregular Verbs Trainer — A2</h2><div id="irregularsContent"></div></section>
-  <section id="phonetics"  class="screen section"><h2>Phonetics Trainer — A2</h2><div id="phoneticsContent"></div></section>
+  <!-- VOCAB OLYMPIAD -->
+  <section id="vocab" class="screen section">
+    <h2>🧠 Vocabulary Olympiad — A2</h2>
+    <div id="vocabContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="vocabScore">0</b></div>
+    <div class="nav">
+      <button id="vPrev">⬅️ Previous</button>
+      <button id="vNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
 
-  <!-- Dictionary (пока пустой контейнер) -->
-  <section id="dictionary" class="screen section"><h2>Dictionary</h2><div id="dictContent"></div></section>
+  <!-- LISTENING OLYMPIAD -->
+  <section id="listening" class="screen section">
+    <h2>🎧 Listening Olympiad — A2</h2>
+    <div id="listeningContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="listeningScore">0</b></div>
+    <div class="nav">
+      <button id="lPrev">⬅️ Previous</button>
+      <button id="lNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
 
-  <!-- Floating AI Bayan Button -->
-  <button id="aiBayanBtn" class="ai-bayan-btn" aria-label="Open AI Bayan Chat">
-    <img src="ai_bayan_logo.png" alt="" />
+  <!-- READING OLYMPIAD -->
+  <section id="reading" class="screen section">
+    <h2>📖 Reading Olympiad — A2</h2>
+    <div id="readingContent"></div>
+    <div class="scorebar"><span>Score:</span> <b id="readingScore">0</b></div>
+    <div class="nav">
+      <button id="rPrev">⬅️ Previous</button>
+      <button id="rNext">➡️ Next</button>
+      <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+    </div>
+  </section>
+
+  <!-- GENERAL TRAINER -->
+  <section id="general" class="screen section">
+    <h2>📘 General English Trainer — A2</h2>
+
+    <div class="subtabs">
+      <button class="subtab active" data-sub="irregulars">Irregular Verbs</button>
+      <button class="subtab" data-sub="phonetics">Phonetics</button>
+    </div>
+
+    <div id="irregulars" class="subscreen active">
+      <div id="irregularsContent"></div>
+      <div class="scorebar"><span>Score:</span> <b id="irregularsScore">0</b></div>
+      <div class="nav">
+        <button id="irPrev">⬅️ Previous</button>
+        <button id="irNext">➡️ Next</button>
+        <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+      </div>
+    </div>
+
+    <div id="phonetics" class="subscreen">
+      <div id="phoneticsContent"></div>
+      <div class="scorebar"><span>Score:</span> <b id="phoneticsScore">0</b></div>
+      <div class="nav">
+        <button id="phPrev">⬅️ Previous</button>
+        <button id="phNext">➡️ Next</button>
+        <button class="back" onclick="show('menu')">🏠 Back to Menu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOAT CHAT BUTTON -->
+  <button id="aiBayanBtn" class="ai-bayan-btn">
+    <img src="ai_bayan_logo.png" alt="AI Bayan"/>
   </button>
 
-  <!-- AI Bayan Chat Window -->
-  <div id="chatBox" class="chat hidden">
-    <div id="chatHeader" class="chat-header">
-      <img src="ai_bayan_logo.png" class="chat-logo" alt="AI Bayan"/>
+  <!-- CHAT WINDOW -->
+  <div id="chatBox" class="hidden">
+    <div id="chatHeader">
+      <img src="ai_bayan_logo.png" alt="AI Bayan" class="chat-logo"/>
       <span>AI Bayan — English Buddy 💬</span>
-      <button id="closeChat" title="Close">✖</button>
+      <button id="closeChat">✖</button>
     </div>
-    <div id="chatMessages" class="chat-messages"></div>
-    <div id="chatInputArea" class="chat-input">
-      <input id="chatInput" type="text" placeholder="Type your message..." />
+    <div id="chatMessages"></div>
+    <div id="chatInputArea">
+      <input id="chatInput" type="text" placeholder="Type your message..."/>
       <button id="sendBtn">Send</button>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="js/app.js"></script>
   <script src="js/grammar_olimp.js"></script>
+  <script src="js/vocab_olimp.js"></script>
   <script src="js/listening_olimp.js"></script>
   <script src="js/reading_olimp.js"></script>
-  <script src="js/vocab_olimp.js"></script>
-
-  <!-- Новые тренажёры (пустые/минимальные — чтобы секции открывались) -->
-  <script src="js/general_trainer.js"></script>
   <script src="js/irregulars_trainer.js"></script>
   <script src="js/phonetics_trainer.js"></script>
-
-  <!-- AI Bayan chat -->
+  <script src="js/general_trainer.js"></script>
   <script src="js/ai_bayan_chat.js"></script>
-<script>
-  // 🌟 Простая функция для переключения экранов
-  function show(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  // 🔒 Проверка PIN-кода (твой секретный — 2361)
-  document.getElementById('loginBtn').addEventListener('click', () => {
-    const name = document.getElementById('nameInput').value.trim();
-    const pin = document.getElementById('pinInput').value.trim();
-
-    if (!name) {
-      alert("Please enter your name 😊");
-      return;
-    }
-
-    // Твой секретный пин-код
-    if (pin === "2361") {
-      localStorage.setItem('userName', name);
-      show('menu');
-
-      // 🌟 Приветствие после входа
-      const welcome = document.createElement('div');
-      welcome.textContent = `Welcome, ${name}! 🌟`;
-      Object.assign(welcome.style, {
-        position: "fixed",
-        top: "20px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        background: "rgba(255, 215, 0, 0.9)",
-        color: "#5b3a00",
-        fontWeight: "bold",
-        padding: "10px 20px",
-        borderRadius: "20px",
-        boxShadow: "0 0 15px rgba(255, 200, 50, 0.7)",
-        zIndex: 2000,
-        animation: "fadeOut 3s forwards"
-      });
-      document.body.appendChild(welcome);
-      setTimeout(() => welcome.remove(), 3000);
-    } else {
-      alert("❌ Incorrect access code. Try again!");
-    }
-  });
-
-  // ✨ Анимация появления/исчезновения приветствия
-  const style = document.createElement("style");
-  style.textContent = `
-    @keyframes fadeOut {
-      0% { opacity: 1; transform: translate(-50%, 0); }
-      100% { opacity: 0; transform: translate(-50%, -30px); }
-    }
-  `;
-  document.head.appendChild(style);
-</script>
 </body>
 </html>
