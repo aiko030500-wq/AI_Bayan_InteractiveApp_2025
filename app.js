@@ -35,8 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (pin === STUDENT_PIN) {
       localStorage.setItem("studentName", name);
       show("menu");
+
+      // 👋 Добавим приветствие
+      setTimeout(() => {
+        alert(`Welcome, ${name}! 🌟 Let's learn English together!`);
+      }, 300);
+
     } else if (pin === TEACHER_PIN) {
-      show("teacher");
+      alert("Welcome, Teacher 👩🏻‍🏫");
+      show("menu");
     } else {
       alert("❌ Wrong PIN. Try again.");
     }
@@ -44,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ------------------------------
-// 🌟 Star Animation
+// 🌟 Star Animation (global helper)
 // ------------------------------
 window.popStar = function (x = null, y = null) {
   const star = document.createElement("div");
@@ -70,15 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const target = btn.getAttribute("data-target");
       show(target);
 
-      // Auto-start logic for sections if functions exist
-      if (target === "grammar" && typeof showQuestion === "function") showQuestion();
+      // Auto-start modules if they exist
       if (target === "olimp" && typeof showOlimpQuestion === "function") showOlimpQuestion();
+      if (target === "vocab" && typeof showVocab === "function") showVocab();
       if (target === "listening" && typeof showListening === "function") showListening();
       if (target === "reading" && typeof showReading === "function") showReading();
-      if (target === "vocab" && typeof showVocab === "function") showVocab();
       if (target === "general" && typeof showGeneral === "function") showGeneral();
     });
   });
 });
-
-        
