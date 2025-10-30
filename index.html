@@ -13,16 +13,20 @@
     <h1 class="brand">AI BAYAN 2025</h1>
   </header>
 
-  <!-- LOGIN -->
-  <section id="login" class="screen active">
-    <div class="card login-card">
-      <h2>Welcome to AI Bayan 2025</h2>
-      <input id="nameInput" type="text" placeholder="Enter your name"/>
-      <input id="pinInput" type="password" placeholder="Enter access code"/>
-      <button id="loginBtn">Login</button>
-      <p class="hint">Student PIN: 2361 (не показываем детям на экране)</p>
-    </div>
-  </section>
+ <!-- LOGIN -->
+<section id="login" class="screen active">
+  <div class="card login-card">
+    <h2>Welcome to AI Bayan 2025</h2>
+
+    <label for="nameInput">Your Name:</label>
+    <input id="nameInput" name="username" type="text" placeholder="Enter your name" />
+
+    <label for="pinInput">Access Code:</label>
+    <input id="pinInput" name="accesscode" type="password" placeholder="Enter access code" />
+
+    <button id="loginBtn">Login</button>
+  </div>
+</section>
 
   <!-- MAIN MENU -->
   <section id="menu" class="screen">
